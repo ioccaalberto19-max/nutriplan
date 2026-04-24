@@ -1282,12 +1282,21 @@ function ensureClientShape(c) {
   if (p.exclusions === undefined) p.exclusions = [];
   if (p.diet === undefined) p.diet = 'onnivoro';
   if (p.activity === undefined) p.activity = 1.55;
+  if (p.activityCustom === undefined) p.activityCustom = false; // se true usa activity come valore custom
   if (p.goal === undefined) p.goal = 'maintain';
+  if (p.kcalAdjust === undefined) p.kcalAdjust = null; // override del default cut/bulk
+  if (p.bmrManual === undefined) p.bmrManual = null;   // override BMR calcolato
+  if (p.tdeeManual === undefined) p.tdeeManual = null; // override TDEE calcolato
   if (p.waterL === undefined) p.waterL = 2;
   if (p.trainingDays === undefined) p.trainingDays = 3;
+  // Sanity: assicura che i numeri siano numbers (non stringhe)
+  p.activity = Number(p.activity) || 1.55;
+  if (p.age != null) p.age = Number(p.age);
+  if (p.height != null) p.height = Number(p.height);
+  if (p.startWeight != null) p.startWeight = Number(p.startWeight);
   c.calc = c.calc || null;
-  c.targets = c.targets || null; // { kcal, p, c, f } manuali, se diversi da calc
-  c.plan = c.plan || null; // { meals: [{name, variants: [text]}], rules: text }
+  c.targets = c.targets || null;
+  c.plan = c.plan || null;
   c.measurements = c.measurements || [];
   c.photos = c.photos || [];
   c.notes = c.notes || [];
@@ -1373,7 +1382,9 @@ function createClient() {
     createdAt: new Date().toISOString(),
     profile: {
       sex: 'M', age: null, height: null, startWeight: null,
-      activity: 1.55, goal: 'maintain',
+      activity: 1.55, activityCustom: false,
+      goal: 'maintain', kcalAdjust: null,
+      bmrManual: null, tdeeManual: null,
       diet: 'onnivoro', exclusions: [],
       waterL: 2, trainingDays: 3,
     },
@@ -1729,13 +1740,19 @@ function renderProfile(client) {
         <h3>Lifestyle</h3>
         <div class="field">
           <label>Livello di attività</label>
-          <select id="pActivity">
-            <option value="1.2" ${p.activity==1.2?'selected':''}>Sedentario</option>
-            <option value="1.375" ${p.activity==1.375?'selected':''}>Leggero — 1-3 all/sett</option>
-            <option value="1.55" ${p.activity==1.55?'selected':''}>Moderato — 3-5 all/sett</option>
-            <option value="1.725" ${p.activity==1.725?'selected':''}>Intenso — 6-7 all/sett</option>
-            <option value="1.9" ${p.activity==1.9?'selected':''}>Molto intenso — atleta</option>
+          <select id="pActivity" onchange="onActivityChange()">
+            <option value="1.2" ${!p.activityCustom && p.activity==1.2?'selected':''}>Sedentario · 1.2</option>
+            <option value="1.375" ${!p.activityCustom && p.activity==1.375?'selected':''}>Leggero · 1-3 all/sett · 1.375</option>
+            <option value="1.55" ${!p.activityCustom && p.activity==1.55?'selected':''}>Moderato · 3-5 all/sett · 1.55</option>
+            <option value="1.725" ${!p.activityCustom && p.activity==1.725?'selected':''}>Intenso · 6-7 all/sett · 1.725</option>
+            <option value="1.9" ${!p.activityCustom && p.activity==1.9?'selected':''}>Molto intenso · atleta · 1.9</option>
+            <option value="custom" ${p.activityCustom?'selected':''}>⚙ Personalizzato</option>
           </select>
+        </div>
+        <div class="field" id="customActivityField" style="display:${p.activityCustom?'block':'none'};">
+          <label>Moltiplicatore personalizzato</label>
+          <input type="number" id="pActivityCustom" value="${p.activityCustom ? p.activity : ''}" min="1" max="2.5" step="0.01" placeholder="es. 1.45">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.05em;margin-top:4px;">Range tipico: 1.2 – 2.0</div>
         </div>
         <div class="field">
           <label>Obiettivo</label>
@@ -1745,9 +1762,33 @@ function renderProfile(client) {
             <div class="choice"><input type="radio" id="pGoalBulk" name="pGoal" value="bulk" ${p.goal==='bulk'?'checked':''}><label for="pGoalBulk">Bulk</label></div>
           </div>
         </div>
+        <div class="field">
+          <label>Aggiustamento kcal personalizzato (opzionale)</label>
+          <input type="number" id="pKcalAdjust" value="${p.kcalAdjust ?? ''}" step="50" placeholder="default: −400 cut, +300 bulk">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.05em;margin-top:4px;">Lascia vuoto per usare il default. Negativo = deficit, positivo = surplus.</div>
+        </div>
         <div class="field row">
           <div><label>All/sett</label><input type="number" id="pTraining" value="${p.trainingDays || 3}" min="0" max="7"></div>
           <div><label>Acqua (L/die)</label><input type="number" id="pWater" value="${p.waterL || 2}" min="1" max="5" step="0.25"></div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:24px;">
+        <span class="card-label">Override manuali</span>
+        <h3>BMR e TDEE manuali</h3>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.05em;margin-bottom:14px;line-height:1.5;text-transform:uppercase;">
+          Lascia vuoto per usare il calcolo automatico (Mifflin-St Jeor × moltiplicatore). Compila se hai dati misurati o vuoi imporre valori specifici.
+        </div>
+        <div class="field">
+          <label>BMR manuale (kcal)</label>
+          <input type="number" id="pBmrManual" value="${p.bmrManual ?? ''}" min="500" max="3500" step="10" placeholder="es. da bioimpedenziometria">
+        </div>
+        <div class="field">
+          <label>TDEE manuale (kcal)</label>
+          <input type="number" id="pTdeeManual" value="${p.tdeeManual ?? ''}" min="800" max="6000" step="10" placeholder="es. da diario alimentare di mantenimento">
+        </div>
+        <div style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;color:var(--muted);line-height:1.4;border-top:1px dashed var(--rule);padding-top:12px;margin-top:8px;">
+          Se compili il TDEE manuale, sovrascrive il calcolo BMR×attività. Il moltiplicatore viene ignorato.
         </div>
       </div>
 
@@ -1781,6 +1822,16 @@ function renderProfile(client) {
   `;
 }
 
+function onActivityChange() {
+  const sel = document.getElementById('pActivity');
+  const customField = document.getElementById('customActivityField');
+  if (sel.value === 'custom') {
+    customField.style.display = 'block';
+  } else {
+    customField.style.display = 'none';
+  }
+}
+
 function saveProfile() {
   const c = getActiveClient();
   if (!c) return;
@@ -1788,8 +1839,35 @@ function saveProfile() {
   c.profile.age = +document.getElementById('pAge').value || null;
   c.profile.height = +document.getElementById('pHeight').value || null;
   c.profile.startWeight = +document.getElementById('pWeight').value || null;
-  c.profile.activity = +document.getElementById('pActivity').value;
+
+  // Activity: gestisce custom vs preset
+  const actSelect = document.getElementById('pActivity').value;
+  if (actSelect === 'custom') {
+    c.profile.activityCustom = true;
+    const customVal = parseFloat(document.getElementById('pActivityCustom').value);
+    if (!isNaN(customVal) && customVal >= 1 && customVal <= 2.5) {
+      c.profile.activity = customVal;
+    } else {
+      alert('Inserisci un moltiplicatore valido tra 1.0 e 2.5');
+      return;
+    }
+  } else {
+    c.profile.activityCustom = false;
+    c.profile.activity = parseFloat(actSelect) || 1.55;
+  }
+
   c.profile.goal = document.querySelector('input[name="pGoal"]:checked').value;
+
+  // Aggiustamento kcal custom (può essere null = usa default)
+  const adjustVal = document.getElementById('pKcalAdjust').value;
+  c.profile.kcalAdjust = (adjustVal === '' || isNaN(Number(adjustVal))) ? null : Number(adjustVal);
+
+  // BMR / TDEE manuali
+  const bmrVal = document.getElementById('pBmrManual').value;
+  c.profile.bmrManual = (bmrVal === '' || isNaN(Number(bmrVal)) || Number(bmrVal) <= 0) ? null : Number(bmrVal);
+  const tdeeVal = document.getElementById('pTdeeManual').value;
+  c.profile.tdeeManual = (tdeeVal === '' || isNaN(Number(tdeeVal)) || Number(tdeeVal) <= 0) ? null : Number(tdeeVal);
+
   c.profile.diet = document.getElementById('pDiet').value;
   c.profile.exclusions = [...document.querySelectorAll('.chips .chip input:checked')].map(x => x.value);
   c.profile.trainingDays = +document.getElementById('pTraining').value || 0;
@@ -1797,7 +1875,6 @@ function saveProfile() {
 
   if (c.profile.age && c.profile.height && c.profile.startWeight) {
     c.calc = calcTDEE(c.profile);
-    // Se non ci sono target manuali, inizializzali dal calc
     if (!c.targets) {
       c.targets = { kcal: c.calc.target, p: c.calc.pG, c: c.calc.cG, f: c.calc.fG };
     }
@@ -1809,15 +1886,40 @@ function saveProfile() {
 }
 
 function calcTDEE(p) {
+  // BMR: usa override manuale se presente, altrimenti Mifflin-St Jeor
   let bmr;
-  if (p.sex === 'M') bmr = 10 * p.startWeight + 6.25 * p.height - 5 * p.age + 5;
-  else bmr = 10 * p.startWeight + 6.25 * p.height - 5 * p.age - 161;
-  const tdee = bmr * p.activity;
+  if (p.bmrManual != null && p.bmrManual > 0) {
+    bmr = Number(p.bmrManual);
+  } else {
+    if (p.sex === 'M') bmr = 10 * p.startWeight + 6.25 * p.height - 5 * p.age + 5;
+    else bmr = 10 * p.startWeight + 6.25 * p.height - 5 * p.age - 161;
+  }
 
-  let target, goalLabel;
-  if (p.goal === 'cut') { target = tdee - 400; goalLabel = 'Deficit calorico (−400 kcal)'; }
-  else if (p.goal === 'bulk') { target = tdee + 300; goalLabel = 'Surplus calorico (+300 kcal)'; }
-  else { target = tdee; goalLabel = 'Mantenimento isocalorico'; }
+  // TDEE: usa override manuale se presente, altrimenti BMR × moltiplicatore attività
+  let tdee;
+  const activityNum = Number(p.activity) || 1.55;
+  if (p.tdeeManual != null && p.tdeeManual > 0) {
+    tdee = Number(p.tdeeManual);
+  } else {
+    tdee = bmr * activityNum;
+  }
+
+  // Default deficit/surplus
+  let defaultAdjust = 0;
+  if (p.goal === 'cut') defaultAdjust = -400;
+  else if (p.goal === 'bulk') defaultAdjust = 300;
+
+  // Override manuale dell'aggiustamento se compilato
+  const adjust = (p.kcalAdjust != null && p.kcalAdjust !== '' && !isNaN(Number(p.kcalAdjust)))
+    ? Number(p.kcalAdjust)
+    : defaultAdjust;
+
+  const target = tdee + adjust;
+
+  let goalLabel;
+  if (adjust < 0) goalLabel = `Deficit calorico (${adjust} kcal)`;
+  else if (adjust > 0) goalLabel = `Surplus calorico (+${adjust} kcal)`;
+  else goalLabel = 'Mantenimento isocalorico';
 
   let pPerKg, fPerKg;
   if (p.goal === 'cut') { pPerKg = 2.2; fPerKg = 0.9; }
@@ -1833,6 +1935,10 @@ function calcTDEE(p) {
     tdee: Math.round(tdee),
     target: Math.round(target),
     goalLabel, pG, cG, fG,
+    bmrFromFormula: !p.bmrManual,
+    tdeeFromFormula: !p.tdeeManual,
+    adjustUsed: adjust,
+    activityUsed: activityNum,
   };
 }
 
@@ -1887,11 +1993,11 @@ function renderStrategy(client, profileComplete) {
           <div class="tdee-main-sub">${calc.goalLabel}</div>
         </div>
         <div class="tdee-side">
-          <div class="tdee-side-lbl">BMR calcolato</div>
+          <div class="tdee-side-lbl">BMR ${calc.bmrFromFormula ? '(formula)' : '(manuale)'}</div>
           <div class="tdee-side-val">${calc.bmr}</div>
         </div>
         <div class="tdee-side">
-          <div class="tdee-side-lbl">TDEE mantenimento</div>
+          <div class="tdee-side-lbl">TDEE ${calc.tdeeFromFormula ? `× ${calc.activityUsed}` : '(manuale)'}</div>
           <div class="tdee-side-val">${calc.tdee}</div>
         </div>
       </div>

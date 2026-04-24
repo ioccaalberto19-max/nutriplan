@@ -1,6 +1,6 @@
 // NutriPlan Pro — Service Worker
-// Caching strategy: cache-first per asset statici, network-first per il resto
-const CACHE_NAME = 'nutriplan-v2-2026-04-24';
+// Cambia CACHE_NAME ad ogni aggiornamento per forzare il refresh sui telefoni
+const CACHE_NAME = 'nutriplan-v3-2026-04-25';
 const ASSETS = [
   './',
   './index.html',
@@ -10,7 +10,6 @@ const ASSETS = [
   'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,800;1,9..144,400&family=JetBrains+Mono:wght@400;500;700&display=swap'
 ];
 
-// Install: pre-cache degli asset principali
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -22,7 +21,6 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Activate: pulizia vecchie cache
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -34,24 +32,20 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch: cache-first con fallback a network, e salvataggio delle nuove risorse
 self.addEventListener('fetch', (event) => {
   const req = event.request;
-  // Solo GET
   if (req.method !== 'GET') return;
 
   event.respondWith(
     caches.match(req).then((cached) => {
       if (cached) return cached;
       return fetch(req).then((resp) => {
-        // Salva in cache solo risposte valide
         if (resp && resp.status === 200 && resp.type !== 'opaque') {
           const clone = resp.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(req, clone));
         }
         return resp;
       }).catch(() => {
-        // Se è una richiesta di navigazione, mostra index.html offline
         if (req.mode === 'navigate') {
           return caches.match('./index.html');
         }
