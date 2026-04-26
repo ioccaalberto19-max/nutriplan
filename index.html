@@ -1164,6 +1164,318 @@
     border: 1px solid var(--ink);
   }
   .save-indicator.show { opacity: 1; }
+
+  /* LIBRARY / PICKER MODALS */
+  .modal-large {
+    max-width: 720px !important;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-large h2 { margin-bottom: 12px; }
+  .modal-content-scroll {
+    flex: 1;
+    overflow-y: auto;
+    margin: 0 -8px;
+    padding: 0 8px;
+  }
+  .lib-search-bar {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .lib-search-bar input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 16px;
+  }
+  .lib-respect-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .lib-respect-toggle input { margin: 0; }
+
+  .lib-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .lib-cat-btn {
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    padding: 5px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--ink);
+  }
+  .lib-cat-btn:hover { background: var(--paper-2); }
+  .lib-cat-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .lib-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .lib-item {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    padding: 10px 14px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 12px;
+    align-items: center;
+    transition: all 0.15s;
+  }
+  .lib-item-pickable {
+    cursor: pointer;
+  }
+  .lib-item-pickable:hover {
+    background: var(--paper);
+    border-color: var(--accent);
+    transform: translateX(2px);
+  }
+  .lib-item-name {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+    grid-column: 1;
+  }
+  .lib-item-cat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    grid-column: 1;
+  }
+  .lib-item-macros {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .lib-item-macros span:first-child {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .lib-pick-hint {
+    grid-column: 1 / 3;
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .lib-item-pickable:hover .lib-pick-hint {
+    opacity: 1;
+    color: var(--accent);
+  }
+  .lib-empty {
+    text-align: center;
+    padding: 30px 20px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ALTERNATIVES */
+  .alt-section {
+    margin-bottom: 18px;
+    background: var(--paper-2);
+    border: 1px solid var(--ink);
+    padding: 12px 14px;
+  }
+  .alt-section-head {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--rule);
+    color: var(--muted);
+  }
+  .alt-section-head strong {
+    color: var(--accent);
+    font-style: italic;
+  }
+  .alt-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .alt-item {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .alt-item:hover {
+    border-color: var(--accent);
+    transform: translateX(2px);
+  }
+  .alt-item-name {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .alt-item-macros {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  /* PLAN VARIANT TOOLBAR */
+  .variant-toolbar {
+    grid-column: 2 / 4;
+    margin-top: 8px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .variant-tool-btn {
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    padding: 4px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--ink);
+  }
+  .variant-tool-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .variant-tool-btn.accent {
+    background: var(--paper);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .variant-tool-btn.accent:hover {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  /* BACKUP BANNER */
+  .backup-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--ink);
+    transition: all 0.2s;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .backup-banner:hover { filter: brightness(0.95); }
+  .backup-banner.green {
+    background: #e8eedb;
+    color: var(--olive);
+  }
+  .backup-banner.yellow {
+    background: #f5e6c8;
+    color: #8b6914;
+  }
+  .backup-banner.red {
+    background: #f5d0c8;
+    color: var(--danger);
+    animation: pulseBanner 2s ease-in-out infinite;
+  }
+  @keyframes pulseBanner {
+    0%, 100% { background: #f5d0c8; }
+    50% { background: #f0bdb0; }
+  }
+  .backup-banner .icon {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .backup-banner .text {
+    flex: 1;
+    line-height: 1.3;
+  }
+  .backup-banner .text strong {
+    font-weight: 700;
+  }
+  .backup-banner .arrow {
+    font-size: 14px;
+    opacity: 0.6;
+  }
+
+  /* SNAPSHOTS LIST */
+  .snapshot-item {
+    padding: 14px 16px;
+    border-bottom: 1px dashed var(--rule);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: center;
+  }
+  .snapshot-item:last-child { border-bottom: none; }
+  .snapshot-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .snapshot-summary {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .snapshot-restore-btn {
+    padding: 6px 12px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .snapshot-restore-btn:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
 </style>
 </head>
 <body>
@@ -1175,11 +1487,16 @@
       <div class="brand-sub">Gestionale nutrizionale</div>
     </div>
     <div class="topbar-actions">
-      <button class="topbar-btn" onclick="exportData()">↓ Export</button>
+      <button class="topbar-btn" onclick="openLibraryModal()" title="Database alimenti">📚 Alimenti</button>
+      <button class="topbar-btn" onclick="openSnapshotsModal()" title="Snapshot interni di sicurezza">⟲ Snapshot</button>
+      <button class="topbar-btn" onclick="openBackupModal()">↓ Backup</button>
       <button class="topbar-btn" onclick="document.getElementById('importFile').click()">↑ Import</button>
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
     </div>
   </div>
+
+  <!-- BACKUP BANNER -->
+  <div id="backupBanner"></div>
 
   <div class="shell">
 
@@ -1252,6 +1569,79 @@
   <img id="lightboxImg" src="">
 </div>
 
+<!-- MODAL LIBRERIA ALIMENTI -->
+<div class="modal-backdrop" id="libraryModal">
+  <div class="modal modal-large">
+    <button class="modal-close" onclick="closeModal('libraryModal')">×</button>
+    <h2>📚 Libreria alimenti</h2>
+    <div class="modal-content-scroll">
+      <div id="libraryContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ALTERNATIVE EQUIVALENTI -->
+<div class="modal-backdrop" id="altModal">
+  <div class="modal modal-large">
+    <button class="modal-close" onclick="closeModal('altModal')">×</button>
+    <h2>⇄ Alternative equivalenti</h2>
+    <div class="modal-content-scroll">
+      <div id="altContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PICKER ALIMENTO PER PIANO -->
+<div class="modal-backdrop" id="pickerModal">
+  <div class="modal modal-large">
+    <button class="modal-close" onclick="closeModal('pickerModal')">×</button>
+    <h2>+ Inserisci alimento nel piano</h2>
+    <div class="modal-content-scroll">
+      <div id="pickerContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SNAPSHOTS / RECUPERO -->
+<div class="modal-backdrop" id="snapshotsModal">
+  <div class="modal" style="max-width:600px;">
+    <button class="modal-close" onclick="closeModal('snapshotsModal')">×</button>
+    <h2>Snapshot interni</h2>
+    <p style="font-family:'Fraunces',serif;font-style:italic;font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:18px;">
+      L'app conserva automaticamente gli ultimi 10 snapshot dei tuoi dati. Se hai cancellato qualcosa per errore, puoi ripristinarlo da qui. Lo snapshot ripristina <strong style="font-style:normal;color:var(--accent);">tutti i dati</strong>, sostituendo quelli attuali.
+    </p>
+    <div id="snapshotsList"></div>
+    <div class="modal-actions">
+      <button class="icon-btn" onclick="closeModal('snapshotsModal')">Chiudi</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL BACKUP iCLOUD -->
+<div class="modal-backdrop" id="backupModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('backupModal')">×</button>
+    <h2>Backup su iCloud Drive</h2>
+    <p style="font-family:'Fraunces',serif;font-size:15px;line-height:1.5;margin-bottom:14px;">
+      Stai per scaricare un file di backup completo di tutti i tuoi dati.
+    </p>
+    <div style="background:var(--paper-2);border-left:4px solid var(--accent);padding:14px 16px;margin-bottom:18px;font-family:'Fraunces',serif;font-style:italic;font-size:13px;line-height:1.5;color:var(--muted);">
+      <strong style="font-style:normal;color:var(--ink);">Cosa fare dopo:</strong><br>
+      1. Tocca "Salva su iCloud"<br>
+      2. iOS apre il selettore "Salva file"<br>
+      3. Scegli <strong style="font-style:normal;">iCloud Drive</strong> → cartella <strong style="font-style:normal;">NutriPlan</strong> (o creane una)<br>
+      4. Tocca <strong style="font-style:normal;">Salva</strong>
+    </p>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">
+      Nome file: <span id="backupFilename">nutriplan_backup.json</span>
+    </p>
+    <div class="modal-actions">
+      <button class="icon-btn" onclick="closeModal('backupModal')">Annulla</button>
+      <button class="btn-primary" onclick="performBackup()" style="margin-top:0;">↓ Salva su iCloud</button>
+    </div>
+  </div>
+</div>
+
 <div class="save-indicator" id="saveIndicator">✓ Salvato</div>
 
 <script>
@@ -1259,6 +1649,437 @@
 // NUTRIPLAN PRO v2 — Feed → Strategia → Piano editabile
 // ============================================================
 
+// ============================================================
+// FOOD DATABASE — ~400 alimenti curati
+// Per 100g di prodotto: kcal, p (proteine), c (carbo), f (grassi)
+// cat = categoria principale
+// diets = regimi compatibili (o = onnivoro, p = pescetariano, v = vegetariano, V = vegano)
+// excl = tag esclusioni applicabili (glutine, lattosio, uova, soia, frutta secca, pesce)
+// ============================================================
+const FOOD_DB = [
+
+  // ===== PROTEINE ANIMALI MAGRE =====
+  { n:"Petto di pollo",              cat:"prot_animal_lean", kcal:165, p:31,  c:0,    f:3.6,  diets:"o",   excl:[] },
+  { n:"Coscia di pollo (senza pelle)", cat:"prot_animal_lean", kcal:172, p:28,  c:0,    f:6.5,  diets:"o",   excl:[] },
+  { n:"Petto di tacchino",           cat:"prot_animal_lean", kcal:135, p:30,  c:0,    f:1,    diets:"o",   excl:[] },
+  { n:"Fesa di tacchino (affettato)", cat:"prot_animal_lean", kcal:108, p:22,  c:1,    f:1.5,  diets:"o",   excl:[] },
+  { n:"Bresaola della Valtellina",   cat:"prot_animal_lean", kcal:151, p:33,  c:0,    f:2,    diets:"o",   excl:[] },
+  { n:"Prosciutto crudo sgrassato",  cat:"prot_animal_lean", kcal:145, p:27,  c:0,    f:4,    diets:"o",   excl:[] },
+  { n:"Prosciutto cotto sgrassato",  cat:"prot_animal_lean", kcal:120, p:20,  c:0.5,  f:4,    diets:"o",   excl:[] },
+  { n:"Speck sgrassato",             cat:"prot_animal_lean", kcal:175, p:30,  c:0,    f:6,    diets:"o",   excl:[] },
+  { n:"Manzo magro (filetto)",       cat:"prot_animal_lean", kcal:175, p:26,  c:0,    f:7,    diets:"o",   excl:[] },
+  { n:"Manzo magro (controfiletto)", cat:"prot_animal_lean", kcal:163, p:27,  c:0,    f:5.5,  diets:"o",   excl:[] },
+  { n:"Tartare di manzo",            cat:"prot_animal_lean", kcal:158, p:22,  c:0,    f:7.5,  diets:"o",   excl:[] },
+  { n:"Carpaccio di manzo",          cat:"prot_animal_lean", kcal:142, p:24,  c:0,    f:5,    diets:"o",   excl:[] },
+  { n:"Vitello (fettina)",           cat:"prot_animal_lean", kcal:120, p:21,  c:0,    f:3.8,  diets:"o",   excl:[] },
+  { n:"Lonza di maiale magra",       cat:"prot_animal_lean", kcal:158, p:26,  c:0,    f:5.5,  diets:"o",   excl:[] },
+  { n:"Arista di maiale",            cat:"prot_animal_lean", kcal:156, p:27,  c:0,    f:5,    diets:"o",   excl:[] },
+  { n:"Coniglio",                    cat:"prot_animal_lean", kcal:136, p:21,  c:0,    f:5.5,  diets:"o",   excl:[] },
+  { n:"Cavallo",                     cat:"prot_animal_lean", kcal:118, p:22,  c:0.6,  f:3,    diets:"o",   excl:[] },
+  { n:"Agnello magro",               cat:"prot_animal_lean", kcal:185, p:25,  c:0,    f:9,    diets:"o",   excl:[] },
+  { n:"Anatra (petto senza pelle)",  cat:"prot_animal_lean", kcal:135, p:23,  c:0,    f:4.5,  diets:"o",   excl:[] },
+  { n:"Hamburger di pollo magro",    cat:"prot_animal_lean", kcal:155, p:24,  c:1,    f:6,    diets:"o",   excl:[] },
+  { n:"Hamburger di tacchino magro", cat:"prot_animal_lean", kcal:140, p:25,  c:0.5,  f:4,    diets:"o",   excl:[] },
+
+  // ===== PESCE MAGRO =====
+  { n:"Merluzzo (nasello)",          cat:"fish_lean",        kcal:82,  p:18,  c:0,    f:0.7,  diets:"op",  excl:["pesce"] },
+  { n:"Orata",                       cat:"fish_lean",        kcal:121, p:20,  c:0,    f:4,    diets:"op",  excl:["pesce"] },
+  { n:"Branzino (spigola)",          cat:"fish_lean",        kcal:97,  p:18,  c:0,    f:2.5,  diets:"op",  excl:["pesce"] },
+  { n:"Sogliola",                    cat:"fish_lean",        kcal:83,  p:17,  c:0,    f:1.4,  diets:"op",  excl:["pesce"] },
+  { n:"Rombo",                       cat:"fish_lean",        kcal:81,  p:17,  c:0,    f:1.3,  diets:"op",  excl:["pesce"] },
+  { n:"Persico",                     cat:"fish_lean",        kcal:82,  p:18,  c:0,    f:1,    diets:"op",  excl:["pesce"] },
+  { n:"Cernia",                      cat:"fish_lean",        kcal:105, p:21,  c:0,    f:2,    diets:"op",  excl:["pesce"] },
+  { n:"Palombo",                     cat:"fish_lean",        kcal:80,  p:16,  c:0,    f:1.5,  diets:"op",  excl:["pesce"] },
+  { n:"Razza",                       cat:"fish_lean",        kcal:75,  p:16,  c:0,    f:1,    diets:"op",  excl:["pesce"] },
+  { n:"Tonno al naturale (scatola)", cat:"fish_lean",        kcal:116, p:26,  c:0,    f:1,    diets:"op",  excl:["pesce"] },
+  { n:"Tonno fresco",                cat:"fish_lean",        kcal:144, p:23,  c:0,    f:5,    diets:"op",  excl:["pesce"] },
+  { n:"Pesce spada",                 cat:"fish_lean",        kcal:121, p:20,  c:0,    f:4,    diets:"op",  excl:["pesce"] },
+  { n:"Gamberetti (cotti)",          cat:"fish_lean",        kcal:99,  p:20,  c:0.2,  f:1.7,  diets:"op",  excl:["pesce"] },
+  { n:"Gamberi rossi",               cat:"fish_lean",        kcal:106, p:20,  c:1,    f:2,    diets:"op",  excl:["pesce"] },
+  { n:"Mazzancolle",                 cat:"fish_lean",        kcal:71,  p:13,  c:1.3,  f:1.4,  diets:"op",  excl:["pesce"] },
+  { n:"Calamari",                    cat:"fish_lean",        kcal:92,  p:16,  c:3,    f:1.4,  diets:"op",  excl:["pesce"] },
+  { n:"Polpo",                       cat:"fish_lean",        kcal:82,  p:14,  c:2,    f:1,    diets:"op",  excl:["pesce"] },
+  { n:"Seppia",                      cat:"fish_lean",        kcal:79,  p:14,  c:1.5,  f:1.5,  diets:"op",  excl:["pesce"] },
+  { n:"Vongole",                     cat:"fish_lean",        kcal:72,  p:10.2,c:2.2,  f:2.5,  diets:"op",  excl:["pesce"] },
+  { n:"Cozze (mitili)",              cat:"fish_lean",        kcal:84,  p:11.7,c:3.4,  f:2.7,  diets:"op",  excl:["pesce"] },
+  { n:"Insalata di mare al naturale", cat:"fish_lean",       kcal:90,  p:14,  c:2,    f:2,    diets:"op",  excl:["pesce"] },
+  { n:"Surimi",                      cat:"fish_lean",        kcal:99,  p:11,  c:13,   f:0.5,  diets:"op",  excl:["pesce"] },
+
+  // ===== PESCE GRASSO =====
+  { n:"Salmone fresco",              cat:"fish_fat",         kcal:208, p:20,  c:0,    f:13,   diets:"op",  excl:["pesce"] },
+  { n:"Salmone affumicato",          cat:"fish_fat",         kcal:147, p:25,  c:0,    f:5,    diets:"op",  excl:["pesce"] },
+  { n:"Trota salmonata",             cat:"fish_fat",         kcal:175, p:21,  c:0,    f:10,   diets:"op",  excl:["pesce"] },
+  { n:"Trota di lago",               cat:"fish_fat",         kcal:148, p:20,  c:0,    f:7,    diets:"op",  excl:["pesce"] },
+  { n:"Sgombro",                     cat:"fish_fat",         kcal:205, p:19,  c:0,    f:14,   diets:"op",  excl:["pesce"] },
+  { n:"Sardine fresche",             cat:"fish_fat",         kcal:208, p:25,  c:0,    f:11,   diets:"op",  excl:["pesce"] },
+  { n:"Sardine sott'olio sgocciolate", cat:"fish_fat",       kcal:208, p:24,  c:0,    f:12,   diets:"op",  excl:["pesce"] },
+  { n:"Alici (acciughe) fresche",    cat:"fish_fat",         kcal:96,  p:17,  c:0,    f:3,    diets:"op",  excl:["pesce"] },
+  { n:"Alici sott'olio",             cat:"fish_fat",         kcal:175, p:25,  c:0,    f:8,    diets:"op",  excl:["pesce"] },
+  { n:"Aringa",                      cat:"fish_fat",         kcal:158, p:18,  c:0,    f:9,    diets:"op",  excl:["pesce"] },
+  { n:"Tonno sott'olio sgocciolato", cat:"fish_fat",         kcal:192, p:25,  c:0,    f:10,   diets:"op",  excl:["pesce"] },
+  { n:"Anguilla",                    cat:"fish_fat",         kcal:237, p:18,  c:0,    f:18,   diets:"op",  excl:["pesce"] },
+
+  // ===== UOVA =====
+  { n:"Uova intere",                 cat:"eggs",             kcal:155, p:13,  c:1.1,  f:11,   diets:"opv", excl:["uova"] },
+  { n:"Albume d'uovo",               cat:"eggs",             kcal:52,  p:11,  c:0.7,  f:0.2,  diets:"opv", excl:["uova"] },
+  { n:"Tuorlo d'uovo",               cat:"eggs",             kcal:322, p:16,  c:3.6,  f:27,   diets:"opv", excl:["uova"] },
+  { n:"Albume pastorizzato (carton)", cat:"eggs",            kcal:52,  p:11,  c:0.7,  f:0.2,  diets:"opv", excl:["uova"] },
+  { n:"Uova di quaglia",             cat:"eggs",             kcal:158, p:13,  c:0.4,  f:11,   diets:"opv", excl:["uova"] },
+
+  // ===== LATTICINI MAGRI / PROTEICI =====
+  { n:"Yogurt greco 0%",             cat:"dairy_protein",    kcal:59,  p:10,  c:3.6,  f:0.4,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt greco 2%",             cat:"dairy_protein",    kcal:73,  p:9,   c:3.6,  f:2,    diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt greco 5%",             cat:"dairy_protein",    kcal:97,  p:9,   c:3.6,  f:5,    diets:"opv", excl:["lattosio"] },
+  { n:"Skyr naturale",               cat:"dairy_protein",    kcal:63,  p:11,  c:4,    f:0.2,  diets:"opv", excl:["lattosio"] },
+  { n:"Quark magro",                 cat:"dairy_protein",    kcal:67,  p:12,  c:4,    f:0.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Fiocchi di latte light",      cat:"dairy_protein",    kcal:80,  p:12,  c:3,    f:2,    diets:"opv", excl:["lattosio"] },
+  { n:"Ricotta vaccina light",       cat:"dairy_protein",    kcal:138, p:11,  c:3,    f:9,    diets:"opv", excl:["lattosio"] },
+  { n:"Philadelphia Protein",        cat:"dairy_protein",    kcal:115, p:13,  c:3,    f:6,    diets:"opv", excl:["lattosio"] },
+  { n:"Mozzarella light",            cat:"dairy_protein",    kcal:180, p:21,  c:1,    f:10,   diets:"opv", excl:["lattosio"] },
+  { n:"Bocconcini di mozzarella light", cat:"dairy_protein", kcal:180, p:21,  c:1,    f:10,   diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt magro bianco",         cat:"dairy_protein",    kcal:43,  p:4.4, c:6.3,  f:0.1,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt magro alla frutta",    cat:"dairy_protein",    kcal:55,  p:3.5, c:9,    f:0.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Latte scremato",              cat:"dairy_protein",    kcal:36,  p:3.5, c:5,    f:0.2,  diets:"opv", excl:["lattosio"] },
+  { n:"Latte parzialmente scremato", cat:"dairy_protein",    kcal:46,  p:3.5, c:5,    f:1.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Latte intero",                cat:"dairy_protein",    kcal:64,  p:3.3, c:4.7,  f:3.6,  diets:"opv", excl:["lattosio"] },
+  { n:"Kefir naturale",              cat:"dairy_protein",    kcal:60,  p:3.5, c:5,    f:3,    diets:"opv", excl:["lattosio"] },
+
+  // ===== FORMAGGI =====
+  { n:"Parmigiano Reggiano",         cat:"cheese",           kcal:392, p:33,  c:0,    f:28,   diets:"opv", excl:["lattosio"] },
+  { n:"Grana Padano",                cat:"cheese",           kcal:384, p:33,  c:0,    f:28,   diets:"opv", excl:["lattosio"] },
+  { n:"Pecorino romano",             cat:"cheese",           kcal:387, p:25,  c:1,    f:32,   diets:"opv", excl:["lattosio"] },
+  { n:"Stracchino",                  cat:"cheese",           kcal:300, p:18,  c:0.5,  f:25,   diets:"opv", excl:["lattosio"] },
+  { n:"Crescenza",                   cat:"cheese",           kcal:281, p:17,  c:1,    f:23,   diets:"opv", excl:["lattosio"] },
+  { n:"Caciotta",                    cat:"cheese",           kcal:341, p:22,  c:0.5,  f:28,   diets:"opv", excl:["lattosio"] },
+  { n:"Provolone dolce",             cat:"cheese",           kcal:351, p:25,  c:0,    f:27,   diets:"opv", excl:["lattosio"] },
+  { n:"Caprino fresco",              cat:"cheese",           kcal:215, p:13,  c:1,    f:18,   diets:"opv", excl:["lattosio"] },
+  { n:"Feta",                        cat:"cheese",           kcal:264, p:14,  c:4,    f:21,   diets:"opv", excl:["lattosio"] },
+  { n:"Burrata",                     cat:"cheese",           kcal:330, p:17,  c:1,    f:28,   diets:"opv", excl:["lattosio"] },
+  { n:"Gorgonzola dolce",            cat:"cheese",           kcal:330, p:18,  c:0,    f:28,   diets:"opv", excl:["lattosio"] },
+  { n:"Brie",                        cat:"cheese",           kcal:334, p:21,  c:0.5,  f:28,   diets:"opv", excl:["lattosio"] },
+
+  // ===== PROTEINE VEGETALI =====
+  { n:"Tofu naturale",               cat:"prot_veg",         kcal:144, p:15,  c:1.5,  f:8.7,  diets:"opvV", excl:["soia"] },
+  { n:"Tofu affumicato",             cat:"prot_veg",         kcal:155, p:18,  c:1.5,  f:9,    diets:"opvV", excl:["soia"] },
+  { n:"Tempeh",                      cat:"prot_veg",         kcal:193, p:19,  c:9,    f:11,   diets:"opvV", excl:["soia"] },
+  { n:"Seitan",                      cat:"prot_veg",         kcal:120, p:25,  c:4,    f:2,    diets:"opvV", excl:["glutine"] },
+  { n:"Edamame (sgusciati cotti)",   cat:"prot_veg",         kcal:122, p:11,  c:9,    f:5,    diets:"opvV", excl:["soia"] },
+  { n:"Hummus di ceci",              cat:"prot_veg",         kcal:166, p:8,   c:14,   f:10,   diets:"opvV", excl:[] },
+  { n:"Hamburger vegetali Kioene",   cat:"prot_veg",         kcal:185, p:14,  c:7,    f:11,   diets:"opvV", excl:["soia","glutine"] },
+  { n:"Hamburger Beyond Meat",       cat:"prot_veg",         kcal:230, p:17,  c:9,    f:14,   diets:"opvV", excl:[] },
+  { n:"Soia disidratata (granulare)", cat:"prot_veg",        kcal:325, p:50,  c:25,   f:1.5,  diets:"opvV", excl:["soia"] },
+  { n:"Falafel",                     cat:"prot_veg",         kcal:333, p:13,  c:32,   f:18,   diets:"opvV", excl:[] },
+  { n:"Yogurt di soia bianco",       cat:"prot_veg",         kcal:43,  p:4,   c:1.4,  f:2,    diets:"opvV", excl:["soia"] },
+  { n:"Yogurt di soia proteico",     cat:"prot_veg",         kcal:55,  p:9,   c:2,    f:1.5,  diets:"opvV", excl:["soia"] },
+  { n:"Yogurt di cocco",             cat:"prot_veg",         kcal:140, p:1.5, c:6,    f:12,   diets:"opvV", excl:[] },
+  { n:"Yogurt di mandorla",          cat:"prot_veg",         kcal:49,  p:1.2, c:5,    f:2.5,  diets:"opvV", excl:["frutta secca"] },
+
+  // ===== LEGUMI =====
+  { n:"Lenticchie cotte",            cat:"legumes",          kcal:116, p:9,   c:20,   f:0.4,  diets:"opvV", excl:[] },
+  { n:"Lenticchie secche",           cat:"legumes",          kcal:325, p:25,  c:54,   f:1,    diets:"opvV", excl:[] },
+  { n:"Lenticchie rosse decorticate cotte", cat:"legumes",   kcal:120, p:9,   c:21,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Ceci cotti",                  cat:"legumes",          kcal:164, p:9,   c:27,   f:2.6,  diets:"opvV", excl:[] },
+  { n:"Ceci secchi",                 cat:"legumes",          kcal:343, p:20,  c:55,   f:6,    diets:"opvV", excl:[] },
+  { n:"Fagioli cannellini cotti",    cat:"legumes",          kcal:127, p:9,   c:23,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Fagioli borlotti cotti",      cat:"legumes",          kcal:133, p:9,   c:24,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Fagioli neri cotti",          cat:"legumes",          kcal:132, p:9,   c:24,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Fagioli rossi cotti",         cat:"legumes",          kcal:127, p:9,   c:23,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Fagioli azuki cotti",         cat:"legumes",          kcal:128, p:8,   c:25,   f:0.2,  diets:"opvV", excl:[] },
+  { n:"Piselli cotti",               cat:"legumes",          kcal:84,  p:5.5, c:14,   f:0.4,  diets:"opvV", excl:[] },
+  { n:"Piselli secchi",              cat:"legumes",          kcal:317, p:22,  c:54,   f:2,    diets:"opvV", excl:[] },
+  { n:"Fave cotte",                  cat:"legumes",          kcal:88,  p:7.6, c:15,   f:0.4,  diets:"opvV", excl:[] },
+  { n:"Cicerchie cotte",             cat:"legumes",          kcal:125, p:8.5, c:22,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Lupini in salamoia",          cat:"legumes",          kcal:114, p:16,  c:7,    f:2.8,  diets:"opvV", excl:[] },
+
+  // ===== CEREALI INTEGRALI =====
+  { n:"Riso basmati crudo",          cat:"grains_whole",     kcal:350, p:7,   c:78,   f:0.9,  diets:"opvV", excl:[] },
+  { n:"Riso integrale crudo",        cat:"grains_whole",     kcal:357, p:7.5, c:74,   f:2.5,  diets:"opvV", excl:[] },
+  { n:"Riso venere crudo",           cat:"grains_whole",     kcal:355, p:8,   c:75,   f:2.5,  diets:"opvV", excl:[] },
+  { n:"Riso rosso crudo",            cat:"grains_whole",     kcal:362, p:8,   c:76,   f:2.5,  diets:"opvV", excl:[] },
+  { n:"Riso selvaggio crudo",        cat:"grains_whole",     kcal:357, p:14,  c:75,   f:1.1,  diets:"opvV", excl:[] },
+  { n:"Farro perlato crudo",         cat:"grains_whole",     kcal:335, p:15,  c:67,   f:2.5,  diets:"opvV", excl:["glutine"] },
+  { n:"Farro decorticato crudo",     cat:"grains_whole",     kcal:340, p:16,  c:65,   f:2.7,  diets:"opvV", excl:["glutine"] },
+  { n:"Orzo perlato crudo",          cat:"grains_whole",     kcal:319, p:10,  c:71,   f:1.4,  diets:"opvV", excl:["glutine"] },
+  { n:"Avena in chicchi crudi",      cat:"grains_whole",     kcal:389, p:17,  c:66,   f:7,    diets:"opvV", excl:["glutine"] },
+  { n:"Fiocchi d'avena",             cat:"grains_whole",     kcal:370, p:13,  c:62,   f:7,    diets:"opvV", excl:["glutine"] },
+  { n:"Quinoa cotta",                cat:"grains_whole",     kcal:120, p:4.4, c:21,   f:1.9,  diets:"opvV", excl:[] },
+  { n:"Quinoa cruda",                cat:"grains_whole",     kcal:368, p:14,  c:64,   f:6,    diets:"opvV", excl:[] },
+  { n:"Amaranto crudo",              cat:"grains_whole",     kcal:371, p:14,  c:65,   f:7,    diets:"opvV", excl:[] },
+  { n:"Miglio crudo",                cat:"grains_whole",     kcal:378, p:11,  c:73,   f:4.2,  diets:"opvV", excl:[] },
+  { n:"Grano saraceno crudo",        cat:"grains_whole",     kcal:343, p:13,  c:72,   f:3.4,  diets:"opvV", excl:[] },
+  { n:"Bulgur crudo",                cat:"grains_whole",     kcal:342, p:12,  c:75,   f:1.3,  diets:"opvV", excl:["glutine"] },
+  { n:"Couscous integrale crudo",    cat:"grains_whole",     kcal:367, p:13,  c:75,   f:1.5,  diets:"opvV", excl:["glutine"] },
+  { n:"Segale in chicchi crudi",     cat:"grains_whole",     kcal:338, p:10,  c:69,   f:1.6,  diets:"opvV", excl:["glutine"] },
+  { n:"Sorgo crudo",                 cat:"grains_whole",     kcal:339, p:11,  c:75,   f:3.3,  diets:"opvV", excl:[] },
+  { n:"Teff crudo",                  cat:"grains_whole",     kcal:367, p:13,  c:73,   f:2.4,  diets:"opvV", excl:[] },
+  { n:"Pasta integrale cruda",       cat:"grains_whole",     kcal:345, p:12,  c:68,   f:2.5,  diets:"opvV", excl:["glutine"] },
+  { n:"Pasta di farro cruda",        cat:"grains_whole",     kcal:340, p:14,  c:65,   f:2.5,  diets:"opvV", excl:["glutine"] },
+
+  // ===== CEREALI RAFFINATI E PASTA =====
+  { n:"Pasta di semola cruda",       cat:"grains_refined",   kcal:353, p:12,  c:72,   f:1.5,  diets:"opvV", excl:["glutine"] },
+  { n:"Pasta di legumi cruda",       cat:"grains_refined",   kcal:340, p:25,  c:50,   f:3,    diets:"opvV", excl:[] },
+  { n:"Pasta di lenticchie rosse cruda", cat:"grains_refined", kcal:340, p:24, c:53,  f:2,    diets:"opvV", excl:[] },
+  { n:"Pasta di ceci cruda",         cat:"grains_refined",   kcal:340, p:21,  c:55,   f:5,    diets:"opvV", excl:[] },
+  { n:"Pasta di piselli cruda",      cat:"grains_refined",   kcal:335, p:21,  c:55,   f:3,    diets:"opvV", excl:[] },
+  { n:"Pasta di riso cruda",         cat:"grains_refined",   kcal:355, p:7,   c:80,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Pasta di mais cruda",         cat:"grains_refined",   kcal:357, p:7,   c:78,   f:1.5,  diets:"opvV", excl:[] },
+  { n:"Pasta di avena cruda",        cat:"grains_refined",   kcal:360, p:14,  c:60,   f:7,    diets:"opvV", excl:["glutine"] },
+  { n:"Riso bianco crudo",           cat:"grains_refined",   kcal:354, p:7,   c:80,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Riso parboiled crudo",        cat:"grains_refined",   kcal:351, p:7,   c:78,   f:0.7,  diets:"opvV", excl:[] },
+  { n:"Pane comune",                 cat:"grains_refined",   kcal:265, p:9,   c:50,   f:3,    diets:"opvV", excl:["glutine"] },
+  { n:"Pane integrale",              cat:"grains_refined",   kcal:245, p:9,   c:41,   f:4,    diets:"opvV", excl:["glutine"] },
+  { n:"Pane di segale",              cat:"grains_refined",   kcal:259, p:8.5, c:48,   f:3,    diets:"opvV", excl:["glutine"] },
+  { n:"Pane azzimo",                 cat:"grains_refined",   kcal:377, p:10,  c:78,   f:1.5,  diets:"opvV", excl:["glutine"] },
+  { n:"Pane senza glutine",          cat:"grains_refined",   kcal:265, p:5,   c:55,   f:3,    diets:"opvV", excl:[] },
+  { n:"Pane proteico",               cat:"grains_refined",   kcal:255, p:24,  c:9,    f:11,   diets:"opvV", excl:["glutine"] },
+  { n:"Piadina",                     cat:"grains_refined",   kcal:294, p:8,   c:55,   f:5,    diets:"opvV", excl:["glutine"] },
+  { n:"Piadina integrale",           cat:"grains_refined",   kcal:283, p:9,   c:51,   f:5,    diets:"opvV", excl:["glutine"] },
+  { n:"Piadina farina di riso",      cat:"grains_refined",   kcal:280, p:6,   c:58,   f:3,    diets:"opvV", excl:[] },
+  { n:"Tortillas di mais",           cat:"grains_refined",   kcal:218, p:6,   c:45,   f:2.8,  diets:"opvV", excl:[] },
+  { n:"Tortillas di grano",          cat:"grains_refined",   kcal:312, p:8,   c:50,   f:8,    diets:"opvV", excl:["glutine"] },
+  { n:"Gallette di riso",            cat:"grains_refined",   kcal:385, p:8,   c:82,   f:2.8,  diets:"opvV", excl:[] },
+  { n:"Gallette di mais",            cat:"grains_refined",   kcal:380, p:8,   c:80,   f:2,    diets:"opvV", excl:[] },
+  { n:"Wasa fibre integrali",        cat:"grains_refined",   kcal:309, p:11,  c:51,   f:2.5,  diets:"opvV", excl:["glutine"] },
+  { n:"Crackers integrali",          cat:"grains_refined",   kcal:413, p:11,  c:67,   f:11,   diets:"opvV", excl:["glutine"] },
+  { n:"Fette biscottate integrali",  cat:"grains_refined",   kcal:391, p:11,  c:71,   f:7,    diets:"opvV", excl:["glutine"] },
+  { n:"Fette biscottate Misura",     cat:"grains_refined",   kcal:380, p:13,  c:65,   f:7,    diets:"opvV", excl:["glutine"] },
+  { n:"Grissini integrali",          cat:"grains_refined",   kcal:417, p:13,  c:65,   f:11,   diets:"opvV", excl:["glutine"] },
+  { n:"Cous cous semola crudo",      cat:"grains_refined",   kcal:367, p:13,  c:75,   f:1.5,  diets:"opvV", excl:["glutine"] },
+
+  // ===== TUBERI =====
+  { n:"Patate lesse",                cat:"tubers",           kcal:85,  p:1.7, c:20,   f:0.1,  diets:"opvV", excl:[] },
+  { n:"Patate al forno",             cat:"tubers",           kcal:93,  p:2,   c:21,   f:0.1,  diets:"opvV", excl:[] },
+  { n:"Patate dolci",                cat:"tubers",           kcal:86,  p:1.6, c:20,   f:0.1,  diets:"opvV", excl:[] },
+  { n:"Topinambur",                  cat:"tubers",           kcal:73,  p:2,   c:17,   f:0,    diets:"opvV", excl:[] },
+  { n:"Manioca cruda",               cat:"tubers",           kcal:160, p:1.4, c:38,   f:0.3,  diets:"opvV", excl:[] },
+
+  // ===== VERDURE =====
+  { n:"Spinaci freschi",             cat:"veg",              kcal:23,  p:2.9, c:3.6,  f:0.4,  diets:"opvV", excl:[] },
+  { n:"Spinaci surgelati",           cat:"veg",              kcal:23,  p:3,   c:3.5,  f:0.4,  diets:"opvV", excl:[] },
+  { n:"Bietole",                     cat:"veg",              kcal:17,  p:1.8, c:2.8,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Cavolo nero",                 cat:"veg",              kcal:34,  p:3.3, c:5,    f:0.7,  diets:"opvV", excl:[] },
+  { n:"Cavolo cappuccio",            cat:"veg",              kcal:25,  p:1.3, c:5,    f:0.1,  diets:"opvV", excl:[] },
+  { n:"Cavolfiore",                  cat:"veg",              kcal:25,  p:2,   c:5,    f:0.3,  diets:"opvV", excl:[] },
+  { n:"Broccoli",                    cat:"veg",              kcal:34,  p:2.8, c:7,    f:0.4,  diets:"opvV", excl:[] },
+  { n:"Cavoletti di Bruxelles",      cat:"veg",              kcal:43,  p:3.4, c:9,    f:0.3,  diets:"opvV", excl:[] },
+  { n:"Verza",                       cat:"veg",              kcal:25,  p:1.6, c:4.5,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Insalata mista",              cat:"veg",              kcal:15,  p:1.4, c:2.9,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Lattuga",                     cat:"veg",              kcal:15,  p:1.4, c:2.9,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Rucola",                      cat:"veg",              kcal:25,  p:2.6, c:3.7,  f:0.7,  diets:"opvV", excl:[] },
+  { n:"Radicchio rosso",             cat:"veg",              kcal:23,  p:1.4, c:4.5,  f:0.3,  diets:"opvV", excl:[] },
+  { n:"Indivia",                     cat:"veg",              kcal:17,  p:1.3, c:3.4,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Cetrioli",                    cat:"veg",              kcal:16,  p:0.7, c:3.6,  f:0.1,  diets:"opvV", excl:[] },
+  { n:"Pomodori",                    cat:"veg",              kcal:18,  p:0.9, c:3.9,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Pomodori ciliegino",          cat:"veg",              kcal:20,  p:0.9, c:4,    f:0.2,  diets:"opvV", excl:[] },
+  { n:"Pomodori datterini",          cat:"veg",              kcal:21,  p:0.9, c:4.2,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Pomodori secchi",             cat:"veg",              kcal:258, p:14,  c:55,   f:3,    diets:"opvV", excl:[] },
+  { n:"Peperoni rossi",              cat:"veg",              kcal:31,  p:1,   c:6,    f:0.3,  diets:"opvV", excl:[] },
+  { n:"Peperoni gialli",             cat:"veg",              kcal:27,  p:1,   c:6,    f:0.2,  diets:"opvV", excl:[] },
+  { n:"Peperoni verdi",              cat:"veg",              kcal:20,  p:0.9, c:4.6,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Zucchine",                    cat:"veg",              kcal:17,  p:1.2, c:3.1,  f:0.3,  diets:"opvV", excl:[] },
+  { n:"Melanzane",                   cat:"veg",              kcal:25,  p:1,   c:6,    f:0.2,  diets:"opvV", excl:[] },
+  { n:"Carote",                      cat:"veg",              kcal:41,  p:0.9, c:10,   f:0.2,  diets:"opvV", excl:[] },
+  { n:"Sedano",                      cat:"veg",              kcal:16,  p:0.7, c:3,    f:0.2,  diets:"opvV", excl:[] },
+  { n:"Finocchi",                    cat:"veg",              kcal:31,  p:1.2, c:7,    f:0.2,  diets:"opvV", excl:[] },
+  { n:"Asparagi",                    cat:"veg",              kcal:20,  p:2.2, c:3.9,  f:0.1,  diets:"opvV", excl:[] },
+  { n:"Carciofi",                    cat:"veg",              kcal:47,  p:3.3, c:11,   f:0.2,  diets:"opvV", excl:[] },
+  { n:"Funghi champignon",           cat:"veg",              kcal:22,  p:3.1, c:3.3,  f:0.3,  diets:"opvV", excl:[] },
+  { n:"Funghi porcini freschi",      cat:"veg",              kcal:26,  p:3.9, c:3.5,  f:0.7,  diets:"opvV", excl:[] },
+  { n:"Cipolle",                     cat:"veg",              kcal:40,  p:1.1, c:9,    f:0.1,  diets:"opvV", excl:[] },
+  { n:"Cipollotti",                  cat:"veg",              kcal:32,  p:1.8, c:7.3,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Aglio",                       cat:"veg",              kcal:149, p:6.4, c:33,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Porri",                       cat:"veg",              kcal:61,  p:1.5, c:14,   f:0.3,  diets:"opvV", excl:[] },
+  { n:"Zucca",                       cat:"veg",              kcal:26,  p:1,   c:7,    f:0.1,  diets:"opvV", excl:[] },
+  { n:"Barbabietola rossa",          cat:"veg",              kcal:43,  p:1.6, c:10,   f:0.2,  diets:"opvV", excl:[] },
+  { n:"Ravanelli",                   cat:"veg",              kcal:16,  p:0.7, c:3.4,  f:0.1,  diets:"opvV", excl:[] },
+  { n:"Rapanelli",                   cat:"veg",              kcal:16,  p:0.7, c:3.4,  f:0.1,  diets:"opvV", excl:[] },
+  { n:"Cime di rapa",                cat:"veg",              kcal:30,  p:2.9, c:5.4,  f:0.3,  diets:"opvV", excl:[] },
+  { n:"Catalogna",                   cat:"veg",              kcal:15,  p:1.6, c:2.4,  f:0.3,  diets:"opvV", excl:[] },
+  { n:"Friarielli",                  cat:"veg",              kcal:32,  p:3,   c:5.5,  f:0.5,  diets:"opvV", excl:[] },
+  { n:"Crauti",                      cat:"veg",              kcal:19,  p:0.9, c:4,    f:0.1,  diets:"opvV", excl:[] },
+  { n:"Olive verdi",                 cat:"veg",              kcal:142, p:1.4, c:4,    f:14,   diets:"opvV", excl:[] },
+  { n:"Olive nere",                  cat:"veg",              kcal:235, p:1.8, c:1,    f:25,   diets:"opvV", excl:[] },
+  { n:"Germogli di soia",            cat:"veg",              kcal:30,  p:3,   c:6,    f:0.2,  diets:"opvV", excl:["soia"] },
+  { n:"Verdure miste grigliate",     cat:"veg",              kcal:30,  p:2,   c:5,    f:0.3,  diets:"opvV", excl:[] },
+  { n:"Minestrone misto",            cat:"veg",              kcal:35,  p:2,   c:6,    f:0.5,  diets:"opvV", excl:[] },
+
+  // ===== FRUTTA =====
+  { n:"Mela",                        cat:"fruit",            kcal:52,  p:0.3, c:14,   f:0.2,  diets:"opvV", excl:[] },
+  { n:"Pera",                        cat:"fruit",            kcal:57,  p:0.4, c:15,   f:0.1,  diets:"opvV", excl:[] },
+  { n:"Banana",                      cat:"fruit",            kcal:89,  p:1.1, c:23,   f:0.3,  diets:"opvV", excl:[] },
+  { n:"Arancia",                     cat:"fruit",            kcal:47,  p:0.9, c:12,   f:0.1,  diets:"opvV", excl:[] },
+  { n:"Mandarino",                   cat:"fruit",            kcal:53,  p:0.8, c:13,   f:0.3,  diets:"opvV", excl:[] },
+  { n:"Pompelmo",                    cat:"fruit",            kcal:42,  p:0.8, c:11,   f:0.1,  diets:"opvV", excl:[] },
+  { n:"Limone (succo)",              cat:"fruit",            kcal:22,  p:0.4, c:6.9,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Kiwi",                        cat:"fruit",            kcal:61,  p:1.1, c:15,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Fragole",                     cat:"fruit",            kcal:32,  p:0.7, c:8,    f:0.3,  diets:"opvV", excl:[] },
+  { n:"Mirtilli",                    cat:"fruit",            kcal:57,  p:0.7, c:14,   f:0.3,  diets:"opvV", excl:[] },
+  { n:"Lamponi",                     cat:"fruit",            kcal:52,  p:1.2, c:12,   f:0.7,  diets:"opvV", excl:[] },
+  { n:"More",                        cat:"fruit",            kcal:43,  p:1.4, c:10,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Ribes",                       cat:"fruit",            kcal:56,  p:1.4, c:14,   f:0.2,  diets:"opvV", excl:[] },
+  { n:"Frutti di bosco misti",       cat:"fruit",            kcal:48,  p:1,   c:11,   f:0.4,  diets:"opvV", excl:[] },
+  { n:"Ananas fresco",               cat:"fruit",            kcal:50,  p:0.5, c:13,   f:0.1,  diets:"opvV", excl:[] },
+  { n:"Anguria",                     cat:"fruit",            kcal:30,  p:0.6, c:7.6,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Melone giallo",               cat:"fruit",            kcal:34,  p:0.8, c:8.2,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Pesca",                       cat:"fruit",            kcal:39,  p:0.9, c:9.5,  f:0.3,  diets:"opvV", excl:[] },
+  { n:"Albicocca",                   cat:"fruit",            kcal:48,  p:1.4, c:11,   f:0.4,  diets:"opvV", excl:[] },
+  { n:"Nettarina",                   cat:"fruit",            kcal:44,  p:1.1, c:10.5, f:0.3,  diets:"opvV", excl:[] },
+  { n:"Prugna",                      cat:"fruit",            kcal:46,  p:0.7, c:11,   f:0.3,  diets:"opvV", excl:[] },
+  { n:"Ciliegie",                    cat:"fruit",            kcal:63,  p:1.1, c:16,   f:0.2,  diets:"opvV", excl:[] },
+  { n:"Uva",                         cat:"fruit",            kcal:69,  p:0.7, c:18,   f:0.2,  diets:"opvV", excl:[] },
+  { n:"Fichi freschi",               cat:"fruit",            kcal:74,  p:0.8, c:19,   f:0.3,  diets:"opvV", excl:[] },
+  { n:"Cachi",                       cat:"fruit",            kcal:70,  p:0.6, c:18.6, f:0.2,  diets:"opvV", excl:[] },
+  { n:"Mango",                       cat:"fruit",            kcal:60,  p:0.8, c:15,   f:0.4,  diets:"opvV", excl:[] },
+  { n:"Papaya",                      cat:"fruit",            kcal:43,  p:0.5, c:11,   f:0.3,  diets:"opvV", excl:[] },
+  { n:"Avocado",                     cat:"fruit",            kcal:160, p:2,   c:9,    f:15,   diets:"opvV", excl:[] },
+  { n:"Cocco fresco",                cat:"fruit",            kcal:354, p:3.3, c:15,   f:33,   diets:"opvV", excl:[] },
+  { n:"Datteri",                     cat:"fruit",            kcal:282, p:2.5, c:75,   f:0.4,  diets:"opvV", excl:[] },
+  { n:"Fichi secchi",                cat:"fruit",            kcal:249, p:3.3, c:64,   f:0.9,  diets:"opvV", excl:[] },
+  { n:"Albicocche secche",           cat:"fruit",            kcal:241, p:3.4, c:63,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Prugne secche",               cat:"fruit",            kcal:240, p:2.2, c:64,   f:0.4,  diets:"opvV", excl:[] },
+  { n:"Uvetta",                      cat:"fruit",            kcal:299, p:3.1, c:79,   f:0.5,  diets:"opvV", excl:[] },
+  { n:"Mela cotogna",                cat:"fruit",            kcal:57,  p:0.4, c:15,   f:0.1,  diets:"opvV", excl:[] },
+  { n:"Melagrana",                   cat:"fruit",            kcal:83,  p:1.7, c:19,   f:1.2,  diets:"opvV", excl:[] },
+  { n:"Litchi",                      cat:"fruit",            kcal:66,  p:0.8, c:17,   f:0.4,  diets:"opvV", excl:[] },
+  { n:"Cocomero",                    cat:"fruit",            kcal:30,  p:0.6, c:7.6,  f:0.2,  diets:"opvV", excl:[] },
+
+  // ===== FRUTTA SECCA / SEMI =====
+  { n:"Mandorle",                    cat:"nuts",             kcal:579, p:21,  c:22,   f:50,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Noci",                        cat:"nuts",             kcal:654, p:15,  c:14,   f:65,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Nocciole",                    cat:"nuts",             kcal:628, p:15,  c:17,   f:61,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Pistacchi",                   cat:"nuts",             kcal:560, p:20,  c:28,   f:45,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Anacardi",                    cat:"nuts",             kcal:553, p:18,  c:30,   f:44,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Noci di macadamia",           cat:"nuts",             kcal:718, p:8,   c:14,   f:76,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Noci pecan",                  cat:"nuts",             kcal:691, p:9,   c:14,   f:72,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Noci del Brasile",            cat:"nuts",             kcal:656, p:14,  c:12,   f:66,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Pinoli",                      cat:"nuts",             kcal:673, p:14,  c:13,   f:68,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Arachidi",                    cat:"nuts",             kcal:567, p:26,  c:16,   f:49,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Burro di arachidi",           cat:"nuts",             kcal:588, p:25,  c:20,   f:50,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Crema di mandorle",           cat:"nuts",             kcal:614, p:21,  c:19,   f:55,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Crema di nocciole",           cat:"nuts",             kcal:628, p:14,  c:17,   f:61,   diets:"opvV", excl:["frutta secca"] },
+  { n:"Tahini (crema sesamo)",       cat:"nuts",             kcal:595, p:17,  c:21,   f:53,   diets:"opvV", excl:[] },
+  { n:"Semi di chia",                cat:"nuts",             kcal:486, p:17,  c:42,   f:31,   diets:"opvV", excl:[] },
+  { n:"Semi di lino",                cat:"nuts",             kcal:534, p:18,  c:29,   f:42,   diets:"opvV", excl:[] },
+  { n:"Semi di girasole",            cat:"nuts",             kcal:584, p:21,  c:20,   f:51,   diets:"opvV", excl:[] },
+  { n:"Semi di zucca",               cat:"nuts",             kcal:559, p:30,  c:11,   f:49,   diets:"opvV", excl:[] },
+  { n:"Semi di sesamo",              cat:"nuts",             kcal:573, p:17,  c:23,   f:50,   diets:"opvV", excl:[] },
+  { n:"Semi di canapa",              cat:"nuts",             kcal:553, p:31,  c:8,    f:48,   diets:"opvV", excl:[] },
+
+  // ===== GRASSI E OLI =====
+  { n:"Olio extravergine d'oliva",   cat:"fats",             kcal:884, p:0,   c:0,    f:100,  diets:"opvV", excl:[] },
+  { n:"Olio di oliva",               cat:"fats",             kcal:884, p:0,   c:0,    f:100,  diets:"opvV", excl:[] },
+  { n:"Olio di lino",                cat:"fats",             kcal:884, p:0,   c:0,    f:100,  diets:"opvV", excl:[] },
+  { n:"Olio di cocco",               cat:"fats",             kcal:892, p:0,   c:0,    f:100,  diets:"opvV", excl:[] },
+  { n:"Olio di semi di girasole",    cat:"fats",             kcal:884, p:0,   c:0,    f:100,  diets:"opvV", excl:[] },
+  { n:"Burro",                       cat:"fats",             kcal:758, p:0.8, c:0.6,  f:84,   diets:"opv", excl:["lattosio"] },
+  { n:"Burro chiarificato (ghee)",   cat:"fats",             kcal:898, p:0,   c:0,    f:100,  diets:"opv", excl:["lattosio"] },
+  { n:"Margarina vegetale",          cat:"fats",             kcal:760, p:0.2, c:0.4,  f:84,   diets:"opvV", excl:[] },
+  { n:"Lardo",                       cat:"fats",             kcal:891, p:0.4, c:0,    f:99,   diets:"o", excl:[] },
+
+  // ===== ALTERNATIVE VEGETALI =====
+  { n:"Latte di soia",               cat:"plant_milk",       kcal:43,  p:3.3, c:1,    f:1.8,  diets:"opvV", excl:["soia"] },
+  { n:"Latte di mandorla",           cat:"plant_milk",       kcal:24,  p:0.6, c:3,    f:1.1,  diets:"opvV", excl:["frutta secca"] },
+  { n:"Latte di avena",              cat:"plant_milk",       kcal:43,  p:1,   c:7,    f:1.5,  diets:"opvV", excl:["glutine"] },
+  { n:"Latte di cocco (bevanda)",    cat:"plant_milk",       kcal:30,  p:0.2, c:3,    f:2,    diets:"opvV", excl:[] },
+  { n:"Latte di riso",               cat:"plant_milk",       kcal:47,  p:0.3, c:9.4,  f:1,    diets:"opvV", excl:[] },
+  { n:"Latte di nocciola",           cat:"plant_milk",       kcal:29,  p:0.4, c:3,    f:1.6,  diets:"opvV", excl:["frutta secca"] },
+  { n:"Bevanda di canapa",           cat:"plant_milk",       kcal:45,  p:0.8, c:5,    f:2,    diets:"opvV", excl:[] },
+  { n:"Panna di soia da cucina",     cat:"plant_milk",       kcal:175, p:3,   c:2,    f:17,   diets:"opvV", excl:["soia"] },
+  { n:"Panna di cocco",              cat:"plant_milk",       kcal:330, p:3,   c:6,    f:34,   diets:"opvV", excl:[] },
+  { n:"Formaggio vegano spalmabile", cat:"plant_milk",       kcal:235, p:1,   c:2,    f:25,   diets:"opvV", excl:[] },
+  { n:"Mozzarella vegana",           cat:"plant_milk",       kcal:230, p:0.5, c:23,   f:15,   diets:"opvV", excl:[] },
+
+  // ===== SNACK / INTEGRAZIONE =====
+  { n:"Barretta proteica generica",  cat:"snacks",           kcal:380, p:35,  c:30,   f:12,   diets:"opv", excl:["lattosio","glutine"] },
+  { n:"Barretta Hero Light",         cat:"snacks",           kcal:376, p:5,   c:65,   f:11,   diets:"opv", excl:["glutine"] },
+  { n:"Barretta Quest",              cat:"snacks",           kcal:330, p:42,  c:22,   f:8,    diets:"opv", excl:["lattosio"] },
+  { n:"Biscotti Misura fibra",       cat:"snacks",           kcal:415, p:8,   c:65,   f:13,   diets:"opvV", excl:["glutine"] },
+  { n:"Biscotti Oro Saiwa fibra",    cat:"snacks",           kcal:430, p:8,   c:67,   f:14,   diets:"opvV", excl:["glutine","lattosio"] },
+  { n:"Biscotti secchi integrali",   cat:"snacks",           kcal:415, p:9,   c:67,   f:11,   diets:"opvV", excl:["glutine"] },
+  { n:"Cioccolato fondente 70%",     cat:"snacks",           kcal:546, p:7.5, c:46,   f:34,   diets:"opvV", excl:["lattosio"] },
+  { n:"Cioccolato fondente 85%",     cat:"snacks",           kcal:600, p:9,   c:30,   f:46,   diets:"opvV", excl:[] },
+  { n:"Cacao amaro in polvere",      cat:"snacks",           kcal:228, p:20,  c:11,   f:14,   diets:"opvV", excl:[] },
+  { n:"Crema proteica Foodspring",   cat:"snacks",           kcal:430, p:30,  c:15,   f:30,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Crema proteica generica",     cat:"snacks",           kcal:450, p:25,  c:18,   f:32,   diets:"opv", excl:["lattosio"] },
+  { n:"Marmellata light",            cat:"snacks",           kcal:160, p:0.5, c:38,   f:0,    diets:"opvV", excl:[] },
+  { n:"Miele",                       cat:"snacks",           kcal:304, p:0.3, c:82,   f:0,    diets:"opvV", excl:[] },
+  { n:"Sciroppo d'acero",            cat:"snacks",           kcal:260, p:0,   c:67,   f:0.1,  diets:"opvV", excl:[] },
+
+  // ===== INTEGRATORI =====
+  { n:"Whey protein isolata",        cat:"supplements",      kcal:380, p:90,  c:1,    f:1,    diets:"opv", excl:["lattosio"] },
+  { n:"Whey protein concentrata",    cat:"supplements",      kcal:400, p:75,  c:8,    f:5,    diets:"opv", excl:["lattosio"] },
+  { n:"Caseine micellari",           cat:"supplements",      kcal:370, p:80,  c:4,    f:2,    diets:"opv", excl:["lattosio"] },
+  { n:"Proteine vegetali isolate",   cat:"supplements",      kcal:370, p:80,  c:5,    f:3,    diets:"opvV", excl:[] },
+  { n:"Proteine di pisello isolate", cat:"supplements",      kcal:370, p:82,  c:1,    f:5,    diets:"opvV", excl:[] },
+  { n:"Proteine di soia isolate",    cat:"supplements",      kcal:370, p:85,  c:1,    f:1,    diets:"opvV", excl:["soia"] },
+  { n:"Maltodestrine",               cat:"supplements",      kcal:380, p:0,   c:95,   f:0,    diets:"opvV", excl:[] },
+  { n:"Creatina monoidrato",         cat:"supplements",      kcal:0,   p:0,   c:0,    f:0,    diets:"opvV", excl:[] },
+
+  // ===== CONDIMENTI E SALSE =====
+  { n:"Aceto balsamico",             cat:"condiments",       kcal:88,  p:0.5, c:17,   f:0,    diets:"opvV", excl:[] },
+  { n:"Aceto di mele",               cat:"condiments",       kcal:21,  p:0,   c:0.9,  f:0,    diets:"opvV", excl:[] },
+  { n:"Aceto di vino",               cat:"condiments",       kcal:19,  p:0,   c:0.4,  f:0,    diets:"opvV", excl:[] },
+  { n:"Senape",                      cat:"condiments",       kcal:66,  p:4.4, c:6,    f:4,    diets:"opvV", excl:[] },
+  { n:"Salsa di soia",               cat:"condiments",       kcal:53,  p:8,   c:5,    f:0,    diets:"opvV", excl:["soia","glutine"] },
+  { n:"Tamari (salsa soia gluten free)", cat:"condiments",   kcal:55,  p:9,   c:4,    f:0,    diets:"opvV", excl:["soia"] },
+  { n:"Salsa Worcester",             cat:"condiments",       kcal:78,  p:0,   c:20,   f:0,    diets:"opvV", excl:[] },
+  { n:"Passata di pomodoro",         cat:"condiments",       kcal:30,  p:1.5, c:5.6,  f:0.2,  diets:"opvV", excl:[] },
+  { n:"Pomodori pelati",             cat:"condiments",       kcal:21,  p:1,   c:4,    f:0.2,  diets:"opvV", excl:[] },
+  { n:"Pesto alla genovese",         cat:"condiments",       kcal:445, p:6,   c:5,    f:45,   diets:"opv", excl:["frutta secca","lattosio"] },
+  { n:"Maionese light",              cat:"condiments",       kcal:300, p:1,   c:8,    f:30,   diets:"opv", excl:["uova"] },
+  { n:"Yogurt salsa light",          cat:"condiments",       kcal:60,  p:5,   c:5,    f:2,    diets:"opv", excl:["lattosio"] },
+  { n:"Salsa tzatziki",              cat:"condiments",       kcal:90,  p:5,   c:4,    f:6,    diets:"opv", excl:["lattosio"] },
+  { n:"Eritritolo",                  cat:"condiments",       kcal:0,   p:0,   c:0,    f:0,    diets:"opvV", excl:[] },
+  { n:"Stevia",                      cat:"condiments",       kcal:0,   p:0,   c:0,    f:0,    diets:"opvV", excl:[] },
+  { n:"Dolcificante (aspartame)",    cat:"condiments",       kcal:0,   p:0,   c:0,    f:0,    diets:"opvV", excl:[] },
+
+];
+
+// Mappa categoria → label visualizzato
+const CAT_LABELS = {
+  prot_animal_lean: "Proteine animali magre",
+  fish_lean:        "Pesce magro",
+  fish_fat:         "Pesce grasso",
+  eggs:             "Uova",
+  dairy_protein:    "Latticini magri / proteici",
+  cheese:           "Formaggi",
+  prot_veg:         "Proteine vegetali",
+  legumes:          "Legumi",
+  grains_whole:     "Cereali integrali",
+  grains_refined:   "Cereali raffinati e pasta",
+  tubers:           "Tuberi",
+  veg:              "Verdure",
+  fruit:            "Frutta",
+  nuts:             "Frutta secca / Semi",
+  fats:             "Grassi e oli",
+  plant_milk:       "Alternative vegetali",
+  snacks:           "Snack / Integrazione",
+  supplements:      "Integratori proteici",
+  condiments:       "Condimenti e salse",
+};
+
+// Macro categoria → categorie nutrizionali equivalenti (per le alternative)
+const CAT_EQUIVALENTS = {
+  prot_animal_lean: ["prot_animal_lean","fish_lean","fish_fat","eggs","dairy_protein","prot_veg","legumes"],
+  fish_lean:        ["fish_lean","fish_fat","prot_animal_lean","eggs","dairy_protein","prot_veg","legumes"],
+  fish_fat:         ["fish_fat","fish_lean","prot_animal_lean","eggs"],
+  eggs:             ["eggs","prot_animal_lean","fish_lean","dairy_protein","prot_veg"],
+  dairy_protein:    ["dairy_protein","prot_animal_lean","eggs","prot_veg"],
+  cheese:           ["cheese","dairy_protein"],
+  prot_veg:         ["prot_veg","legumes","prot_animal_lean","fish_lean","eggs","dairy_protein"],
+  legumes:          ["legumes","prot_veg","grains_whole"],
+  grains_whole:     ["grains_whole","grains_refined","tubers","legumes"],
+  grains_refined:   ["grains_refined","grains_whole","tubers"],
+  tubers:           ["tubers","grains_whole","grains_refined"],
+  veg:              ["veg"],
+  fruit:            ["fruit"],
+  nuts:             ["nuts","fats"],
+  fats:             ["fats","nuts"],
+  plant_milk:       ["plant_milk","dairy_protein"],
+  snacks:           ["snacks"],
+  supplements:      ["supplements","prot_veg","dairy_protein"],
+  condiments:       ["condiments"],
+};
 let DATA = { clients: [], activeClientId: null };
 let activeStep = 'dashboard';
 let saveTimer = null;
@@ -1268,10 +2089,12 @@ function loadData() {
     const raw = localStorage.getItem('nutriplan_data_v2');
     if (raw) DATA = JSON.parse(raw);
     if (!DATA.clients) DATA.clients = [];
+    if (!DATA.lastBackup) DATA.lastBackup = null; // ISO date dell'ultimo backup esportato
+    if (!DATA.snapshots) DATA.snapshots = []; // array di {date, summary, dataJSON}
     DATA.clients.forEach(ensureClientShape);
   } catch(e) {
     console.error('Load failed', e);
-    DATA = { clients: [], activeClientId: null };
+    DATA = { clients: [], activeClientId: null, lastBackup: null, snapshots: [] };
   }
 }
 
@@ -1350,12 +2173,17 @@ function importData(event) {
       const imported = JSON.parse(e.target.result);
       if (!imported.clients) throw new Error('Formato non valido');
       if (confirm(`Importare ${imported.clients.length} clienti? I dati attuali verranno sostituiti.`)) {
+        // Mantieni snapshot esistenti come misura di sicurezza
+        const currentSnapshots = DATA.snapshots || [];
         DATA = imported;
+        DATA.snapshots = currentSnapshots;
         DATA.clients.forEach(ensureClientShape);
+        takeSnapshot('Import effettuato');
         saveData();
         DATA.activeClientId = null;
         renderSidebar();
         renderMain();
+        renderBackupBanner();
       }
     } catch(err) { alert('File non valido: ' + err.message); }
   };
@@ -1393,17 +2221,20 @@ function createClient() {
   };
   DATA.clients.push(client);
   DATA.activeClientId = client.id;
-  activeStep = 'profile'; // new client → start from profile
+  activeStep = 'profile';
   saveData(true);
+  scheduleSnapshot(`Nuovo cliente: ${client.name}`);
   closeModal('newClientModal');
   renderSidebar();
   renderMain();
+  renderBackupBanner();
 }
 
 function deleteClient(id) {
   if (!confirm('Eliminare definitivamente questo cliente?')) return;
   DATA.clients = DATA.clients.filter(c => c.id !== id);
   if (DATA.activeClientId === id) DATA.activeClientId = null;
+  scheduleSnapshot('Eliminato cliente');
   saveData(true);
   renderSidebar();
   renderMain();
@@ -1880,6 +2711,7 @@ function saveProfile() {
     }
   }
 
+  scheduleSnapshot(`Profilo aggiornato: ${c.name}`);
   saveData();
   renderSidebar();
   renderMain();
@@ -2142,39 +2974,131 @@ function resetTargets() {
 function generateDefaultPlan(client) {
   const t = client.targets || { kcal: '—', p: '—', c: '—', f: '—' };
   const p = client.profile;
+  const diet = p.diet || 'onnivoro';
 
-  // Struttura: meals[] = { name, kcalHint, variants: [string] }
   const meals = [];
 
-  // COLAZIONE — varianti stile "a/b/c/d"
-  meals.push({
-    name: 'Colazione',
-    kcalHint: `~${Math.round(t.kcal * 0.22)} kcal`,
-    variants: [
+  // ====== COLAZIONE ======
+  let colazione;
+  if (diet === 'vegano') {
+    colazione = [
+      `Liquido senza kcal a piacere (caffè/tè/tisana)
+Porridge: 50 g fiocchi d'avena + bevanda vegetale q.b.
+20 g proteine vegetali isolate (pisello/soia)
+20 g crema di mandorle o burro di arachidi
+Frutti di bosco a piacere`,
+
+      `Liquido senza kcal a piacere
+1 yogurt di soia proteico (150 g) + 30 g granola integrale
+20 g semi misti (chia, lino, zucca)
+1 frutto`,
+
+      `Liquido senza kcal a piacere
+Toast: 60 g pane integrale + 50 g hummus
+1 frutto + 10 g frutta secca`,
+
+      `Shaker: 25 g proteine vegetali in polvere + bevanda vegetale
+4-5 gallette di riso/avena + 20 g crema di nocciole
+1 banana piccola`,
+    ];
+  } else if (diet === 'vegetariano') {
+    colazione = [
+      `Liquido senza kcal a piacere
+Pancake proteico: 150 g albume + 30 g farina d'avena
+20-30 g crema proteica o di frutta secca`,
+
+      `Liquido senza kcal a piacere
+Porridge: 30 g fiocchi d'avena + 20 g whey isolata
+Bevanda vegetale q.b. + 1 frutto
+20 g crema proteica o frutta secca`,
+
+      `Liquido senza kcal a piacere
+30 g fette biscottate integrali (Misura)
+1 yogurt greco 0% (150 g) + marmellata light o dolcificante`,
+
+      `Shaker: 20 g whey isolata + bevanda vegetale q.b.
+4-5 biscotti Oro Saiwa fibra attiva o Misura fibra (~30 g)`,
+    ];
+  } else { // onnivoro o pescetariano
+    colazione = [
       `Liquido senza kcal a piacere (caffè/tè/tisana)
 Pancake proteico: 150 g albume + 30 g farina d'avena
-20–30 g crema proteica (tipo Foodspring) o crema di frutta secca`,
+20-30 g crema proteica (tipo Foodspring) o crema di frutta secca`,
 
       `Liquido senza kcal a piacere
-Porridge: 30 g fiocchi d'avena + 20 g proteine isolate
+Porridge: 30 g fiocchi d'avena + 20 g whey isolata
 Bevanda vegetale q.b.
-20–30 g crema proteica o di frutta secca`,
+20-30 g crema proteica o di frutta secca`,
 
       `Liquido senza kcal a piacere
-30 g fette biscottate integrali (Misura o simili)
-1 yogurt greco 0% insaporito con marmellata light o dolcificante`,
+30 g fette biscottate integrali (Misura)
+1 yogurt greco 0% (150 g) insaporito con marmellata light o dolcificante`,
 
-      `Shaker: 20 g proteine isolate + bevanda vegetale q.b.
-4–5 biscotti Oro Saiwa fibra attiva o Misura fibra extra (~30 g)`,
-    ]
-  });
+      `Shaker: 20 g whey isolata + bevanda vegetale q.b.
+4-5 biscotti Oro Saiwa fibra attiva o Misura fibra extra (~30 g)`,
+    ];
+  }
+  meals.push({ name: 'Colazione', kcalHint: `~${Math.round(t.kcal * 0.22)} kcal`, variants: colazione });
 
-  // PRANZO
-  meals.push({
-    name: 'Pranzo',
-    kcalHint: `~${Math.round(t.kcal * 0.33)} kcal`,
-    variants: [
-      `50 g (peso crudo) riso basmati / integrale / venere
+  // ====== PRANZO ======
+  let pranzo;
+  if (diet === 'vegano') {
+    pranzo = [
+      `50 g (crudo) riso basmati / integrale / venere
+150 g tofu naturale o tempeh
+Verdura a piacere + 8 g olio EVO`,
+
+      `50 g (crudo) pasta integrale o pasta di legumi
+150 g lenticchie o ceci cotti (oppure 100 g hummus)
+Verdura a piacere + 8 g olio EVO`,
+
+      `150 g patate lesse — oppure 50 g (crudo) miglio / quinoa
+150 g hamburger vegetali (Kioene/Beyond) o seitan al naturale
+Verdura a piacere + 8 g olio EVO`,
+
+      `Bowl: 50 g (crudo) quinoa o farro
+100 g edamame + 80 g hummus
+Verdura grigliata + 8 g olio EVO`,
+    ];
+  } else if (diet === 'vegetariano') {
+    pranzo = [
+      `50 g (crudo) riso basmati / integrale / venere
+2 uova intere o 200 g albume
+Verdura a piacere + 8 g olio EVO`,
+
+      `50 g (crudo) pasta integrale o pasta di legumi
+150 g lenticchie / ceci / fagioli cotti
+Verdura a piacere + 8 g olio EVO`,
+
+      `150 g patate lesse — oppure 50 g (crudo) miglio / farro / grano saraceno
+100 g philadelphia protein o ricottina light o tofu
+Verdura a piacere + 8 g olio EVO`,
+
+      `Gallette / Wasa equivalenti a 50 g di carbo
+200 g albume — oppure 100 g feta / mozzarella light
+Verdura a piacere + 8 g olio EVO`,
+    ];
+  } else if (diet === 'pescetariano') {
+    pranzo = [
+      `50 g (crudo) riso basmati / integrale / venere
+100 g tonno al naturale — oppure 150 g pesce magro (merluzzo / orata / spigola)
+Verdura a piacere + 8 g olio EVO`,
+
+      `50 g (crudo) pasta integrale o pasta di legumi
+150 g gamberetti o insalata di mare al naturale — oppure 2 uova
+Verdura a piacere + 8 g olio EVO`,
+
+      `150 g patate lesse — oppure 50 g (crudo) miglio / farro
+150 g pesce bianco — oppure 100 g philadelphia protein
+Verdura a piacere + 8 g olio EVO`,
+
+      `Gallette / Wasa equivalenti a 50 g di carbo
+200 g albume — oppure 100 g ricottina light
+Verdura a piacere + 8 g olio EVO`,
+    ];
+  } else { // onnivoro
+    pranzo = [
+      `50 g (crudo) riso basmati / integrale / venere
 100 g tonno al naturale — oppure 150 g pesce magro (merluzzo / orata / spigola)
 Verdura a piacere + 8 g olio EVO (1 cucchiaio)`,
 
@@ -2189,33 +3113,128 @@ Verdura a piacere + 8 g olio EVO`,
       `Gallette / Wasa equivalenti a 50 g di carbo
 200 g albume — oppure 100 g philadelphia protein / ricottina light
 Verdura a piacere + 8 g olio EVO`,
-    ]
-  });
+    ];
+  }
+  meals.push({ name: 'Pranzo', kcalHint: `~${Math.round(t.kcal * 0.33)} kcal`, variants: pranzo });
 
-  // SNACK
-  meals.push({
-    name: 'Snack',
-    kcalHint: `~${Math.round(t.kcal * 0.12)} kcal`,
-    variants: [
-      `1 barretta fitness o Hero Light (~100 kcal)
-20 g frutta secca + tisana / tè / bevanda 0 kcal`,
+  // ====== SNACK ======
+  let snack;
+  if (diet === 'vegano') {
+    snack = [
+      `1 frutto da ~300 g poco zuccherino (mela, frutti di bosco)
+20 g frutta secca + tisana/tè/bevanda 0 kcal`,
+
+      `1 yogurt di soia proteico + 10 g semi di chia
+1 frutto piccolo`,
+
+      `Shaker: 25 g proteine vegetali + acqua/bevanda vegetale
+1 frutto piccolo o 20 g gallette`,
+
+      `Hummus 60 g + verdure a julienne
+1 frutto`,
+    ];
+  } else if (diet === 'vegetariano' || diet === 'pescetariano' || diet === 'onnivoro') {
+    snack = [
+      `1 barretta proteica (Hero Light o simile, ~100 kcal)
+20 g frutta secca + tisana/tè/bevanda 0 kcal`,
 
       `1 frutto da ~300 g poco zuccherino (mela, frutti di bosco)
-20 g frutta secca + tisana / tè / bevanda 0 kcal`,
+20 g frutta secca + tisana/tè/bevanda 0 kcal`,
 
-      `1 yogurt greco 0% + dolcificante o marmellata light
+      `1 yogurt greco 0% (150 g) + dolcificante o marmellata light
 10 g mandorle o noci`,
 
-      `Shaker: 20 g proteine isolate + acqua o bevanda vegetale
+      `Shaker: 20 g whey isolata + acqua o bevanda vegetale
 1 frutto piccolo`,
-    ]
-  });
+    ];
+  }
+  meals.push({ name: 'Snack', kcalHint: `~${Math.round(t.kcal * 0.12)} kcal`, variants: snack });
 
-  // CENA — rotazione settimanale come nell'esempio
-  meals.push({
-    name: 'Cena — rotazione settimanale',
-    kcalHint: `~${Math.round(t.kcal * 0.33)} kcal`,
-    variants: [
+  // ====== CENA ======
+  let cena;
+  if (diet === 'vegano') {
+    cena = [
+      `[2× SETT] TOFU/TEMPEH
+200 g tofu naturale o affumicato / tempeh
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 8 g olio EVO`,
+
+      `[2× SETT] LEGUMI
+200 g lenticchie / ceci / fagioli cotti — oppure 150 g hummus
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 8 g olio EVO`,
+
+      `[1× SETT] SEITAN
+180 g seitan al naturale
+50 g (crudo) carbo — oppure 150 g patate dolci
+Verdura + 8 g olio EVO`,
+
+      `[1× SETT] HAMBURGER VEGETALI
+2 hamburger vegetali (Kioene/Beyond) ~180 g
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 8 g olio EVO`,
+
+      `[1× SETT] BOWL ENERGETICA
+80 g (crudo) quinoa o farro
+100 g edamame + 80 g hummus
+Verdura grigliata + 8 g olio EVO`,
+    ];
+  } else if (diet === 'vegetariano') {
+    cena = [
+      `[2× SETT] UOVA
+Frittata con 3 uova intere — oppure 4 albumi + 1 intero
+50 g (crudo) carbo — oppure 150 g patate — oppure piadina farina di riso
+Verdura + 8 g olio EVO`,
+
+      `[2× SETT] LEGUMI
+200 g lenticchie / ceci / fagioli cotti
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 8 g olio EVO`,
+
+      `[1× SETT] LATTICINI LIGHT
+200 g ricottina light / fiocchi di latte / mozzarella light
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 8 g olio EVO`,
+
+      `[1× SETT] TOFU/TEMPEH
+180 g tofu naturale o tempeh
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 8 g olio EVO`,
+
+      `[1× SETT] HAMBURGER VEGETALI
+2 hamburger vegetali (Kioene) ~180 g
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 8 g olio EVO`,
+    ];
+  } else if (diet === 'pescetariano') {
+    cena = [
+      `[2× SETT] PESCE BIANCO
+200 g pesce bianco (orata / branzino / merluzzo / spigola)
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 8 g olio EVO`,
+
+      `[1× SETT] PESCE GRASSO (giorni senza allenamento)
+150 g salmone / trota / sgombro / sardine
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 4 g olio EVO (dimezzato)`,
+
+      `[2× SETT] UOVA
+Frittata con 3 uova intere
+50 g (crudo) carbo — oppure 150 g patate — oppure piadina farina di riso
+Verdura + 8 g olio EVO`,
+
+      `[1× SETT] CROSTACEI/MOLLUSCHI
+200 g gamberi / calamari / polpo / seppia
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 8 g olio EVO`,
+
+      `[1× SETT] LATTICINI LIGHT o VEG
+200 g ricottina light / mozzarella light — oppure hamburger vegetali (Kioene)
+50 g (crudo) carbo — oppure 150 g patate
+Verdura + 8 g olio EVO`,
+    ];
+  } else { // onnivoro
+    cena = [
       `[2× SETT] CARNE BIANCA MAGRA
 150 g petto di pollo / tacchino / arista magra
 50 g (crudo) carbo a scelta — oppure 150 g patate
@@ -2227,7 +3246,7 @@ Verdura + 8 g olio EVO`,
 Verdura + 8 g olio EVO`,
 
       `[1× SETT] PESCE GRASSO o CARNE ROSSA (giorni senza allenamento)
-150 g salmone / trota — oppure carne rossa magra
+150 g salmone / trota — oppure carne rossa magra (manzo magro)
 50 g (crudo) carbo — oppure 150 g patate
 Verdura + 4 g olio EVO (dimezzato)`,
 
@@ -2240,8 +3259,23 @@ Verdura + 8 g olio EVO`,
 200 g ricottina light / fiocchi di latte / mozzarella light — oppure affettato magro — oppure hamburger vegetali (Kioene)
 50 g (crudo) carbo — oppure 150 g patate
 Verdura + 8 g olio EVO`,
-    ]
-  });
+    ];
+  }
+  meals.push({ name: 'Cena — rotazione settimanale', kcalHint: `~${Math.round(t.kcal * 0.33)} kcal`, variants: cena });
+
+  // ====== REGOLE / INTEGRAZIONE ======
+  let integrazione = `INTEGRAZIONE CONSIGLIATA
+
+• Proteine ${diet === 'vegano' ? 'vegetali (pisello/soia/canapa)' : 'isolate in polvere (whey)'} per spuntini/colazione
+• Magnesio supremo${p.sex === 'F' ? ' DONNA' : ''} — 5 g al mattino
+• Vitamina C 1 g pre-nanna
+• Omega-3 EPA/DHA 1-2 g/die${diet === 'vegano' ? ' (da alghe per regime vegano)' : ' se pesce < 2×/sett'}`;
+
+  if (diet === 'vegano') {
+    integrazione += `
+• Vitamina B12 cianocobalamina — 1000 mcg/sett (essenziale per i vegani)
+• Vitamina D3 vegana (da licheni) — 1000-2000 UI/die`;
+  }
 
   const rules = `RICORDA
 
@@ -2256,12 +3290,7 @@ Verdura + 8 g olio EVO`,
 • Pasto libero: 1 a settimana "morbido" con recupero calorie
 • Mastica piano e lentamente
 
-INTEGRAZIONE CONSIGLIATA
-
-• Proteine isolate in polvere per spuntini/colazione
-• Magnesio supremo${p.sex === 'F' ? ' DONNA' : ''} — 5 g al mattino
-• Vitamina C 1 g pre-nanna
-• Omega-3 EPA/DHA 1–2 g/die se pesce < 2×/sett`;
+${integrazione}`;
 
   return { meals, rules };
 }
@@ -2328,6 +3357,10 @@ function renderPlan(client, profileComplete) {
               <div class="variant-letter">${String.fromCharCode(97+vi)})</div>
               <textarea onchange="updateVariant(${mi}, ${vi}, this.value)" placeholder="Descrivi gli alimenti e le quantità...">${escapeHtml(v)}</textarea>
               <button class="variant-remove-btn no-print" onclick="removeVariant(${mi}, ${vi})" title="Rimuovi variante">×</button>
+              <div class="variant-toolbar no-print">
+                <button class="variant-tool-btn accent" onclick="openAlternativesPopup(${mi}, ${vi})" title="Mostra alternative agli alimenti riconosciuti">⇄ Alternative</button>
+                <button class="variant-tool-btn" onclick="openFoodPicker(${mi}, ${vi})" title="Inserisci un alimento dal database">+ Aggiungi alimento</button>
+              </div>
             </div>
           `).join('')}
           <button class="add-variant-btn no-print" onclick="addVariant(${mi})">+ Aggiungi variante</button>
@@ -2534,6 +3567,7 @@ function saveMeasurement() {
   }
   c.measurements.push(m);
   c.measurements.sort((a,b) => new Date(a.date) - new Date(b.date));
+  scheduleSnapshot(`Nuova misurazione: ${c.name}`);
   saveData();
   closeModal('measureModal');
   renderSidebar();
@@ -2677,6 +3711,7 @@ function addNote() {
   if (!text) return alert('Scrivi qualcosa prima di salvare.');
   const c = getActiveClient();
   c.notes.push({ id: uid(), date: new Date().toISOString(), text });
+  scheduleSnapshot(`Nuova nota: ${c.name}`);
   saveData();
   renderMain();
 }
@@ -2689,10 +3724,614 @@ function deleteNote(id) {
   renderMain();
 }
 
+// ============================================================
+// BACKUP SYSTEM — Banner, snapshots, iCloud-assisted save
+// ============================================================
+
+const SNAPSHOT_LIMIT = 10;
+const BACKUP_WARN_DAYS = 3;   // banner giallo dopo N giorni
+const BACKUP_URGENT_DAYS = 7; // banner rosso dopo N giorni
+
+function daysSince(isoDate) {
+  if (!isoDate) return null;
+  const ms = Date.now() - new Date(isoDate).getTime();
+  return Math.floor(ms / 86400000);
+}
+
+function buildSnapshotSummary() {
+  const nClients = DATA.clients.length;
+  const nMeasurements = DATA.clients.reduce((s, c) => s + c.measurements.length, 0);
+  const nPhotos = DATA.clients.reduce((s, c) => s + c.photos.length, 0);
+  const nNotes = DATA.clients.reduce((s, c) => s + c.notes.length, 0);
+  return `${nClients} clienti · ${nMeasurements} misurazioni · ${nPhotos} foto · ${nNotes} note`;
+}
+
+function takeSnapshot(reason = '') {
+  // Salva uno snapshot dei dati (senza snapshot stessi per non duplicare)
+  const dataToSave = {
+    clients: DATA.clients,
+    activeClientId: DATA.activeClientId,
+    lastBackup: DATA.lastBackup,
+  };
+  const snapshot = {
+    date: new Date().toISOString(),
+    reason: reason,
+    summary: buildSnapshotSummary(),
+    dataJSON: JSON.stringify(dataToSave),
+  };
+
+  if (!DATA.snapshots) DATA.snapshots = [];
+
+  // Evita duplicati ravvicinati: se l'ultimo snapshot è meno di 60 sec fa, sostituiscilo
+  const last = DATA.snapshots[DATA.snapshots.length - 1];
+  if (last && (new Date() - new Date(last.date)) < 60000) {
+    DATA.snapshots[DATA.snapshots.length - 1] = snapshot;
+  } else {
+    DATA.snapshots.push(snapshot);
+  }
+
+  // Mantieni solo gli ultimi N snapshot
+  if (DATA.snapshots.length > SNAPSHOT_LIMIT) {
+    DATA.snapshots = DATA.snapshots.slice(-SNAPSHOT_LIMIT);
+  }
+}
+
+function renderBackupBanner() {
+  const banner = document.getElementById('backupBanner');
+  if (!banner) return;
+
+  // Non mostrare il banner se non ci sono ancora clienti
+  if (DATA.clients.length === 0) {
+    banner.innerHTML = '';
+    return;
+  }
+
+  const days = daysSince(DATA.lastBackup);
+
+  let cls, icon, text;
+  if (days === null) {
+    cls = 'red';
+    icon = '⚠';
+    text = `<strong>Nessun backup ancora effettuato</strong> — Tocca per salvare in iCloud`;
+  } else if (days >= BACKUP_URGENT_DAYS) {
+    cls = 'red';
+    icon = '⚠';
+    text = `<strong>Backup mancante da ${days} giorni</strong> — Tocca per salvare in iCloud`;
+  } else if (days >= BACKUP_WARN_DAYS) {
+    cls = 'yellow';
+    icon = '⏱';
+    text = `Ultimo backup ${days} giorni fa — Tocca per aggiornarlo`;
+  } else {
+    cls = 'green';
+    icon = '✓';
+    if (days === 0) text = `Backup iCloud aggiornato oggi`;
+    else if (days === 1) text = `Ultimo backup ieri`;
+    else text = `Ultimo backup ${days} giorni fa`;
+  }
+
+  banner.innerHTML = `<div class="backup-banner ${cls}" onclick="openBackupModal()">
+    <span class="icon">${icon}</span>
+    <span class="text">${text}</span>
+    <span class="arrow">›</span>
+  </div>`;
+}
+
+function openBackupModal() {
+  const filename = `nutriplan_${new Date().toISOString().slice(0,10)}_${new Date().toTimeString().slice(0,5).replace(':','-')}.json`;
+  document.getElementById('backupFilename').textContent = filename;
+  openModal('backupModal');
+}
+
+function performBackup() {
+  // Costruisce il file e lo offre per il download.
+  // Su iOS l'utente sceglie "Salva su File" e poi naviga in iCloud Drive.
+  const dataToBackup = {
+    clients: DATA.clients,
+    activeClientId: DATA.activeClientId,
+    exportedAt: new Date().toISOString(),
+    version: 'v4',
+  };
+  const blob = new Blob([JSON.stringify(dataToBackup, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+
+  const filename = `nutriplan_${new Date().toISOString().slice(0,10)}_${new Date().toTimeString().slice(0,5).replace(':','-')}.json`;
+
+  // Prova prima Web Share API se disponibile (iOS Safari la supporta)
+  if (navigator.canShare && navigator.share) {
+    fetch(url).then(r => r.blob()).then(b => {
+      const file = new File([b], filename, {type:'application/json'});
+      if (navigator.canShare({files:[file]})) {
+        navigator.share({
+          files: [file],
+          title: 'Backup NutriPlan',
+          text: 'Salva in iCloud Drive → cartella NutriPlan',
+        }).then(() => {
+          // Successo: aggiorna data ultimo backup
+          DATA.lastBackup = new Date().toISOString();
+          saveData(true);
+          closeModal('backupModal');
+          renderBackupBanner();
+          showSaveIndicator();
+        }).catch((err) => {
+          // L'utente ha annullato o errore: fallback a download diretto
+          if (err.name !== 'AbortError') {
+            console.warn('Share failed, fallback to download:', err);
+            fallbackDownload(url, filename);
+          }
+        }).finally(() => {
+          URL.revokeObjectURL(url);
+        });
+      } else {
+        fallbackDownload(url, filename);
+      }
+    });
+  } else {
+    fallbackDownload(url, filename);
+  }
+}
+
+function fallbackDownload(url, filename) {
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  // Aggiorna comunque la data di backup
+  DATA.lastBackup = new Date().toISOString();
+  saveData(true);
+  closeModal('backupModal');
+  renderBackupBanner();
+  showSaveIndicator();
+}
+
+// === SNAPSHOTS UI ===
+function openSnapshotsModal() {
+  const list = document.getElementById('snapshotsList');
+  if (!DATA.snapshots || DATA.snapshots.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:30px 20px;font-family:'Fraunces',serif;font-style:italic;color:var(--muted);">Nessuno snapshot ancora disponibile.<br>Gli snapshot vengono creati automaticamente quando modifichi i dati.</div>`;
+  } else {
+    const sorted = [...DATA.snapshots].sort((a,b) => new Date(b.date) - new Date(a.date));
+    list.innerHTML = sorted.map(s => {
+      const d = new Date(s.date);
+      const dateStr = d.toLocaleDateString('it-IT', {day:'numeric',month:'short',year:'numeric'}) +
+                      ' · ' + d.toLocaleTimeString('it-IT', {hour:'2-digit',minute:'2-digit'});
+      return `<div class="snapshot-item">
+        <div>
+          <div class="snapshot-date">${dateStr}${s.reason ? ' · ' + escapeHtml(s.reason) : ''}</div>
+          <div class="snapshot-summary">${escapeHtml(s.summary)}</div>
+        </div>
+        <button class="snapshot-restore-btn" onclick="restoreSnapshot('${s.date}')">⟲ Ripristina</button>
+      </div>`;
+    }).join('');
+  }
+  openModal('snapshotsModal');
+}
+
+function restoreSnapshot(snapDate) {
+  const snap = DATA.snapshots.find(s => s.date === snapDate);
+  if (!snap) return;
+  if (!confirm(`Vuoi davvero ripristinare lo snapshot del ${new Date(snap.date).toLocaleString('it-IT')}?\n\nTutti i dati attuali verranno SOSTITUITI con quelli dello snapshot. Per sicurezza, prima esporta un backup dei dati attuali.`)) return;
+
+  try {
+    const restored = JSON.parse(snap.dataJSON);
+    // Mantengo gli snapshot esistenti
+    const currentSnapshots = DATA.snapshots;
+    DATA = {
+      clients: restored.clients || [],
+      activeClientId: restored.activeClientId || null,
+      lastBackup: restored.lastBackup || null,
+      snapshots: currentSnapshots,
+    };
+    DATA.clients.forEach(ensureClientShape);
+    // Crea uno snapshot del momento del ripristino per tracciabilità
+    takeSnapshot('Ripristino effettuato');
+    saveData(true);
+    closeModal('snapshotsModal');
+    renderSidebar();
+    renderMain();
+    renderBackupBanner();
+    alert('Snapshot ripristinato con successo.');
+  } catch(e) {
+    alert('Errore nel ripristino: ' + e.message);
+  }
+}
+
+// ============================================================
+// FOOD UTILITIES — Search, filter, alternatives
+// ============================================================
+
+function getDietsForClient(client) {
+  if (!client || !client.profile) return 'o';
+  return client.profile.diet === 'onnivoro' ? 'o' :
+         client.profile.diet === 'pescetariano' ? 'p' :
+         client.profile.diet === 'vegetariano' ? 'v' : 'V';
+}
+
+function isFoodCompatible(food, client) {
+  const clientDiet = getDietsForClient(client);
+  if (!food.diets.includes(clientDiet)) return false;
+  const exclusions = (client && client.profile && client.profile.exclusions) ? client.profile.exclusions : [];
+  for (const ex of exclusions) {
+    if (food.excl && food.excl.includes(ex)) return false;
+  }
+  return true;
+}
+
+function searchFoods(query, client = null, categoryFilter = null) {
+  query = (query || '').toLowerCase().trim();
+  let results = FOOD_DB;
+  if (client) results = results.filter(f => isFoodCompatible(f, client));
+  if (categoryFilter) results = results.filter(f => f.cat === categoryFilter);
+  if (query) results = results.filter(f => f.n.toLowerCase().includes(query));
+  return results;
+}
+
+function findEquivalents(food, grams, client = null, maxResults = 8) {
+  const equivCats = CAT_EQUIVALENTS[food.cat] || [food.cat];
+  const targetProteins = food.p * grams / 100;
+  const targetKcal = food.kcal * grams / 100;
+  const useKcal = ['grains_whole','grains_refined','tubers','fats','fruit','veg','nuts','plant_milk','condiments','snacks'].includes(food.cat);
+
+  let candidates = FOOD_DB.filter(f => f.n !== food.n && equivCats.includes(f.cat));
+  if (client) candidates = candidates.filter(f => isFoodCompatible(f, client));
+
+  const enriched = candidates.map(f => {
+    let g;
+    if (useKcal) g = targetKcal / f.kcal * 100;
+    else g = targetProteins / f.p * 100;
+    if (!isFinite(g) || g <= 0) return null;
+    g = Math.round(g / 5) * 5;
+    if (g < 5 || g > 500) return null;
+    return {
+      food: f,
+      grams: g,
+      kcal: Math.round(f.kcal * g / 100),
+      p: +(f.p * g / 100).toFixed(1),
+      c: +(f.c * g / 100).toFixed(1),
+      fGr: +(f.f * g / 100).toFixed(1),
+    };
+  }).filter(x => x !== null);
+
+  enriched.sort((a,b) => {
+    const sameCatA = a.food.cat === food.cat ? 0 : 1;
+    const sameCatB = b.food.cat === food.cat ? 0 : 1;
+    if (sameCatA !== sameCatB) return sameCatA - sameCatB;
+    return Math.abs(a.kcal - targetKcal) - Math.abs(b.kcal - targetKcal);
+  });
+
+  return enriched.slice(0, maxResults);
+}
+
+function extractFoodsFromText(text) {
+  if (!text) return [];
+  const found = [];
+  const lower = text.toLowerCase();
+
+  FOOD_DB.forEach(food => {
+    const words = food.n.toLowerCase().split(/[\s(),]+/).filter(w => w.length > 3);
+    if (words.length === 0) return;
+    const mainWord = words[0];
+    if (lower.includes(mainWord)) {
+      const idx = lower.indexOf(mainWord);
+      const before = text.substring(Math.max(0, idx-30), idx);
+      const after = text.substring(idx, Math.min(text.length, idx+30));
+      const beforeMatch = before.match(/(\d+)\s*g/);
+      const afterMatch = after.match(/(\d+)\s*g/);
+      let grams = null;
+      if (beforeMatch) grams = parseInt(beforeMatch[1]);
+      else if (afterMatch) grams = parseInt(afterMatch[1]);
+      if (!found.find(f => f.food.n === food.n)) {
+        found.push({ food, grams: grams || 100, foundText: mainWord });
+      }
+    }
+  });
+
+  return found;
+}
+
+// ============================================================
+// LIBRARY UI
+// ============================================================
+let libraryQuery = '';
+let libraryCatFilter = null;
+let libraryRespectClient = false;
+
+function openLibraryModal() {
+  libraryQuery = '';
+  libraryCatFilter = null;
+  libraryRespectClient = false;
+  document.getElementById('libraryModal').classList.add('show');
+  renderLibraryContent();
+  setTimeout(() => {
+    const inp = document.getElementById('librarySearchInput');
+    if (inp) inp.focus();
+  }, 100);
+}
+
+function renderLibraryContent() {
+  const client = libraryRespectClient ? getActiveClient() : null;
+  const results = searchFoods(libraryQuery, client, libraryCatFilter);
+  const catCount = {};
+  searchFoods(libraryQuery, client).forEach(f => { catCount[f.cat] = (catCount[f.cat] || 0) + 1; });
+
+  let html = `
+    <div class="lib-search-bar">
+      <input type="text" id="librarySearchInput" placeholder="Cerca alimento..." value="${escapeHtml(libraryQuery)}" oninput="onLibrarySearch(this.value)">
+      ${getActiveClient() ? `<label class="lib-respect-toggle">
+        <input type="checkbox" ${libraryRespectClient?'checked':''} onchange="libraryRespectClient=this.checked;renderLibraryContent();">
+        <span>Rispetta regime/esclusioni cliente attivo</span>
+      </label>` : ''}
+    </div>
+    <div class="lib-cats">
+      <button class="lib-cat-btn ${!libraryCatFilter?'active':''}" onclick="libraryCatFilter=null;renderLibraryContent();">
+        Tutte (${Object.values(catCount).reduce((a,b)=>a+b,0)})
+      </button>
+      ${Object.keys(CAT_LABELS).map(cat => {
+        const count = catCount[cat] || 0;
+        if (count === 0) return '';
+        return `<button class="lib-cat-btn ${libraryCatFilter===cat?'active':''}" onclick="libraryCatFilter='${cat}';renderLibraryContent();">${CAT_LABELS[cat]} (${count})</button>`;
+      }).join('')}
+    </div>
+    <div class="lib-list">
+      ${results.length === 0 ? `<div class="lib-empty">Nessun alimento trovato${libraryQuery?` per "${escapeHtml(libraryQuery)}"`:''}.</div>` :
+        results.map(f => `
+          <div class="lib-item">
+            <div class="lib-item-name">${escapeHtml(f.n)}</div>
+            <div class="lib-item-cat">${CAT_LABELS[f.cat]||f.cat}</div>
+            <div class="lib-item-macros">
+              <span>${f.kcal} kcal</span><span>P ${f.p}</span><span>C ${f.c}</span><span>F ${f.f}</span>
+            </div>
+          </div>
+        `).join('')
+      }
+    </div>
+  `;
+  document.getElementById('libraryContent').innerHTML = html;
+}
+
+function onLibrarySearch(val) {
+  libraryQuery = val;
+  const client = libraryRespectClient ? getActiveClient() : null;
+  const results = searchFoods(libraryQuery, client, libraryCatFilter);
+  const catCount = {};
+  searchFoods(libraryQuery, client).forEach(f => { catCount[f.cat] = (catCount[f.cat] || 0) + 1; });
+  const listEl = document.querySelector('#libraryContent .lib-list');
+  const catsEl = document.querySelector('#libraryContent .lib-cats');
+  if (catsEl) {
+    catsEl.innerHTML = `
+      <button class="lib-cat-btn ${!libraryCatFilter?'active':''}" onclick="libraryCatFilter=null;renderLibraryContent();">Tutte (${Object.values(catCount).reduce((a,b)=>a+b,0)})</button>
+      ${Object.keys(CAT_LABELS).map(cat => {
+        const count = catCount[cat] || 0;
+        if (count === 0) return '';
+        return `<button class="lib-cat-btn ${libraryCatFilter===cat?'active':''}" onclick="libraryCatFilter='${cat}';renderLibraryContent();">${CAT_LABELS[cat]} (${count})</button>`;
+      }).join('')}
+    `;
+  }
+  if (listEl) {
+    if (results.length === 0) {
+      listEl.innerHTML = `<div class="lib-empty">Nessun alimento trovato${libraryQuery?` per "${escapeHtml(libraryQuery)}"`:''}.</div>`;
+    } else {
+      listEl.innerHTML = results.map(f => `
+        <div class="lib-item">
+          <div class="lib-item-name">${escapeHtml(f.n)}</div>
+          <div class="lib-item-cat">${CAT_LABELS[f.cat]||f.cat}</div>
+          <div class="lib-item-macros">
+            <span>${f.kcal} kcal</span><span>P ${f.p}</span><span>C ${f.c}</span><span>F ${f.f}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+}
+
+// ============================================================
+// ALTERNATIVES POPUP
+// ============================================================
+function openAlternativesPopup(mealIdx, variantIdx) {
+  const c = getActiveClient();
+  if (!c || !c.plan) return;
+  const text = c.plan.meals[mealIdx].variants[variantIdx];
+  const recognized = extractFoodsFromText(text);
+
+  let html = `<div style="padding:0 0 12px 0;font-family:'Fraunces',serif;font-size:14px;color:var(--muted);font-style:italic;">
+    Per ogni alimento riconosciuto nel testo, ecco delle alternative con macro simili. Tap su un'alternativa per copiarla negli appunti.
+  </div>`;
+
+  if (recognized.length === 0) {
+    html += `<div class="lib-empty">Nessun alimento riconosciuto in questa variante.<br>Le alternative funzionano se il testo contiene nomi noti come "pollo", "riso", "tonno", ecc.</div>`;
+  } else {
+    recognized.forEach(rec => {
+      const alts = findEquivalents(rec.food, rec.grams, c, 8);
+      const safeName = (rec.food.n + '').replace(/'/g,"\\'");
+      html += `<div class="alt-section">
+        <div class="alt-section-head">
+          <strong>${escapeHtml(rec.food.n)}</strong> · ${rec.grams}g · ${Math.round(rec.food.kcal*rec.grams/100)} kcal · P${(rec.food.p*rec.grams/100).toFixed(1)}
+        </div>
+        <div class="alt-list">
+          ${alts.length === 0 ? '<div class="lib-empty" style="padding:12px;">Nessuna alternativa compatibile</div>' :
+            alts.map(a => {
+              const altText = a.grams + ' g ' + a.food.n;
+              const safeAltText = altText.replace(/'/g,"\\'").replace(/"/g,'&quot;');
+              return `<div class="alt-item" onclick="copyAlternative(this, '${safeAltText}')">
+                <div class="alt-item-name">${a.grams} g ${escapeHtml(a.food.n)}</div>
+                <div class="alt-item-macros">${a.kcal} kcal · P${a.p} · C${a.c} · F${a.fGr}</div>
+              </div>`;
+            }).join('')
+          }
+        </div>
+      </div>`;
+    });
+  }
+
+  document.getElementById('altContent').innerHTML = html;
+  document.getElementById('altModal').classList.add('show');
+}
+
+function copyAlternative(el, text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      el.style.background = '#dfeacd';
+      const macros = el.querySelector('.alt-item-macros');
+      const oldText = macros ? macros.innerHTML : '';
+      if (macros) macros.innerHTML = '✓ Copiato negli appunti';
+      setTimeout(() => {
+        el.style.background = '';
+        if (macros) macros.innerHTML = oldText;
+      }, 1200);
+    }).catch(() => alert('Copiato (manuale): ' + text));
+  } else {
+    alert('Testo: ' + text);
+  }
+}
+
+// ============================================================
+// FOOD PICKER per inserire nel piano
+// ============================================================
+let pickerMealIdx = null;
+let pickerVariantIdx = null;
+let pickerQuery = '';
+let pickerCat = null;
+
+function openFoodPicker(mealIdx, variantIdx) {
+  const c = getActiveClient();
+  if (!c || !c.plan) return;
+  pickerMealIdx = mealIdx;
+  pickerVariantIdx = variantIdx;
+  pickerQuery = '';
+  pickerCat = null;
+  document.getElementById('pickerModal').classList.add('show');
+  renderPickerContent();
+  setTimeout(() => {
+    const inp = document.getElementById('pickerSearchInput');
+    if (inp) inp.focus();
+  }, 100);
+}
+
+function renderPickerContent() {
+  const c = getActiveClient();
+  const results = searchFoods(pickerQuery, c, pickerCat);
+  const catCount = {};
+  searchFoods(pickerQuery, c).forEach(f => { catCount[f.cat] = (catCount[f.cat] || 0) + 1; });
+  const dietLabel = getDietsForClient(c) === 'o' ? 'Onnivoro' : getDietsForClient(c) === 'p' ? 'Pescetariano' : getDietsForClient(c) === 'v' ? 'Vegetariano' : 'Vegano';
+
+  let html = `
+    <div class="lib-search-bar">
+      <input type="text" id="pickerSearchInput" placeholder="Cerca alimento..." value="${escapeHtml(pickerQuery)}" oninput="onPickerSearch(this.value)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:0.05em;margin-top:6px;">
+        Filtrato per regime cliente: ${dietLabel}
+      </div>
+    </div>
+    <div class="lib-cats">
+      <button class="lib-cat-btn ${!pickerCat?'active':''}" onclick="pickerCat=null;renderPickerContent();">Tutte (${Object.values(catCount).reduce((a,b)=>a+b,0)})</button>
+      ${Object.keys(CAT_LABELS).map(cat => {
+        const count = catCount[cat] || 0;
+        if (count === 0) return '';
+        return `<button class="lib-cat-btn ${pickerCat===cat?'active':''}" onclick="pickerCat='${cat}';renderPickerContent();">${CAT_LABELS[cat]} (${count})</button>`;
+      }).join('')}
+    </div>
+    <div class="lib-list">
+      ${results.length === 0 ? `<div class="lib-empty">Nessun alimento trovato.</div>` :
+        results.map(f => {
+          const safeName = f.n.replace(/'/g,"\\'");
+          return `<div class="lib-item lib-item-pickable" onclick="pickFood('${safeName}')">
+            <div class="lib-item-name">${escapeHtml(f.n)}</div>
+            <div class="lib-item-cat">${CAT_LABELS[f.cat]||f.cat}</div>
+            <div class="lib-item-macros">
+              <span>${f.kcal} kcal</span><span>P ${f.p}</span><span>C ${f.c}</span><span>F ${f.f}</span>
+            </div>
+            <div class="lib-pick-hint">Tap per inserire →</div>
+          </div>`;
+        }).join('')
+      }
+    </div>
+  `;
+  document.getElementById('pickerContent').innerHTML = html;
+}
+
+function onPickerSearch(val) {
+  pickerQuery = val;
+  const c = getActiveClient();
+  const results = searchFoods(pickerQuery, c, pickerCat);
+  const catCount = {};
+  searchFoods(pickerQuery, c).forEach(f => { catCount[f.cat] = (catCount[f.cat] || 0) + 1; });
+  const listEl = document.querySelector('#pickerContent .lib-list');
+  const catsEl = document.querySelector('#pickerContent .lib-cats');
+  if (catsEl) {
+    catsEl.innerHTML = `
+      <button class="lib-cat-btn ${!pickerCat?'active':''}" onclick="pickerCat=null;renderPickerContent();">Tutte (${Object.values(catCount).reduce((a,b)=>a+b,0)})</button>
+      ${Object.keys(CAT_LABELS).map(cat => {
+        const count = catCount[cat] || 0;
+        if (count === 0) return '';
+        return `<button class="lib-cat-btn ${pickerCat===cat?'active':''}" onclick="pickerCat='${cat}';renderPickerContent();">${CAT_LABELS[cat]} (${count})</button>`;
+      }).join('')}
+    `;
+  }
+  if (listEl) {
+    if (results.length === 0) {
+      listEl.innerHTML = `<div class="lib-empty">Nessun alimento trovato.</div>`;
+    } else {
+      listEl.innerHTML = results.map(f => {
+        const safeName = f.n.replace(/'/g,"\\'");
+        return `<div class="lib-item lib-item-pickable" onclick="pickFood('${safeName}')">
+          <div class="lib-item-name">${escapeHtml(f.n)}</div>
+          <div class="lib-item-cat">${CAT_LABELS[f.cat]||f.cat}</div>
+          <div class="lib-item-macros">
+            <span>${f.kcal} kcal</span><span>P ${f.p}</span><span>C ${f.c}</span><span>F ${f.f}</span>
+          </div>
+          <div class="lib-pick-hint">Tap per inserire →</div>
+        </div>`;
+      }).join('');
+    }
+  }
+}
+
+function pickFood(foodName) {
+  const grams = prompt(`Quanti grammi di "${foodName}"?`, '100');
+  if (grams === null) return; // cancel
+  const g = parseInt(grams);
+  if (!g || isNaN(g) || g <= 0) {
+    alert('Inserisci un numero valido.');
+    return;
+  }
+  const c = getActiveClient();
+  const meal = c.plan.meals[pickerMealIdx];
+  const currentText = meal.variants[pickerVariantIdx];
+  const lineToAdd = `${g} g ${foodName}`;
+  meal.variants[pickerVariantIdx] = currentText
+    ? currentText + '\n' + lineToAdd
+    : lineToAdd;
+  saveData();
+  closeModal('pickerModal');
+  renderMain();
+}
+
+// === HOOK: prendi uno snapshot quando ci sono cambiamenti significativi ===
+let snapshotPending = false;
+function scheduleSnapshot(reason) {
+  // Debouncing: se ci sono molte modifiche di fila, ne prende uno solo
+  if (snapshotPending) return;
+  snapshotPending = true;
+  setTimeout(() => {
+    takeSnapshot(reason);
+    saveData(true);
+    snapshotPending = false;
+  }, 2000);
+}
+
 // === INIT ===
 loadData();
 renderSidebar();
 renderMain();
+renderBackupBanner();
+
+// Prendi uno snapshot iniziale al caricamento se non ce ne sono
+if ((!DATA.snapshots || DATA.snapshots.length === 0) && DATA.clients.length > 0) {
+  takeSnapshot('Snapshot iniziale');
+  saveData(true);
+}
+
+// Aggiorna il banner ogni minuto (per cambiare colore quando passa il tempo)
+setInterval(() => renderBackupBanner(), 60000);
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {

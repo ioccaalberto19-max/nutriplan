@@ -1,6 +1,6 @@
 // NutriPlan Pro — Service Worker
 // Cambia CACHE_NAME ad ogni aggiornamento per forzare il refresh sui telefoni
-const CACHE_NAME = 'nutriplan-v3-2026-04-25';
+const CACHE_NAME = 'nutriplan-v5-2026-04-26';
 const ASSETS = [
   './',
   './index.html',
