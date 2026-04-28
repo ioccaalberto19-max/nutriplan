@@ -1,5 +1,5 @@
-// NutriPlan Pro - Service Worker
-const CACHE_NAME = 'nutriplan-v6-2026-04-28';
+// NutriPlan Pro v7 - Service Worker
+const CACHE_NAME = 'nutriplan-v7-2026-04-28';
 const URLS_TO_CACHE = [
   './',
   './index.html',

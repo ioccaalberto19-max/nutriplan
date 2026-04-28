@@ -1543,6 +1543,22 @@
     font-weight: 500;
     margin: 0 0 4px 0;
   }
+  .range-tag {
+    display: inline-block;
+    background: rgba(244, 241, 234, 0.15);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+    border: 1px solid rgba(244, 241, 234, 0.3);
+  }
   .day-totals-sub {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
@@ -1732,6 +1748,7 @@
     color: var(--paper);
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 <div class="app">
@@ -2287,6 +2304,542 @@ const FOOD_DB = [
   { n:"Eritritolo",                  cat:"condiments",       kcal:0,   p:0,   c:0,    f:0,    diets:"opvV", excl:[] },
   { n:"Stevia",                      cat:"condiments",       kcal:0,   p:0,   c:0,    f:0,    diets:"opvV", excl:[] },
   { n:"Dolcificante (aspartame)",    cat:"condiments",       kcal:0,   p:0,   c:0,    f:0,    diets:"opvV", excl:[] },
+
+  // ============================================================
+  // V7 — ALIMENTI AGGIUNTIVI (≈600)
+  // ============================================================
+
+  // BISCOTTI E DOLCI DA FORNO
+  { n:"Misura Fibrextra",             cat:"sweets",           kcal:430, p:9,   c:65,   f:14,   diets:"opv", excl:["glutine"] },
+  { n:"Misura Frollini integrali",    cat:"sweets",           kcal:438, p:7.5, c:67,   f:15,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Misura Frollini avena e miele",cat:"sweets",           kcal:436, p:7,   c:68,   f:14,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Misura Cuore di mela",         cat:"sweets",           kcal:391, p:5,   c:74,   f:7,    diets:"opv", excl:["glutine"] },
+  { n:"Misura Crackers",              cat:"sweets",           kcal:415, p:11,  c:71,   f:9,    diets:"opvV",excl:["glutine"] },
+  { n:"Mulino Bianco Pan di Stelle",  cat:"sweets",           kcal:480, p:6.5, c:67,   f:20,   diets:"opv", excl:["glutine","lattosio","frutta secca"] },
+  { n:"Mulino Bianco Macine",         cat:"sweets",           kcal:486, p:6,   c:64,   f:22,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Mulino Bianco Abbracci",       cat:"sweets",           kcal:494, p:6,   c:63,   f:23,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Mulino Bianco Galletti",       cat:"sweets",           kcal:474, p:6.5, c:69,   f:18,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Mulino Bianco Plumcake",       cat:"sweets",           kcal:382, p:6,   c:55,   f:14,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Mulino Bianco Tortine albic.", cat:"sweets",           kcal:340, p:5,   c:60,   f:9,    diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Mulino Bianco Pavesini",       cat:"sweets",           kcal:391, p:8.5, c:74,   f:6,    diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Mulino Bianco Buondì",         cat:"sweets",           kcal:430, p:6,   c:55,   f:20,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Oro Saiwa",                    cat:"sweets",           kcal:435, p:8,   c:72,   f:12,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Oro Saiwa fibre attiva",       cat:"sweets",           kcal:411, p:9,   c:69,   f:11,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Plasmon biscotto classico",    cat:"sweets",           kcal:415, p:9,   c:78,   f:7,    diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Plasmon biscotto granoro",     cat:"sweets",           kcal:415, p:9,   c:76,   f:8,    diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Gentilini Osvego",             cat:"sweets",           kcal:431, p:8,   c:73,   f:11,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Gentilini Margherite",         cat:"sweets",           kcal:485, p:6.5, c:65,   f:22,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Galbusera Buoni così",         cat:"sweets",           kcal:438, p:7,   c:68,   f:14,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Galbusera Crusca&Avena",       cat:"sweets",           kcal:407, p:9,   c:68,   f:11,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Galbusera Cracker fibra",      cat:"sweets",           kcal:430, p:11,  c:65,   f:13,   diets:"opvV",excl:["glutine"] },
+  { n:"Grancereale classico",         cat:"sweets",           kcal:455, p:8,   c:65,   f:18,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Grancereale frutta",           cat:"sweets",           kcal:430, p:7,   c:67,   f:15,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Frollini integrali generico",  cat:"sweets",           kcal:430, p:7,   c:67,   f:14,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Frollini classici generico",   cat:"sweets",           kcal:470, p:6,   c:67,   f:19,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Biscotti secchi (media)",      cat:"sweets",           kcal:420, p:7,   c:73,   f:11,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Biscotti frollini media",      cat:"sweets",           kcal:470, p:6,   c:65,   f:20,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Biscotti al cioccolato media", cat:"sweets",           kcal:495, p:6,   c:63,   f:23,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Wafer cioccolato",             cat:"sweets",           kcal:512, p:5,   c:65,   f:26,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Loacker wafer",                cat:"sweets",           kcal:535, p:6,   c:62,   f:29,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Croissant vuoto",              cat:"sweets",           kcal:406, p:8,   c:46,   f:21,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Croissant cioccolato",         cat:"sweets",           kcal:435, p:7,   c:50,   f:22,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Croissant marmellata",         cat:"sweets",           kcal:380, p:7,   c:52,   f:16,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Brioche vuota",                cat:"sweets",           kcal:355, p:8,   c:50,   f:13,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Brioche con crema",            cat:"sweets",           kcal:395, p:7,   c:52,   f:17,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Cornetto integrale",           cat:"sweets",           kcal:380, p:9,   c:48,   f:17,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Plumcake allo yogurt",         cat:"sweets",           kcal:370, p:6,   c:55,   f:14,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Tortina al cacao",             cat:"sweets",           kcal:425, p:6,   c:55,   f:20,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Madeleine",                    cat:"sweets",           kcal:430, p:6,   c:55,   f:21,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Ringo",                        cat:"sweets",           kcal:478, p:6,   c:65,   f:21,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Pavesini",                     cat:"sweets",           kcal:391, p:8.5, c:74,   f:6,    diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Tegolino",                     cat:"sweets",           kcal:430, p:6,   c:50,   f:22,   diets:"opv", excl:["glutine","lattosio","uova"] },
+
+  // CEREALI COLAZIONE
+  { n:"Special K classico",           cat:"cereals",          kcal:378, p:14,  c:74,   f:1.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Special K cioccolato",         cat:"cereals",          kcal:393, p:12,  c:73,   f:5,    diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Special K frutti rossi",       cat:"cereals",          kcal:378, p:13,  c:74,   f:1.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Fitness classico",             cat:"cereals",          kcal:378, p:8,   c:77,   f:3,    diets:"opvV",excl:["glutine"] },
+  { n:"Fitness cioccolato",           cat:"cereals",          kcal:392, p:7.5, c:75,   f:5.5,  diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Corn Flakes Kellogg's",        cat:"cereals",          kcal:378, p:7,   c:84,   f:0.9,  diets:"opvV",excl:[] },
+  { n:"Corn Flakes integrale",        cat:"cereals",          kcal:370, p:8,   c:80,   f:1.5,  diets:"opvV",excl:[] },
+  { n:"Cheerios",                     cat:"cereals",          kcal:381, p:9,   c:75,   f:5,    diets:"opvV",excl:["glutine"] },
+  { n:"Coco Pops",                    cat:"cereals",          kcal:386, p:5,   c:84,   f:2.5,  diets:"opvV",excl:[] },
+  { n:"Frosties",                     cat:"cereals",          kcal:378, p:5,   c:87,   f:1,    diets:"opvV",excl:[] },
+  { n:"Muesli classico",              cat:"cereals",          kcal:368, p:10,  c:65,   f:7,    diets:"opv", excl:["glutine","frutta secca"] },
+  { n:"Muesli con frutta secca",      cat:"cereals",          kcal:415, p:11,  c:60,   f:13,   diets:"opv", excl:["glutine","frutta secca"] },
+  { n:"Muesli al cioccolato",         cat:"cereals",          kcal:420, p:9,   c:65,   f:13,   diets:"opv", excl:["glutine","lattosio","frutta secca"] },
+  { n:"Granola classica",             cat:"cereals",          kcal:445, p:10,  c:60,   f:18,   diets:"opv", excl:["glutine","frutta secca"] },
+  { n:"Granola proteica",             cat:"cereals",          kcal:430, p:20,  c:50,   f:15,   diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Granola al cioccolato",        cat:"cereals",          kcal:455, p:9,   c:62,   f:18,   diets:"opv", excl:["glutine","lattosio","frutta secca"] },
+  { n:"Crusca d'avena",               cat:"cereals",          kcal:355, p:17,  c:55,   f:7,    diets:"opvV",excl:["glutine"] },
+  { n:"Crusca di frumento",           cat:"cereals",          kcal:206, p:16,  c:25,   f:5,    diets:"opvV",excl:["glutine"] },
+  { n:"All-Bran flakes",              cat:"cereals",          kcal:336, p:11,  c:67,   f:2,    diets:"opvV",excl:["glutine"] },
+  { n:"All-Bran original",            cat:"cereals",          kcal:259, p:14,  c:48,   f:3.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Riso soffiato",                cat:"cereals",          kcal:381, p:7,   c:85,   f:0.9,  diets:"opvV",excl:[] },
+  { n:"Mais soffiato",                cat:"cereals",          kcal:380, p:8,   c:80,   f:1,    diets:"opvV",excl:[] },
+  { n:"Quinoa soffiata",              cat:"cereals",          kcal:374, p:14,  c:65,   f:6,    diets:"opvV",excl:[] },
+  { n:"Porridge istantaneo classico", cat:"cereals",          kcal:370, p:11,  c:60,   f:7,    diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Porridge istantaneo cacao",    cat:"cereals",          kcal:380, p:18,  c:50,   f:9,    diets:"opv", excl:["glutine","lattosio"] },
+
+  // LATTE E BEVANDE VEGETALI
+  { n:"Latte vacca intero",           cat:"dairy_protein",    kcal:64,  p:3.3, c:4.7,  f:3.6,  diets:"opv", excl:["lattosio"] },
+  { n:"Latte vacca parz. scremato",   cat:"dairy_protein",    kcal:46,  p:3.4, c:4.9,  f:1.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Latte vacca scremato",         cat:"dairy_protein",    kcal:36,  p:3.5, c:5,    f:0.2,  diets:"opv", excl:["lattosio"] },
+  { n:"Latte alta digeribilità",      cat:"dairy_protein",    kcal:46,  p:3.4, c:4.9,  f:1.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Latte di soia non zucch.",     cat:"plant_milk",       kcal:33,  p:3.3, c:0.5,  f:1.8,  diets:"opvV",excl:["soia"] },
+  { n:"Latte di soia zuccherato",     cat:"plant_milk",       kcal:54,  p:3.3, c:6,    f:1.8,  diets:"opvV",excl:["soia"] },
+  { n:"Latte di mandorla non zucch.", cat:"plant_milk",       kcal:13,  p:0.5, c:0.3,  f:1.1,  diets:"opvV",excl:["frutta secca"] },
+  { n:"Latte di mandorla zuccherato", cat:"plant_milk",       kcal:50,  p:0.5, c:9,    f:1.5,  diets:"opvV",excl:["frutta secca"] },
+  { n:"Latte di avena non zucch.",    cat:"plant_milk",       kcal:42,  p:1,   c:7,    f:1.4,  diets:"opvV",excl:["glutine"] },
+  { n:"Latte di avena zuccherato",    cat:"plant_milk",       kcal:60,  p:1,   c:10,   f:1.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Latte di riso",                cat:"plant_milk",       kcal:47,  p:0.3, c:9.4,  f:1,    diets:"opvV",excl:[] },
+  { n:"Latte di cocco bevanda",       cat:"plant_milk",       kcal:38,  p:0.2, c:2,    f:3.2,  diets:"opvV",excl:[] },
+  { n:"Latte di nocciola",            cat:"plant_milk",       kcal:50,  p:0.4, c:9,    f:1.5,  diets:"opvV",excl:["frutta secca"] },
+  { n:"Latte di anacardi",            cat:"plant_milk",       kcal:25,  p:0.5, c:1,    f:2,    diets:"opvV",excl:["frutta secca"] },
+  { n:"Latte di canapa",              cat:"plant_milk",       kcal:38,  p:1,   c:5,    f:1.5,  diets:"opvV",excl:[] },
+
+  // YOGURT COMMERCIALI
+  { n:"Yogurt Vipiteno bianco intero",cat:"dairy_protein",    kcal:78,  p:3.5, c:6.5,  f:3.6,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt Vipiteno alla frutta",  cat:"dairy_protein",    kcal:96,  p:3.4, c:14,   f:3.2,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt Müller frutta",         cat:"dairy_protein",    kcal:106, p:3.7, c:15,   f:3.7,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt Müller cremoso",        cat:"dairy_protein",    kcal:122, p:3.5, c:14,   f:6,    diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt Activia bianco",        cat:"dairy_protein",    kcal:60,  p:5,   c:5,    f:2,    diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt Activia frutta",        cat:"dairy_protein",    kcal:75,  p:4,   c:11,   f:1.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt Yomo bianco",           cat:"dairy_protein",    kcal:60,  p:4,   c:5,    f:2.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt Yomo frutta",           cat:"dairy_protein",    kcal:90,  p:3.5, c:13,   f:2.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Skyr Vipiteno naturale",       cat:"dairy_protein",    kcal:62,  p:11,  c:4,    f:0.2,  diets:"opv", excl:["lattosio"] },
+  { n:"Skyr Vipiteno frutta",         cat:"dairy_protein",    kcal:75,  p:9,   c:9,    f:0.2,  diets:"opv", excl:["lattosio"] },
+  { n:"Skyr Lidl naturale",           cat:"dairy_protein",    kcal:60,  p:11,  c:4,    f:0.2,  diets:"opv", excl:["lattosio"] },
+  { n:"Skyr Müller naturale",         cat:"dairy_protein",    kcal:60,  p:11,  c:3.5,  f:0.2,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt greco Fage 0%",         cat:"dairy_protein",    kcal:57,  p:10,  c:4,    f:0,    diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt greco Fage 2%",         cat:"dairy_protein",    kcal:73,  p:9,   c:4,    f:2,    diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt greco Fage 5%",         cat:"dairy_protein",    kcal:97,  p:9,   c:4,    f:5,    diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt greco Total Fage frutta",cat:"dairy_protein",   kcal:100, p:7,   c:13,   f:2,    diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt proteico Müller Pro",   cat:"dairy_protein",    kcal:73,  p:10,  c:5,    f:1.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt proteico Danone HiPro", cat:"dairy_protein",    kcal:69,  p:10,  c:5,    f:0.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt proteico Lidl Milbona", cat:"dairy_protein",    kcal:65,  p:10,  c:5,    f:0.2,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt proteico Vipiteno",     cat:"dairy_protein",    kcal:65,  p:10,  c:5,    f:0.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Yogurt di soia naturale",      cat:"plant_milk",       kcal:45,  p:4,   c:2,    f:2,    diets:"opvV",excl:["soia"] },
+  { n:"Yogurt di soia frutta",        cat:"plant_milk",       kcal:80,  p:3.5, c:11,   f:2,    diets:"opvV",excl:["soia"] },
+  { n:"Yogurt di cocco",              cat:"plant_milk",       kcal:135, p:1,   c:6,    f:11,   diets:"opvV",excl:[] },
+  { n:"Yogurt di mandorla",           cat:"plant_milk",       kcal:60,  p:3,   c:5,    f:3,    diets:"opvV",excl:["frutta secca"] },
+  { n:"Kefir Vipiteno",               cat:"dairy_protein",    kcal:55,  p:3.6, c:4.5,  f:2.5,  diets:"opv", excl:["lattosio"] },
+  { n:"Kefir di soia",                cat:"plant_milk",       kcal:50,  p:3.5, c:4,    f:2,    diets:"opvV",excl:["soia"] },
+
+  // SNACK PROTEICI E BARRETTE
+  { n:"Foodspring Protein bar",       cat:"sweets",           kcal:380, p:35,  c:25,   f:13,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Foodspring Vegan bar",         cat:"sweets",           kcal:370, p:30,  c:30,   f:12,   diets:"opvV",excl:["soia","frutta secca"] },
+  { n:"Foodspring Pancakes mix",      cat:"cereals",          kcal:370, p:50,  c:25,   f:6,    diets:"opv", excl:["lattosio"] },
+  { n:"Foodspring Crema proteica",    cat:"sweets",           kcal:520, p:25,  c:25,   f:35,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Barebells protein bar",        cat:"sweets",           kcal:367, p:35,  c:18,   f:14,   diets:"opv", excl:["lattosio"] },
+  { n:"Barebells soft bar",           cat:"sweets",           kcal:380, p:30,  c:22,   f:14,   diets:"opv", excl:["lattosio"] },
+  { n:"Quest Bar",                    cat:"sweets",           kcal:340, p:35,  c:24,   f:11,   diets:"opv", excl:["lattosio"] },
+  { n:"Quest cookies",                cat:"sweets",           kcal:380, p:30,  c:32,   f:13,   diets:"opv", excl:["lattosio"] },
+  { n:"Protella crema proteica",      cat:"sweets",           kcal:430, p:30,  c:25,   f:23,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Yamamoto protein bar",         cat:"sweets",           kcal:370, p:33,  c:25,   f:13,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Pure Protein bar",             cat:"sweets",           kcal:360, p:36,  c:22,   f:11,   diets:"opv", excl:["lattosio"] },
+  { n:"Rule One bar",                 cat:"sweets",           kcal:370, p:33,  c:25,   f:12,   diets:"opv", excl:["lattosio"] },
+  { n:"Grenade Carb Killa",           cat:"sweets",           kcal:387, p:33,  c:23,   f:15,   diets:"opv", excl:["lattosio"] },
+  { n:"Mars Hi Protein bar",          cat:"sweets",           kcal:392, p:36,  c:35,   f:11,   diets:"opv", excl:["lattosio"] },
+  { n:"Snickers Hi Protein",          cat:"sweets",           kcal:400, p:33,  c:33,   f:13,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Twix Hi Protein",              cat:"sweets",           kcal:395, p:35,  c:32,   f:13,   diets:"opv", excl:["lattosio"] },
+  { n:"Be-Kind barretta",             cat:"sweets",           kcal:497, p:11,  c:35,   f:30,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Vitobest barretta",            cat:"sweets",           kcal:370, p:35,  c:23,   f:11,   diets:"opv", excl:["lattosio"] },
+  { n:"Enervit Protein deli",         cat:"sweets",           kcal:380, p:30,  c:30,   f:12,   diets:"opv", excl:["lattosio"] },
+  { n:"Enervit Sport gel",            cat:"sweets",           kcal:280, p:0,   c:70,   f:0,    diets:"opvV",excl:[] },
+  { n:"Crema mandorle proteica",      cat:"nuts_seeds",       kcal:550, p:25,  c:18,   f:42,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Crema arachidi proteica",      cat:"nuts_seeds",       kcal:570, p:30,  c:18,   f:42,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Cookies proteici",             cat:"sweets",           kcal:380, p:25,  c:35,   f:14,   diets:"opv", excl:["lattosio"] },
+  { n:"Brownies proteici",            cat:"sweets",           kcal:370, p:25,  c:35,   f:13,   diets:"opv", excl:["lattosio"] },
+
+  // WHEY E INTEGRATORI
+  { n:"Whey Foodspring",              cat:"protein_supplement",kcal:400,p:80,  c:6,    f:6,    diets:"opv", excl:["lattosio"] },
+  { n:"Whey MyProtein Impact",        cat:"protein_supplement",kcal:413,p:82,  c:6,    f:7,    diets:"opv", excl:["lattosio"] },
+  { n:"Whey Optimum Gold Standard",   cat:"protein_supplement",kcal:380,p:80,  c:5,    f:4,    diets:"opv", excl:["lattosio"] },
+  { n:"Whey Yamamoto",                cat:"protein_supplement",kcal:400,p:82,  c:5,    f:6,    diets:"opv", excl:["lattosio"] },
+  { n:"Whey Prozis 100% Pure",        cat:"protein_supplement",kcal:387,p:81,  c:5,    f:5,    diets:"opv", excl:["lattosio"] },
+  { n:"Whey Isolate Foodspring",      cat:"protein_supplement",kcal:380,p:90,  c:1,    f:1,    diets:"opv", excl:["lattosio"] },
+  { n:"Whey Isolate MyProtein",       cat:"protein_supplement",kcal:373,p:90,  c:1,    f:1,    diets:"opv", excl:["lattosio"] },
+  { n:"Caseine Optimum",              cat:"protein_supplement",kcal:368,p:80,  c:5,    f:2,    diets:"opv", excl:["lattosio"] },
+  { n:"Caseine MyProtein",            cat:"protein_supplement",kcal:365,p:80,  c:5,    f:2,    diets:"opv", excl:["lattosio"] },
+  { n:"Proteine vegetali Foodspring", cat:"protein_supplement",kcal:380,p:75,  c:8,    f:5,    diets:"opvV",excl:["soia"] },
+  { n:"Proteine pisello MyProtein",   cat:"protein_supplement",kcal:370,p:80,  c:1,    f:5,    diets:"opvV",excl:[] },
+  { n:"Proteine soia isolate",        cat:"protein_supplement",kcal:380,p:88,  c:2,    f:1,    diets:"opvV",excl:["soia"] },
+  { n:"Proteine canapa",              cat:"protein_supplement",kcal:380,p:50,  c:10,   f:13,   diets:"opvV",excl:[] },
+  { n:"Mass Gainer (media)",          cat:"protein_supplement",kcal:390,p:30,  c:55,   f:5,    diets:"opv", excl:["lattosio"] },
+  { n:"BCAA powder",                  cat:"protein_supplement",kcal:380,p:90,  c:0,    f:0,    diets:"opvV",excl:[] },
+  { n:"Creatina monoidrato",          cat:"protein_supplement",kcal:0,   p:0,   c:0,    f:0,    diets:"opvV",excl:[] },
+
+  // FORMAGGI
+  { n:"Scamorza fresca",              cat:"dairy_protein",    kcal:280, p:24,  c:1,    f:20,   diets:"opv", excl:["lattosio"] },
+  { n:"Scamorza affumicata",          cat:"dairy_protein",    kcal:295, p:25,  c:1,    f:21,   diets:"opv", excl:["lattosio"] },
+  { n:"Primo sale",                   cat:"dairy_protein",    kcal:255, p:18,  c:0.5,  f:20,   diets:"opv", excl:["lattosio"] },
+  { n:"Caciotta fresca",              cat:"dairy_protein",    kcal:328, p:23,  c:1,    f:26,   diets:"opv", excl:["lattosio"] },
+  { n:"Caciotta stagionata",          cat:"dairy_protein",    kcal:380, p:27,  c:1,    f:30,   diets:"opv", excl:["lattosio"] },
+  { n:"Taleggio",                     cat:"dairy_protein",    kcal:315, p:19,  c:0.5,  f:26,   diets:"opv", excl:["lattosio"] },
+  { n:"Gorgonzola dolce",             cat:"dairy_protein",    kcal:330, p:18,  c:0.5,  f:28,   diets:"opv", excl:["lattosio"] },
+  { n:"Gorgonzola piccante",          cat:"dairy_protein",    kcal:354, p:20,  c:0,    f:30,   diets:"opv", excl:["lattosio"] },
+  { n:"Asiago fresco",                cat:"dairy_protein",    kcal:340, p:24,  c:0.5,  f:27,   diets:"opv", excl:["lattosio"] },
+  { n:"Asiago stagionato",            cat:"dairy_protein",    kcal:392, p:30,  c:0.5,  f:30,   diets:"opv", excl:["lattosio"] },
+  { n:"Pecorino fresco",              cat:"dairy_protein",    kcal:340, p:25,  c:1,    f:26,   diets:"opv", excl:["lattosio"] },
+  { n:"Pecorino stagionato",          cat:"dairy_protein",    kcal:392, p:28,  c:1,    f:31,   diets:"opv", excl:["lattosio"] },
+  { n:"Pecorino romano",              cat:"dairy_protein",    kcal:387, p:26,  c:0,    f:32,   diets:"opv", excl:["lattosio"] },
+  { n:"Gruviera",                     cat:"dairy_protein",    kcal:413, p:30,  c:0.4,  f:32,   diets:"opv", excl:["lattosio"] },
+  { n:"Emmental",                     cat:"dairy_protein",    kcal:380, p:28,  c:0.4,  f:30,   diets:"opv", excl:["lattosio"] },
+  { n:"Edamer",                       cat:"dairy_protein",    kcal:357, p:25,  c:1.4,  f:28,   diets:"opv", excl:["lattosio"] },
+  { n:"Brie",                         cat:"dairy_protein",    kcal:334, p:21,  c:0.5,  f:28,   diets:"opv", excl:["lattosio"] },
+  { n:"Camembert",                    cat:"dairy_protein",    kcal:300, p:20,  c:0.5,  f:24,   diets:"opv", excl:["lattosio"] },
+  { n:"Fontina",                      cat:"dairy_protein",    kcal:343, p:25,  c:0.5,  f:27,   diets:"opv", excl:["lattosio"] },
+  { n:"Montasio",                     cat:"dairy_protein",    kcal:386, p:26,  c:0.5,  f:31,   diets:"opv", excl:["lattosio"] },
+  { n:"Raschera",                     cat:"dairy_protein",    kcal:370, p:25,  c:0.5,  f:30,   diets:"opv", excl:["lattosio"] },
+  { n:"Provolone dolce",              cat:"dairy_protein",    kcal:362, p:26,  c:1,    f:28,   diets:"opv", excl:["lattosio"] },
+  { n:"Provolone piccante",           cat:"dairy_protein",    kcal:372, p:27,  c:1,    f:29,   diets:"opv", excl:["lattosio"] },
+  { n:"Mozzarella di bufala",         cat:"dairy_protein",    kcal:288, p:17,  c:0.5,  f:24,   diets:"opv", excl:["lattosio"] },
+  { n:"Burrata",                      cat:"dairy_protein",    kcal:330, p:17,  c:1,    f:28,   diets:"opv", excl:["lattosio"] },
+  { n:"Stracciatella",                cat:"dairy_protein",    kcal:280, p:14,  c:1,    f:24,   diets:"opv", excl:["lattosio"] },
+  { n:"Robiola",                      cat:"dairy_protein",    kcal:265, p:18,  c:1,    f:20,   diets:"opv", excl:["lattosio"] },
+  { n:"Stracchino",                   cat:"dairy_protein",    kcal:300, p:17,  c:0.5,  f:25,   diets:"opv", excl:["lattosio"] },
+  { n:"Crescenza",                    cat:"dairy_protein",    kcal:280, p:18,  c:0.5,  f:23,   diets:"opv", excl:["lattosio"] },
+  { n:"Quartirolo",                   cat:"dairy_protein",    kcal:283, p:21,  c:0.5,  f:22,   diets:"opv", excl:["lattosio"] },
+  { n:"Casatella",                    cat:"dairy_protein",    kcal:285, p:18,  c:1,    f:23,   diets:"opv", excl:["lattosio"] },
+  { n:"Squacquerone",                 cat:"dairy_protein",    kcal:235, p:13,  c:1,    f:20,   diets:"opv", excl:["lattosio"] },
+  { n:"Caciocavallo",                 cat:"dairy_protein",    kcal:380, p:28,  c:1,    f:30,   diets:"opv", excl:["lattosio"] },
+  { n:"Grana Padano",                 cat:"dairy_protein",    kcal:392, p:33,  c:0,    f:28,   diets:"opv", excl:["lattosio"] },
+
+  // SALUMI
+  { n:"Prosciutto cotto magro",       cat:"prot_animal_lean", kcal:120, p:20,  c:1,    f:4,    diets:"o",   excl:[] },
+  { n:"Prosciutto cotto AltaQualità", cat:"prot_animal_lean", kcal:130, p:21,  c:0.5,  f:5,    diets:"o",   excl:[] },
+  { n:"Prosciutto cotto standard",    cat:"prot_animal_lean", kcal:165, p:18,  c:1,    f:10,   diets:"o",   excl:[] },
+  { n:"Prosciutto crudo Parma",       cat:"prot_animal_lean", kcal:265, p:26,  c:0,    f:18,   diets:"o",   excl:[] },
+  { n:"Prosciutto crudo San Daniele", cat:"prot_animal_lean", kcal:269, p:26,  c:0,    f:18,   diets:"o",   excl:[] },
+  { n:"Speck",                        cat:"prot_animal_lean", kcal:303, p:28,  c:0,    f:21,   diets:"o",   excl:[] },
+  { n:"Mortadella standard",          cat:"prot_animal_fatty",kcal:317, p:14,  c:0.5,  f:29,   diets:"o",   excl:[] },
+  { n:"Mortadella light",             cat:"prot_animal_lean", kcal:200, p:18,  c:0.5,  f:14,   diets:"o",   excl:[] },
+  { n:"Salame Milano",                cat:"prot_animal_fatty",kcal:425, p:24,  c:0.5,  f:36,   diets:"o",   excl:[] },
+  { n:"Salame Napoli",                cat:"prot_animal_fatty",kcal:432, p:24,  c:0.5,  f:37,   diets:"o",   excl:[] },
+  { n:"Salame Felino",                cat:"prot_animal_fatty",kcal:415, p:25,  c:0.5,  f:35,   diets:"o",   excl:[] },
+  { n:"Salame magro",                 cat:"prot_animal_lean", kcal:280, p:25,  c:0.5,  f:20,   diets:"o",   excl:[] },
+  { n:"Salsiccia fresca",             cat:"prot_animal_fatty",kcal:330, p:16,  c:1,    f:29,   diets:"o",   excl:[] },
+  { n:"Salsiccia stagionata",         cat:"prot_animal_fatty",kcal:430, p:24,  c:0.5,  f:37,   diets:"o",   excl:[] },
+  { n:"Bresaola della Valtellina",    cat:"prot_animal_lean", kcal:151, p:33,  c:0.5,  f:2,    diets:"o",   excl:[] },
+  { n:"Fesa di tacchino affettato",   cat:"prot_animal_lean", kcal:108, p:22,  c:0.5,  f:2,    diets:"o",   excl:[] },
+  { n:"Petto di pollo affettato",     cat:"prot_animal_lean", kcal:110, p:23,  c:0.5,  f:2,    diets:"o",   excl:[] },
+  { n:"Prosciutto di tacchino",       cat:"prot_animal_lean", kcal:120, p:21,  c:1,    f:3.5,  diets:"o",   excl:[] },
+  { n:"Coppa",                        cat:"prot_animal_fatty",kcal:398, p:25,  c:0,    f:33,   diets:"o",   excl:[] },
+  { n:"Pancetta arrotolata",          cat:"prot_animal_fatty",kcal:540, p:18,  c:0,    f:50,   diets:"o",   excl:[] },
+  { n:"Pancetta tesa",                cat:"prot_animal_fatty",kcal:580, p:14,  c:0,    f:55,   diets:"o",   excl:[] },
+  { n:"Würstel di pollo",             cat:"prot_animal_lean", kcal:175, p:14,  c:1,    f:13,   diets:"o",   excl:[] },
+  { n:"Würstel di tacchino",          cat:"prot_animal_lean", kcal:165, p:14,  c:1,    f:11,   diets:"o",   excl:[] },
+  { n:"Würstel classico",             cat:"prot_animal_fatty",kcal:280, p:12,  c:1,    f:25,   diets:"o",   excl:[] },
+  { n:"Lardo",                        cat:"prot_animal_fatty",kcal:760, p:6,   c:0,    f:80,   diets:"o",   excl:[] },
+
+  // PESCE CONSERVATO
+  { n:"Tonno olio oliva sgocciolato", cat:"prot_animal_lean", kcal:189, p:25,  c:0,    f:10,   diets:"op",  excl:[] },
+  { n:"Tonno olio girasole sgocc.",   cat:"prot_animal_lean", kcal:196, p:25,  c:0,    f:11,   diets:"op",  excl:[] },
+  { n:"Tonno limone e pepe",          cat:"prot_animal_lean", kcal:120, p:24,  c:1,    f:3,    diets:"op",  excl:[] },
+  { n:"Tonno peperoncino",            cat:"prot_animal_lean", kcal:130, p:24,  c:1,    f:4,    diets:"op",  excl:[] },
+  { n:"Tonno con olive",              cat:"prot_animal_lean", kcal:155, p:23,  c:1,    f:7,    diets:"op",  excl:[] },
+  { n:"Tonno con mais",               cat:"prot_animal_lean", kcal:140, p:18,  c:8,    f:5,    diets:"op",  excl:[] },
+  { n:"Tonno con cipolle",            cat:"prot_animal_lean", kcal:135, p:18,  c:6,    f:5,    diets:"op",  excl:[] },
+  { n:"Alici sott'olio",              cat:"prot_animal_lean", kcal:206, p:25,  c:0,    f:12,   diets:"op",  excl:[] },
+  { n:"Alici sotto sale",             cat:"prot_animal_lean", kcal:130, p:23,  c:0,    f:4,    diets:"op",  excl:[] },
+  { n:"Sgombro al naturale",          cat:"prot_animal_fatty",kcal:160, p:22,  c:0,    f:8,    diets:"op",  excl:[] },
+  { n:"Sgombro sott'olio sgocc.",     cat:"prot_animal_fatty",kcal:230, p:22,  c:0,    f:16,   diets:"op",  excl:[] },
+  { n:"Sgombro al limone",            cat:"prot_animal_fatty",kcal:170, p:22,  c:1,    f:9,    diets:"op",  excl:[] },
+  { n:"Salmone affumicato",           cat:"prot_animal_fatty",kcal:147, p:23,  c:0,    f:6,    diets:"op",  excl:[] },
+  { n:"Salmone scatola al naturale",  cat:"prot_animal_fatty",kcal:130, p:21,  c:0,    f:5,    diets:"op",  excl:[] },
+  { n:"Salmone in salamoia",          cat:"prot_animal_fatty",kcal:135, p:22,  c:0,    f:5,    diets:"op",  excl:[] },
+  { n:"Surimi",                       cat:"prot_animal_lean", kcal:99,  p:11,  c:13,   f:1,    diets:"op",  excl:[] },
+  { n:"Polpa di granchio",            cat:"prot_animal_lean", kcal:84,  p:18,  c:0,    f:1,    diets:"op",  excl:[] },
+  { n:"Vongole al naturale",          cat:"prot_animal_lean", kcal:75,  p:16,  c:1,    f:1,    diets:"op",  excl:[] },
+  { n:"Cozze al naturale",            cat:"prot_animal_lean", kcal:86,  p:13,  c:3,    f:2,    diets:"op",  excl:[] },
+  { n:"Polpo in salamoia",            cat:"prot_animal_lean", kcal:82,  p:15,  c:1,    f:1,    diets:"op",  excl:[] },
+  { n:"Sardine sott'olio",            cat:"prot_animal_fatty",kcal:208, p:25,  c:0,    f:11,   diets:"op",  excl:[] },
+  { n:"Sardine al limone",            cat:"prot_animal_fatty",kcal:170, p:23,  c:1,    f:8,    diets:"op",  excl:[] },
+  { n:"Aringhe sott'olio",            cat:"prot_animal_fatty",kcal:240, p:21,  c:0,    f:17,   diets:"op",  excl:[] },
+  { n:"Bottarga di muggine",          cat:"prot_animal_lean", kcal:386, p:42,  c:1,    f:24,   diets:"op",  excl:[] },
+  { n:"Trota affumicata",             cat:"prot_animal_lean", kcal:160, p:24,  c:0,    f:7,    diets:"op",  excl:[] },
+
+  // PASTA E CEREALI SPECIALTY
+  { n:"Pasta Garofalo semola",        cat:"complex_carbs",    kcal:357, p:13,  c:71,   f:1.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Pasta De Cecco semola",        cat:"complex_carbs",    kcal:359, p:13,  c:72,   f:1.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Pasta Barilla semola",         cat:"complex_carbs",    kcal:359, p:13,  c:72,   f:1.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Pasta Barilla integrale",      cat:"complex_carbs",    kcal:355, p:13,  c:65,   f:2.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Pasta Garofalo integrale",     cat:"complex_carbs",    kcal:357, p:13,  c:65,   f:2.8,  diets:"opvV",excl:["glutine"] },
+  { n:"Pasta lenticchie rosse",       cat:"complex_carbs",    kcal:340, p:25,  c:48,   f:2,    diets:"opvV",excl:[] },
+  { n:"Pasta ceci",                   cat:"complex_carbs",    kcal:345, p:21,  c:55,   f:5,    diets:"opvV",excl:[] },
+  { n:"Pasta piselli",                cat:"complex_carbs",    kcal:330, p:25,  c:50,   f:2,    diets:"opvV",excl:[] },
+  { n:"Pasta soia edamame",           cat:"complex_carbs",    kcal:340, p:35,  c:35,   f:5,    diets:"opvV",excl:["soia"] },
+  { n:"Pasta proteica Lidl",          cat:"complex_carbs",    kcal:355, p:25,  c:50,   f:3,    diets:"opvV",excl:["glutine"] },
+  { n:"Pasta proteica Felicia",       cat:"complex_carbs",    kcal:345, p:30,  c:45,   f:4,    diets:"opvV",excl:[] },
+  { n:"Pasta konjac (Shirataki)",     cat:"complex_carbs",    kcal:9,   p:0.5, c:1,    f:0,    diets:"opvV",excl:[] },
+  { n:"Riso Carnaroli crudo",         cat:"complex_carbs",    kcal:362, p:7,   c:80,   f:0.6,  diets:"opvV",excl:[] },
+  { n:"Riso Arborio crudo",           cat:"complex_carbs",    kcal:362, p:7,   c:80,   f:0.6,  diets:"opvV",excl:[] },
+  { n:"Riso jasmine crudo",           cat:"complex_carbs",    kcal:355, p:7.5, c:79,   f:0.7,  diets:"opvV",excl:[] },
+  { n:"Riso parboiled crudo",         cat:"complex_carbs",    kcal:357, p:7.5, c:80,   f:0.6,  diets:"opvV",excl:[] },
+  { n:"Riso rosso crudo",             cat:"complex_carbs",    kcal:355, p:7.5, c:73,   f:2.5,  diets:"opvV",excl:[] },
+  { n:"Riso nero (venere) crudo",     cat:"complex_carbs",    kcal:362, p:7.5, c:75,   f:2.5,  diets:"opvV",excl:[] },
+  { n:"Couscous crudo",               cat:"complex_carbs",    kcal:362, p:12,  c:73,   f:0.6,  diets:"opvV",excl:["glutine"] },
+  { n:"Couscous integrale crudo",     cat:"complex_carbs",    kcal:357, p:13,  c:68,   f:1.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Bulgur crudo",                 cat:"complex_carbs",    kcal:342, p:12,  c:69,   f:1.3,  diets:"opvV",excl:["glutine"] },
+  { n:"Sorgo crudo",                  cat:"complex_carbs",    kcal:339, p:11,  c:75,   f:3.3,  diets:"opvV",excl:[] },
+  { n:"Miglio crudo",                 cat:"complex_carbs",    kcal:378, p:11,  c:73,   f:4.2,  diets:"opvV",excl:[] },
+  { n:"Grano saraceno crudo",         cat:"complex_carbs",    kcal:343, p:13,  c:72,   f:3.4,  diets:"opvV",excl:[] },
+  { n:"Amaranto crudo",               cat:"complex_carbs",    kcal:371, p:14,  c:65,   f:7,    diets:"opvV",excl:[] },
+  { n:"Polenta cruda (mais)",         cat:"complex_carbs",    kcal:362, p:8.5, c:78,   f:1.6,  diets:"opvV",excl:[] },
+  { n:"Polenta cotta",                cat:"complex_carbs",    kcal:84,  p:2,   c:18,   f:0.4,  diets:"opvV",excl:[] },
+  { n:"Tapioca",                      cat:"complex_carbs",    kcal:358, p:0.2, c:88,   f:0,    diets:"opvV",excl:[] },
+
+  // PANE E SOSTITUTI
+  { n:"Pane bianco comune",           cat:"complex_carbs",    kcal:268, p:8.5, c:54,   f:1.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Pane integrale",               cat:"complex_carbs",    kcal:243, p:9,   c:46,   f:2,    diets:"opvV",excl:["glutine"] },
+  { n:"Pane di segale",               cat:"complex_carbs",    kcal:259, p:8.5, c:48,   f:1.7,  diets:"opvV",excl:["glutine"] },
+  { n:"Pane ai cereali",              cat:"complex_carbs",    kcal:280, p:10,  c:48,   f:4,    diets:"opvV",excl:["glutine"] },
+  { n:"Pane casereccio",              cat:"complex_carbs",    kcal:275, p:9,   c:55,   f:1.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Pane di kamut",                cat:"complex_carbs",    kcal:265, p:11,  c:50,   f:2,    diets:"opvV",excl:["glutine"] },
+  { n:"Pane di farro",                cat:"complex_carbs",    kcal:270, p:11,  c:50,   f:2,    diets:"opvV",excl:["glutine"] },
+  { n:"Pane proteico",                cat:"complex_carbs",    kcal:240, p:25,  c:25,   f:6,    diets:"opv", excl:["glutine"] },
+  { n:"Pane proteico Lidl",           cat:"complex_carbs",    kcal:236, p:24,  c:25,   f:6,    diets:"opv", excl:["glutine"] },
+  { n:"Pane proteico Esselunga",      cat:"complex_carbs",    kcal:240, p:25,  c:24,   f:6,    diets:"opv", excl:["glutine"] },
+  { n:"Pane carasau",                 cat:"complex_carbs",    kcal:392, p:11,  c:81,   f:2.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Pane azzimo",                  cat:"complex_carbs",    kcal:368, p:12,  c:74,   f:2,    diets:"opvV",excl:["glutine"] },
+  { n:"Pane arabo (pita)",            cat:"complex_carbs",    kcal:275, p:9,   c:55,   f:1.5,  diets:"opvV",excl:["glutine"] },
+  { n:"Tortilla integrale",           cat:"complex_carbs",    kcal:300, p:9,   c:50,   f:7,    diets:"opvV",excl:["glutine"] },
+  { n:"Tortilla classica",            cat:"complex_carbs",    kcal:310, p:8,   c:55,   f:6,    diets:"opvV",excl:["glutine"] },
+  { n:"Focaccia genovese",            cat:"complex_carbs",    kcal:340, p:7,   c:50,   f:12,   diets:"opvV",excl:["glutine"] },
+  { n:"Pizza margherita base",        cat:"complex_carbs",    kcal:270, p:11,  c:35,   f:9,    diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Pizza prosciutto",             cat:"complex_carbs",    kcal:285, p:13,  c:33,   f:10,   diets:"o",   excl:["glutine","lattosio"] },
+  { n:"Pizza al taglio media",        cat:"complex_carbs",    kcal:275, p:11,  c:36,   f:9,    diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Piadina classica",             cat:"complex_carbs",    kcal:301, p:8,   c:55,   f:5,    diets:"opvV",excl:["glutine","lattosio"] },
+  { n:"Piadina integrale",            cat:"complex_carbs",    kcal:285, p:9,   c:50,   f:5,    diets:"opvV",excl:["glutine","lattosio"] },
+  { n:"Piadina light",                cat:"complex_carbs",    kcal:230, p:9,   c:43,   f:2,    diets:"opvV",excl:["glutine","lattosio"] },
+  { n:"Crackers integrali",           cat:"complex_carbs",    kcal:415, p:11,  c:71,   f:9,    diets:"opvV",excl:["glutine"] },
+  { n:"Crackers classici",            cat:"complex_carbs",    kcal:430, p:10,  c:73,   f:11,   diets:"opvV",excl:["glutine"] },
+  { n:"Grissini classici",            cat:"complex_carbs",    kcal:431, p:11,  c:75,   f:9,    diets:"opvV",excl:["glutine"] },
+  { n:"Grissini integrali",           cat:"complex_carbs",    kcal:415, p:11,  c:67,   f:11,   diets:"opvV",excl:["glutine"] },
+  { n:"Taralli classici",             cat:"complex_carbs",    kcal:475, p:9,   c:67,   f:18,   diets:"opvV",excl:["glutine"] },
+  { n:"Friselle integrali",           cat:"complex_carbs",    kcal:355, p:12,  c:65,   f:3,    diets:"opvV",excl:["glutine"] },
+  { n:"Pancarrè",                     cat:"complex_carbs",    kcal:280, p:9,   c:50,   f:5,    diets:"opv", excl:["glutine","lattosio"] },
+  { n:"Pancarrè integrale",           cat:"complex_carbs",    kcal:265, p:10,  c:45,   f:4.5,  diets:"opv", excl:["glutine","lattosio"] },
+
+  // FRUTTA AGGIUNTIVA
+  { n:"Mela Golden",                  cat:"fruit",            kcal:54,  p:0.3, c:13,   f:0.1,  diets:"opvV",excl:[] },
+  { n:"Mela Granny Smith",            cat:"fruit",            kcal:50,  p:0.3, c:12,   f:0.1,  diets:"opvV",excl:[] },
+  { n:"Mela Fuji",                    cat:"fruit",            kcal:56,  p:0.3, c:14,   f:0.1,  diets:"opvV",excl:[] },
+  { n:"Mela Pink Lady",               cat:"fruit",            kcal:55,  p:0.3, c:13,   f:0.1,  diets:"opvV",excl:[] },
+  { n:"Pera Williams",                cat:"fruit",            kcal:53,  p:0.3, c:12.5, f:0.2,  diets:"opvV",excl:[] },
+  { n:"Pera Abate",                   cat:"fruit",            kcal:53,  p:0.3, c:12.5, f:0.2,  diets:"opvV",excl:[] },
+  { n:"Banana matura",                cat:"fruit",            kcal:96,  p:1.2, c:22,   f:0.3,  diets:"opvV",excl:[] },
+  { n:"Banana verde",                 cat:"fruit",            kcal:80,  p:1.4, c:18,   f:0.3,  diets:"opvV",excl:[] },
+  { n:"Kiwi giallo",                  cat:"fruit",            kcal:60,  p:1.2, c:14,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Kiwi verde",                   cat:"fruit",            kcal:51,  p:1,   c:11,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Mandarino",                    cat:"fruit",            kcal:53,  p:0.8, c:12,   f:0.3,  diets:"opvV",excl:[] },
+  { n:"Mandarancio",                  cat:"fruit",            kcal:53,  p:0.8, c:12,   f:0.3,  diets:"opvV",excl:[] },
+  { n:"Clementine",                   cat:"fruit",            kcal:48,  p:0.9, c:11,   f:0.2,  diets:"opvV",excl:[] },
+  { n:"Pesca",                        cat:"fruit",            kcal:39,  p:0.8, c:9,    f:0.3,  diets:"opvV",excl:[] },
+  { n:"Pesca noce",                   cat:"fruit",            kcal:44,  p:1.1, c:10,   f:0.4,  diets:"opvV",excl:[] },
+  { n:"Albicocca",                    cat:"fruit",            kcal:48,  p:1.4, c:11,   f:0.4,  diets:"opvV",excl:[] },
+  { n:"Susina rossa",                 cat:"fruit",            kcal:46,  p:0.7, c:11,   f:0.3,  diets:"opvV",excl:[] },
+  { n:"Susina gialla",                cat:"fruit",            kcal:42,  p:0.5, c:10,   f:0.2,  diets:"opvV",excl:[] },
+  { n:"Prugna nera",                  cat:"fruit",            kcal:46,  p:0.5, c:11,   f:0.2,  diets:"opvV",excl:[] },
+  { n:"Ciliegie",                     cat:"fruit",            kcal:63,  p:1,   c:14,   f:0.3,  diets:"opvV",excl:[] },
+  { n:"Uva bianca",                   cat:"fruit",            kcal:69,  p:0.7, c:16,   f:0.2,  diets:"opvV",excl:[] },
+  { n:"Uva nera",                     cat:"fruit",            kcal:69,  p:0.7, c:16,   f:0.2,  diets:"opvV",excl:[] },
+  { n:"Anguria",                      cat:"fruit",            kcal:30,  p:0.6, c:7,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Melone giallo",                cat:"fruit",            kcal:34,  p:0.8, c:8,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Melone retato",                cat:"fruit",            kcal:34,  p:0.8, c:8,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Ananas fresca",                cat:"fruit",            kcal:50,  p:0.5, c:13,   f:0.1,  diets:"opvV",excl:[] },
+  { n:"Mango",                        cat:"fruit",            kcal:60,  p:0.8, c:15,   f:0.4,  diets:"opvV",excl:[] },
+  { n:"Papaya",                       cat:"fruit",            kcal:43,  p:0.5, c:11,   f:0.3,  diets:"opvV",excl:[] },
+  { n:"Avocado",                      cat:"healthy_fats",     kcal:160, p:2,   c:9,    f:15,   diets:"opvV",excl:[] },
+  { n:"Fichi freschi",                cat:"fruit",            kcal:74,  p:0.7, c:19,   f:0.3,  diets:"opvV",excl:[] },
+  { n:"Fichi secchi",                 cat:"fruit",            kcal:249, p:3.3, c:64,   f:0.9,  diets:"opvV",excl:[] },
+  { n:"Cachi",                        cat:"fruit",            kcal:65,  p:0.6, c:16,   f:0.3,  diets:"opvV",excl:[] },
+  { n:"Nespole",                      cat:"fruit",            kcal:47,  p:0.4, c:11,   f:0.2,  diets:"opvV",excl:[] },
+  { n:"More",                         cat:"fruit",            kcal:36,  p:0.9, c:8.1,  f:0.4,  diets:"opvV",excl:[] },
+  { n:"Ribes nero",                   cat:"fruit",            kcal:63,  p:1.4, c:13,   f:0.4,  diets:"opvV",excl:[] },
+  { n:"Pompelmo rosa",                cat:"fruit",            kcal:38,  p:0.8, c:9,    f:0.1,  diets:"opvV",excl:[] },
+  { n:"Pompelmo giallo",              cat:"fruit",            kcal:36,  p:0.7, c:8,    f:0.1,  diets:"opvV",excl:[] },
+  { n:"Lime",                         cat:"fruit",            kcal:30,  p:0.7, c:7,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Limone",                       cat:"fruit",            kcal:29,  p:1.1, c:6,    f:0.3,  diets:"opvV",excl:[] },
+  { n:"Frutto della passione",        cat:"fruit",            kcal:97,  p:2.2, c:23,   f:0.7,  diets:"opvV",excl:[] },
+  { n:"Litchi",                       cat:"fruit",            kcal:66,  p:0.8, c:16,   f:0.4,  diets:"opvV",excl:[] },
+  { n:"Albicocche secche",            cat:"fruit",            kcal:241, p:3.4, c:62,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Datteri freschi",              cat:"fruit",            kcal:142, p:1.5, c:38,   f:0.6,  diets:"opvV",excl:[] },
+  { n:"Prugne secche",                cat:"fruit",            kcal:240, p:2.2, c:64,   f:0.4,  diets:"opvV",excl:[] },
+  { n:"Uvetta",                       cat:"fruit",            kcal:283, p:1.9, c:73,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Mirtilli rossi essiccati",     cat:"fruit",            kcal:308, p:0.1, c:82,   f:1.4,  diets:"opvV",excl:[] },
+
+  // VERDURE
+  { n:"Zucchine",                     cat:"vegetables",       kcal:17,  p:1.3, c:3.1,  f:0.3,  diets:"opvV",excl:[] },
+  { n:"Melanzane",                    cat:"vegetables",       kcal:25,  p:1,   c:6,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Peperoni rossi",               cat:"vegetables",       kcal:31,  p:1,   c:6,    f:0.3,  diets:"opvV",excl:[] },
+  { n:"Peperoni gialli",              cat:"vegetables",       kcal:27,  p:1,   c:6.3,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Peperoni verdi",               cat:"vegetables",       kcal:20,  p:0.9, c:4.6,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Carote crude",                 cat:"vegetables",       kcal:35,  p:1.1, c:7.6,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Carote cotte",                 cat:"vegetables",       kcal:40,  p:1,   c:9,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Broccoli cotti",               cat:"vegetables",       kcal:35,  p:3,   c:7,    f:0.4,  diets:"opvV",excl:[] },
+  { n:"Cavolfiore cotto",             cat:"vegetables",       kcal:25,  p:1.9, c:5,    f:0.3,  diets:"opvV",excl:[] },
+  { n:"Cavolo cappuccio",             cat:"vegetables",       kcal:25,  p:1.3, c:5.8,  f:0.1,  diets:"opvV",excl:[] },
+  { n:"Cavolo rosso",                 cat:"vegetables",       kcal:31,  p:1.4, c:7,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Cavolo nero",                  cat:"vegetables",       kcal:35,  p:3.3, c:6,    f:0.5,  diets:"opvV",excl:[] },
+  { n:"Verza",                        cat:"vegetables",       kcal:24,  p:1.6, c:5,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Cavoletti di Bruxelles",       cat:"vegetables",       kcal:43,  p:3.4, c:9,    f:0.3,  diets:"opvV",excl:[] },
+  { n:"Spinaci crudi",                cat:"vegetables",       kcal:23,  p:2.9, c:3.6,  f:0.4,  diets:"opvV",excl:[] },
+  { n:"Spinaci cotti",                cat:"vegetables",       kcal:26,  p:3.2, c:4,    f:0.4,  diets:"opvV",excl:[] },
+  { n:"Bietola",                      cat:"vegetables",       kcal:19,  p:1.8, c:3.7,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Rucola",                       cat:"vegetables",       kcal:25,  p:2.6, c:3.7,  f:0.7,  diets:"opvV",excl:[] },
+  { n:"Lattuga romana",               cat:"vegetables",       kcal:17,  p:1.2, c:3.3,  f:0.3,  diets:"opvV",excl:[] },
+  { n:"Lattuga iceberg",              cat:"vegetables",       kcal:14,  p:0.9, c:3,    f:0.1,  diets:"opvV",excl:[] },
+  { n:"Pomodori ramati",              cat:"vegetables",       kcal:18,  p:0.9, c:3.9,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Pomodori ciliegino",           cat:"vegetables",       kcal:18,  p:0.9, c:3.9,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Pomodori datterini",           cat:"vegetables",       kcal:18,  p:0.9, c:3.9,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Cetrioli",                     cat:"vegetables",       kcal:15,  p:0.7, c:3.6,  f:0.1,  diets:"opvV",excl:[] },
+  { n:"Finocchi crudi",               cat:"vegetables",       kcal:31,  p:1.2, c:7.3,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Finocchi cotti",               cat:"vegetables",       kcal:31,  p:1.2, c:7.3,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Sedano",                       cat:"vegetables",       kcal:16,  p:0.7, c:3,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Cipolla bianca",               cat:"vegetables",       kcal:40,  p:1.1, c:9.3,  f:0.1,  diets:"opvV",excl:[] },
+  { n:"Cipolla rossa",                cat:"vegetables",       kcal:40,  p:1.1, c:9.3,  f:0.1,  diets:"opvV",excl:[] },
+  { n:"Cipolla di Tropea",            cat:"vegetables",       kcal:35,  p:1.1, c:8,    f:0.1,  diets:"opvV",excl:[] },
+  { n:"Aglio",                        cat:"vegetables",       kcal:149, p:6.4, c:33,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Funghi champignon",            cat:"vegetables",       kcal:22,  p:3.1, c:3.3,  f:0.3,  diets:"opvV",excl:[] },
+  { n:"Funghi porcini",               cat:"vegetables",       kcal:24,  p:3.6, c:3,    f:0.4,  diets:"opvV",excl:[] },
+  { n:"Funghi pleurotus",             cat:"vegetables",       kcal:33,  p:3.3, c:6,    f:0.4,  diets:"opvV",excl:[] },
+  { n:"Asparagi",                     cat:"vegetables",       kcal:24,  p:3.6, c:3,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Carciofi",                     cat:"vegetables",       kcal:47,  p:2.7, c:11,   f:0.2,  diets:"opvV",excl:[] },
+  { n:"Cardi",                        cat:"vegetables",       kcal:17,  p:0.6, c:4,    f:0.1,  diets:"opvV",excl:[] },
+  { n:"Topinambur",                   cat:"vegetables",       kcal:73,  p:2,   c:17,   f:0,    diets:"opvV",excl:[] },
+  { n:"Zucca",                        cat:"vegetables",       kcal:26,  p:1,   c:6,    f:0.1,  diets:"opvV",excl:[] },
+  { n:"Ravanelli",                    cat:"vegetables",       kcal:16,  p:0.7, c:3.4,  f:0.1,  diets:"opvV",excl:[] },
+  { n:"Indivia",                      cat:"vegetables",       kcal:17,  p:1.2, c:3.4,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Radicchio",                    cat:"vegetables",       kcal:23,  p:1.4, c:4.5,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Scarola",                      cat:"vegetables",       kcal:17,  p:1.2, c:3.4,  f:0.2,  diets:"opvV",excl:[] },
+  { n:"Catalogna",                    cat:"vegetables",       kcal:14,  p:1.2, c:2,    f:0.2,  diets:"opvV",excl:[] },
+  { n:"Tarassaco",                    cat:"vegetables",       kcal:36,  p:3,   c:5,    f:0.6,  diets:"opvV",excl:[] },
+  { n:"Cicoria",                      cat:"vegetables",       kcal:22,  p:1.4, c:3.6,  f:0.3,  diets:"opvV",excl:[] },
+  { n:"Mais dolce in scatola",        cat:"complex_carbs",    kcal:90,  p:3,   c:18,   f:1.5,  diets:"opvV",excl:[] },
+  { n:"Olive nere",                   cat:"healthy_fats",     kcal:235, p:1.8, c:1,    f:25,   diets:"opvV",excl:[] },
+  { n:"Olive verdi",                  cat:"healthy_fats",     kcal:145, p:1.4, c:1,    f:15,   diets:"opvV",excl:[] },
+  { n:"Capperi sotto sale",           cat:"vegetables",       kcal:23,  p:2.4, c:5,    f:0.9,  diets:"opvV",excl:[] },
+
+  // GRASSI E CONDIMENTI
+  { n:"Olio di girasole",             cat:"healthy_fats",     kcal:884, p:0,   c:0,    f:100,  diets:"opvV",excl:[] },
+  { n:"Olio di mais",                 cat:"healthy_fats",     kcal:884, p:0,   c:0,    f:100,  diets:"opvV",excl:[] },
+  { n:"Olio di lino",                 cat:"healthy_fats",     kcal:884, p:0,   c:0,    f:100,  diets:"opvV",excl:[] },
+  { n:"Olio di cocco",                cat:"healthy_fats",     kcal:892, p:0,   c:0,    f:99,   diets:"opvV",excl:[] },
+  { n:"Olio di sesamo",               cat:"healthy_fats",     kcal:884, p:0,   c:0,    f:100,  diets:"opvV",excl:[] },
+  { n:"Olio di arachidi",             cat:"healthy_fats",     kcal:884, p:0,   c:0,    f:100,  diets:"opvV",excl:["frutta secca"] },
+  { n:"Burro",                        cat:"healthy_fats",     kcal:758, p:0.8, c:0.6,  f:84,   diets:"opv", excl:["lattosio"] },
+  { n:"Burro chiarificato (ghee)",    cat:"healthy_fats",     kcal:900, p:0.3, c:0,    f:100,  diets:"opv", excl:[] },
+  { n:"Burro di arachidi",            cat:"nuts_seeds",       kcal:625, p:24,  c:18,   f:51,   diets:"opvV",excl:["frutta secca"] },
+  { n:"Burro di mandorle",            cat:"nuts_seeds",       kcal:614, p:21,  c:19,   f:55,   diets:"opvV",excl:["frutta secca"] },
+  { n:"Burro di nocciole",            cat:"nuts_seeds",       kcal:680, p:15,  c:14,   f:62,   diets:"opvV",excl:["frutta secca"] },
+  { n:"Tahina",                       cat:"nuts_seeds",       kcal:595, p:17,  c:18,   f:54,   diets:"opvV",excl:[] },
+  { n:"Semi di girasole",             cat:"nuts_seeds",       kcal:584, p:21,  c:20,   f:51,   diets:"opvV",excl:[] },
+  { n:"Semi di lino",                 cat:"nuts_seeds",       kcal:534, p:18,  c:29,   f:42,   diets:"opvV",excl:[] },
+  { n:"Semi di chia",                 cat:"nuts_seeds",       kcal:486, p:17,  c:42,   f:31,   diets:"opvV",excl:[] },
+  { n:"Semi di sesamo",               cat:"nuts_seeds",       kcal:573, p:18,  c:23,   f:50,   diets:"opvV",excl:[] },
+  { n:"Semi di zucca",                cat:"nuts_seeds",       kcal:559, p:30,  c:11,   f:49,   diets:"opvV",excl:[] },
+  { n:"Semi di canapa decort.",       cat:"nuts_seeds",       kcal:553, p:32,  c:9,    f:49,   diets:"opvV",excl:[] },
+  { n:"Mascarpone",                   cat:"healthy_fats",     kcal:455, p:5,   c:2,    f:47,   diets:"opv", excl:["lattosio"] },
+  { n:"Panna fresca",                 cat:"healthy_fats",     kcal:336, p:2.3, c:3.4,  f:35,   diets:"opv", excl:["lattosio"] },
+  { n:"Panna da cucina light",        cat:"healthy_fats",     kcal:170, p:3,   c:4,    f:15,   diets:"opv", excl:["lattosio"] },
+  { n:"Panna soia da cucina",         cat:"plant_milk",       kcal:175, p:2.5, c:3,    f:17,   diets:"opvV",excl:["soia"] },
+  { n:"Maionese classica",            cat:"condiments",       kcal:680, p:1.2, c:1,    f:75,   diets:"opv", excl:["uova"] },
+  { n:"Ketchup",                      cat:"condiments",       kcal:103, p:1.5, c:24,   f:0.2,  diets:"opvV",excl:[] },
+  { n:"Senape",                       cat:"condiments",       kcal:110, p:7,   c:6,    f:6,    diets:"opvV",excl:[] },
+  { n:"Salsa di soia",                cat:"condiments",       kcal:60,  p:8,   c:5,    f:0,    diets:"opvV",excl:["soia","glutine"] },
+  { n:"Salsa tamari",                 cat:"condiments",       kcal:60,  p:9,   c:5,    f:0,    diets:"opvV",excl:["soia"] },
+  { n:"Aceto balsamico",              cat:"condiments",       kcal:88,  p:0.5, c:17,   f:0,    diets:"opvV",excl:[] },
+  { n:"Aceto di mele",                cat:"condiments",       kcal:22,  p:0,   c:1,    f:0,    diets:"opvV",excl:[] },
+  { n:"Aceto di vino",                cat:"condiments",       kcal:18,  p:0.4, c:0.6,  f:0,    diets:"opvV",excl:[] },
+
+  // DOLCI E SNACK
+  { n:"Cioccolato fondente 50%",      cat:"sweets",           kcal:540, p:5,   c:55,   f:32,   diets:"opv", excl:["lattosio"] },
+  { n:"Cioccolato fondente 80%",      cat:"sweets",           kcal:580, p:9,   c:25,   f:50,   diets:"opv", excl:["lattosio"] },
+  { n:"Cioccolato fondente 90%",      cat:"sweets",           kcal:610, p:10,  c:14,   f:55,   diets:"opv", excl:["lattosio"] },
+  { n:"Cioccolato al latte",          cat:"sweets",           kcal:540, p:6.8, c:60,   f:30,   diets:"opv", excl:["lattosio"] },
+  { n:"Cioccolato bianco",            cat:"sweets",           kcal:550, p:6,   c:60,   f:32,   diets:"opv", excl:["lattosio"] },
+  { n:"Cioccolato al latte nocciole", cat:"sweets",           kcal:570, p:8,   c:55,   f:34,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Nutella",                      cat:"sweets",           kcal:539, p:6,   c:57,   f:31,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Crema di nocciole bio",        cat:"sweets",           kcal:535, p:7,   c:50,   f:34,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Kinder Cioccolato",            cat:"sweets",           kcal:566, p:8,   c:54,   f:34,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Kinder Bueno",                 cat:"sweets",           kcal:573, p:8.6, c:51,   f:37,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Kinder Delice",                cat:"sweets",           kcal:432, p:5,   c:48,   f:24,   diets:"opv", excl:["lattosio"] },
+  { n:"Snickers",                     cat:"sweets",           kcal:488, p:8,   c:60,   f:24,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Mars",                         cat:"sweets",           kcal:454, p:4,   c:69,   f:17,   diets:"opv", excl:["lattosio"] },
+  { n:"Twix",                         cat:"sweets",           kcal:495, p:5,   c:64,   f:24,   diets:"opv", excl:["lattosio"] },
+  { n:"Bounty",                       cat:"sweets",           kcal:474, p:4,   c:57,   f:25,   diets:"opv", excl:["lattosio"] },
+  { n:"M&M's",                        cat:"sweets",           kcal:484, p:5,   c:69,   f:20,   diets:"opv", excl:["lattosio","frutta secca"] },
+  { n:"Caramelle gommose",            cat:"sweets",           kcal:343, p:6.9, c:77,   f:0,    diets:"opv", excl:[] },
+  { n:"Marshmallow",                  cat:"sweets",           kcal:318, p:1.8, c:81,   f:0.2,  diets:"opv", excl:[] },
+  { n:"Liquirizia",                   cat:"sweets",           kcal:380, p:0.9, c:91,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Mou",                          cat:"sweets",           kcal:430, p:1.5, c:78,   f:12,   diets:"opv", excl:["lattosio"] },
+  { n:"Caramelle dure",               cat:"sweets",           kcal:380, p:0,   c:96,   f:0,    diets:"opvV",excl:[] },
+  { n:"Popcorn al naturale",          cat:"complex_carbs",    kcal:380, p:12,  c:74,   f:5,    diets:"opvV",excl:[] },
+  { n:"Popcorn al burro",             cat:"complex_carbs",    kcal:500, p:9,   c:60,   f:25,   diets:"opv", excl:["lattosio"] },
+  { n:"Patatine in busta classiche",  cat:"complex_carbs",    kcal:540, p:6,   c:53,   f:33,   diets:"opvV",excl:[] },
+  { n:"Patatine in busta light",      cat:"complex_carbs",    kcal:480, p:6,   c:60,   f:23,   diets:"opvV",excl:[] },
+  { n:"Pringles",                     cat:"complex_carbs",    kcal:540, p:4,   c:51,   f:34,   diets:"opvV",excl:["glutine","lattosio"] },
+  { n:"Tortilla chips",               cat:"complex_carbs",    kcal:498, p:7,   c:64,   f:23,   diets:"opvV",excl:[] },
+  { n:"Crackers di riso",             cat:"complex_carbs",    kcal:380, p:8,   c:81,   f:1,    diets:"opvV",excl:[] },
+  { n:"Soft pretzel",                 cat:"complex_carbs",    kcal:380, p:11,  c:78,   f:3,    diets:"opvV",excl:["glutine"] },
+  { n:"Crostatina alla frutta",       cat:"sweets",           kcal:380, p:5,   c:60,   f:13,   diets:"opv", excl:["glutine","lattosio","uova"] },
+  { n:"Cornetto frizzy",              cat:"sweets",           kcal:240, p:4,   c:35,   f:9,    diets:"opv", excl:["lattosio","glutine"] },
+  { n:"Magnum classic",               cat:"sweets",           kcal:265, p:3.4, c:23,   f:18,   diets:"opv", excl:["lattosio"] },
+  { n:"Cono gelato vaniglia",         cat:"sweets",           kcal:215, p:3,   c:28,   f:10,   diets:"opv", excl:["lattosio","glutine"] },
+  { n:"Gelato fior di latte",         cat:"sweets",           kcal:200, p:3,   c:25,   f:10,   diets:"opv", excl:["lattosio"] },
+  { n:"Gelato cioccolato",            cat:"sweets",           kcal:230, p:4,   c:28,   f:11,   diets:"opv", excl:["lattosio"] },
+  { n:"Sorbetto fragola",             cat:"sweets",           kcal:130, p:0.4, c:33,   f:0.1,  diets:"opvV",excl:[] },
+  { n:"Sorbetto limone",              cat:"sweets",           kcal:130, p:0.4, c:33,   f:0.1,  diets:"opvV",excl:[] },
+  { n:"Yogurt gelato",                cat:"sweets",           kcal:170, p:5,   c:30,   f:4,    diets:"opv", excl:["lattosio"] },
+  { n:"Tiramisù",                     cat:"sweets",           kcal:295, p:5,   c:30,   f:17,   diets:"opv", excl:["lattosio","glutine","uova"] },
+  { n:"Cheesecake",                   cat:"sweets",           kcal:320, p:6,   c:30,   f:20,   diets:"opv", excl:["lattosio","glutine","uova"] },
+  { n:"Crème brûlée",                 cat:"sweets",           kcal:330, p:5,   c:25,   f:23,   diets:"opv", excl:["lattosio","uova"] },
+  { n:"Panna cotta",                  cat:"sweets",           kcal:280, p:3,   c:25,   f:19,   diets:"opv", excl:["lattosio"] },
+  { n:"Mousse al cioccolato",         cat:"sweets",           kcal:295, p:5,   c:30,   f:18,   diets:"opv", excl:["lattosio","uova"] },
+
+  // ALIMENTI MANCANTI VARI
+  { n:"Hummus classico",              cat:"healthy_fats",     kcal:177, p:7.9, c:14,   f:9.6,  diets:"opvV",excl:[] },
+  { n:"Hummus alla barbabietola",     cat:"healthy_fats",     kcal:170, p:7,   c:15,   f:9,    diets:"opvV",excl:[] },
+  { n:"Guacamole",                    cat:"healthy_fats",     kcal:155, p:2,   c:9,    f:14,   diets:"opvV",excl:[] },
+  { n:"Salsa tzatziki light",         cat:"condiments",       kcal:75,  p:5,   c:4,    f:4,    diets:"opv", excl:["lattosio"] },
+  { n:"Babaganoush",                  cat:"healthy_fats",     kcal:140, p:3,   c:9,    f:11,   diets:"opvV",excl:[] },
+  { n:"Caprese (mozz+pomodoro)",      cat:"dairy_protein",    kcal:170, p:11,  c:3,    f:13,   diets:"opv", excl:["lattosio"] },
+  { n:"Insalata di mare",             cat:"prot_animal_lean", kcal:90,  p:14,  c:1,    f:3,    diets:"op",  excl:[] },
+  { n:"Carpaccio di manzo",           cat:"prot_animal_lean", kcal:160, p:30,  c:0,    f:4,    diets:"o",   excl:[] },
+  { n:"Tartare di manzo",             cat:"prot_animal_lean", kcal:170, p:28,  c:0,    f:6,    diets:"o",   excl:[] },
+  { n:"Tartare di salmone",           cat:"prot_animal_fatty",kcal:165, p:22,  c:0,    f:8,    diets:"op",  excl:[] },
+  { n:"Tartare di tonno",             cat:"prot_animal_lean", kcal:130, p:25,  c:0,    f:3,    diets:"op",  excl:[] },
+  { n:"Sushi maki classico",          cat:"complex_carbs",    kcal:140, p:6,   c:25,   f:1.5,  diets:"opvV",excl:[] },
+  { n:"Sushi nigiri salmone",         cat:"complex_carbs",    kcal:160, p:7,   c:24,   f:3,    diets:"op",  excl:[] },
+  { n:"Sashimi salmone",              cat:"prot_animal_fatty",kcal:185, p:22,  c:0,    f:11,   diets:"op",  excl:[] },
+  { n:"Sashimi tonno",                cat:"prot_animal_lean", kcal:130, p:28,  c:0,    f:1,    diets:"op",  excl:[] },
+  { n:"Polpette di carne",            cat:"prot_animal_fatty",kcal:240, p:18,  c:5,    f:16,   diets:"o",   excl:[] },
+  { n:"Polpette di legumi",           cat:"complex_carbs",    kcal:170, p:9,   c:20,   f:5,    diets:"opvV",excl:[] },
+  { n:"Crocchette di pollo",          cat:"prot_animal_fatty",kcal:265, p:14,  c:18,   f:15,   diets:"o",   excl:["glutine"] },
+  { n:"Cotoletta di pollo",           cat:"prot_animal_fatty",kcal:235, p:20,  c:12,   f:12,   diets:"o",   excl:["glutine","uova"] },
+  { n:"Cotoletta milanese",           cat:"prot_animal_fatty",kcal:280, p:22,  c:14,   f:15,   diets:"o",   excl:["glutine","uova"] },
+  { n:"Frittata 2 uova",              cat:"eggs",             kcal:155, p:13,  c:1,    f:11,   diets:"opv", excl:["uova","lattosio"] },
+  { n:"Omelette al formaggio",        cat:"eggs",             kcal:200, p:14,  c:1,    f:15,   diets:"opv", excl:["uova","lattosio"] },
+  { n:"Uova strapazzate",             cat:"eggs",             kcal:160, p:11,  c:1,    f:12,   diets:"opv", excl:["uova"] },
+  { n:"Uovo sodo",                    cat:"eggs",             kcal:143, p:13,  c:1,    f:10,   diets:"opv", excl:["uova"] },
+  { n:"Uovo in camicia",              cat:"eggs",             kcal:147, p:13,  c:0.4,  f:10,   diets:"opv", excl:["uova"] },
+  { n:"Lenticchie rosse cotte",       cat:"complex_carbs",    kcal:115, p:9,   c:20,   f:0.4,  diets:"opvV",excl:[] },
+  { n:"Lenticchie verdi cotte",       cat:"complex_carbs",    kcal:118, p:9,   c:20,   f:0.4,  diets:"opvV",excl:[] },
+  { n:"Lenticchie nere cotte",        cat:"complex_carbs",    kcal:120, p:10,  c:20,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Ceci neri cotti",              cat:"complex_carbs",    kcal:140, p:9,   c:20,   f:3,    diets:"opvV",excl:[] },
+  { n:"Fagioli rossi cotti",          cat:"complex_carbs",    kcal:120, p:9,   c:20,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Fagioli borlotti cotti",       cat:"complex_carbs",    kcal:118, p:8,   c:20,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Fagioli neri cotti",           cat:"complex_carbs",    kcal:130, p:9,   c:23,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Fagioli mungo (azuki) cotti",  cat:"complex_carbs",    kcal:130, p:9,   c:22,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Fave cotte",                   cat:"complex_carbs",    kcal:88,  p:8,   c:11,   f:0.5,  diets:"opvV",excl:[] },
+  { n:"Lupini",                       cat:"complex_carbs",    kcal:110, p:16,  c:7,    f:2,    diets:"opvV",excl:[] },
+  { n:"Soia gialla cotta",            cat:"complex_carbs",    kcal:170, p:17,  c:9,    f:9,    diets:"opvV",excl:["soia"] },
+  { n:"Tempeh classico",              cat:"prot_plant_complete",kcal:193,p:19, c:9,    f:11,   diets:"opvV",excl:["soia"] },
+  { n:"Soia testurizzata",            cat:"prot_plant_complete",kcal:340,p:50, c:30,   f:1,    diets:"opvV",excl:["soia"] },
+  { n:"Latte di soia bevanda",        cat:"plant_milk",       kcal:42,  p:3.4, c:1.5,  f:2.5,  diets:"opvV",excl:["soia"] },
+
 
 ];
 
@@ -3607,6 +4160,7 @@ function renderPlan(client, profileComplete) {
 
     <div class="plan-toolbar no-print">
       <span class="plan-toolbar-label">Azioni piano:</span>
+      <button class="icon-btn accent" onclick="sharePlanPDF()">📤 Condividi PDF</button>
       <button class="icon-btn" onclick="addMeal()">+ Aggiungi pasto</button>
       <button class="icon-btn" onclick="resetPlanFromTemplate()">⟲ Ripristina da template</button>
       <button class="icon-btn" onclick="clearPlan()">✕ Svuota piano</button>
@@ -3638,8 +4192,12 @@ function renderPlan(client, profileComplete) {
             </div>
           </div>
           <div class="meal-summary-right">
-            <strong>${mealMacros.kcal} kcal</strong>
-            <span>P${mealMacros.p} · C${mealMacros.c} · F${mealMacros.f}</span>
+            ${mealMacros.hasRange
+              ? `<strong>${mealMacros.kcalMin}–${mealMacros.kcalMax} kcal</strong>
+                 <span>P${mealMacros.pMin}–${mealMacros.pMax} · C${mealMacros.cMin}–${mealMacros.cMax} · F${mealMacros.fMin}–${mealMacros.fMax}</span>`
+              : `<strong>${mealMacros.kcal} kcal</strong>
+                 <span>P${mealMacros.p} · C${mealMacros.c} · F${mealMacros.f}</span>`
+            }
           </div>
         </div>
 
@@ -3664,47 +4222,7 @@ function renderPlan(client, profileComplete) {
     `;}).join('')}
 
     <div class="day-totals" id="dayTotals">
-      <div class="day-totals-head">
-        <h3>Totale giornata</h3>
-        <div class="day-totals-sub">somma delle varianti selezionate (in giallo) di ogni pasto</div>
-      </div>
-      <div class="day-totals-grid">
-        <div class="day-total-cell ${diffClass}">
-          <div class="dt-label">kcal</div>
-          <div class="dt-value">${day.kcal}</div>
-          <div class="dt-target">/ ${t.kcal}</div>
-          <div class="dt-diff">${diffIcon} ${diffKcal > 0 ? '+' : ''}${diffKcal}</div>
-        </div>
-        <div class="day-total-cell">
-          <div class="dt-label">proteine</div>
-          <div class="dt-value">${day.p}<span class="dt-unit">g</span></div>
-          <div class="dt-target">/ ${t.p}g</div>
-          <div class="dt-diff">${diffP > 0 ? '+' : ''}${diffP.toFixed(1)}</div>
-        </div>
-        <div class="day-total-cell">
-          <div class="dt-label">carbo</div>
-          <div class="dt-value">${day.c}<span class="dt-unit">g</span></div>
-          <div class="dt-target">/ ${t.c}g</div>
-          <div class="dt-diff">${diffC > 0 ? '+' : ''}${diffC.toFixed(1)}</div>
-        </div>
-        <div class="day-total-cell">
-          <div class="dt-label">grassi</div>
-          <div class="dt-value">${day.f}<span class="dt-unit">g</span></div>
-          <div class="dt-target">/ ${t.f}g</div>
-          <div class="dt-diff">${diffF > 0 ? '+' : ''}${diffF.toFixed(1)}</div>
-        </div>
-      </div>
-      ${day.unrecognized.length > 0 ? `
-        <div class="day-totals-warn">
-          <strong>⚠ ${day.unrecognized.length} ${day.unrecognized.length === 1 ? 'alimento non riconosciuto' : 'alimenti non riconosciuti'}</strong>
-          (totale parziale): ${day.unrecognized.slice(0, 3).map(u => escapeHtml(u)).join(' · ')}${day.unrecognized.length > 3 ? '...' : ''}
-        </div>
-      ` : ''}
-      ${day.warnings.length > 0 ? `
-        <div class="day-totals-warn warn-soft">
-          ⓘ ${day.warnings.join(' · ')}
-        </div>
-      ` : ''}
+      ${renderDayTotalsHtml(day, t)}
     </div>
 
     <div class="rules-editor">
@@ -3740,10 +4258,11 @@ function refreshMealAndDayTotals(mealIdx) {
   const m = computeMealMacros(c.plan.meals[mealIdx], sel);
   const summaryEl = document.querySelector(`#meal-summary-${mealIdx} .meal-summary-right`);
   if (summaryEl) {
-    summaryEl.innerHTML = `
-      <strong>${m.kcal} kcal</strong>
-      <span>P${m.p} · C${m.c} · F${m.f}</span>
-    `;
+    summaryEl.innerHTML = m.hasRange
+      ? `<strong>${m.kcalMin}–${m.kcalMax} kcal</strong>
+         <span>P${m.pMin}–${m.pMax} · C${m.cMin}–${m.cMax} · F${m.fMin}–${m.fMax}</span>`
+      : `<strong>${m.kcal} kcal</strong>
+         <span>P${m.p} · C${m.c} · F${m.f}</span>`;
   }
 
   // Ricalcola totale giorno
@@ -3754,52 +4273,67 @@ function refreshDayTotalsOnly() {
   const c = getActiveClient();
   if (!c || !c.plan) return;
   const day = computeDayMacros(c);
-  const t = c.targets || { kcal:0, p:0, c:0, f:0 };
+  const totalsEl = document.getElementById('dayTotals');
+  if (!totalsEl) return;
+  totalsEl.innerHTML = renderDayTotalsHtml(day, c.targets);
+}
+
+// V7: render HTML dei totali giorno (range-aware)
+function renderDayTotalsHtml(day, targets) {
+  const t = targets || { kcal:0, p:0, c:0, f:0 };
+  const showRange = day.hasRange;
+
+  // Differenza calcolata sul punto medio
   const diffKcal = day.kcal - (t.kcal || 0);
   const diffP = day.p - (t.p || 0);
   const diffC = day.c - (t.c || 0);
   const diffF = day.f - (t.f || 0);
   const absDiff = Math.abs(diffKcal);
-  const diffClass = absDiff <= 50 ? 'diff-good' : absDiff <= 150 ? 'diff-warn' : 'diff-bad';
-  const diffIcon = absDiff <= 50 ? '✓' : absDiff <= 150 ? '⚠' : '✗';
+  // V7: con il range, valuta se il TARGET è dentro il range come criterio principale
+  const targetInRange = showRange && t.kcal && t.kcal >= day.kcalMin && t.kcal <= day.kcalMax;
+  const diffClass = targetInRange ? 'diff-good' : absDiff <= 50 ? 'diff-good' : absDiff <= 150 ? 'diff-warn' : 'diff-bad';
+  const diffIcon = targetInRange ? '✓' : absDiff <= 50 ? '✓' : absDiff <= 150 ? '⚠' : '✗';
 
-  const totalsEl = document.getElementById('dayTotals');
-  if (!totalsEl) return;
-  totalsEl.innerHTML = `
+  const kcalDisplay = showRange ? `${day.kcalMin}–${day.kcalMax}` : `${day.kcal}`;
+  const pDisplay = showRange ? `${day.pMin}–${day.pMax}` : `${day.p}`;
+  const cDisplay = showRange ? `${day.cMin}–${day.cMax}` : `${day.c}`;
+  const fDisplay = showRange ? `${day.fMin}–${day.fMax}` : `${day.f}`;
+
+  return `
     <div class="day-totals-head">
-      <h3>Totale giornata</h3>
-      <div class="day-totals-sub">somma delle varianti selezionate (in giallo) di ogni pasto</div>
+      <h3>Totale giornata${showRange ? ' <span class="range-tag">range</span>' : ''}</h3>
+      <div class="day-totals-sub">${showRange ? 'min = scelte meno caloriche · max = più caloriche · target ' + (targetInRange ? '✓ dentro range' : '✗ fuori range') : 'somma delle varianti selezionate'}</div>
     </div>
     <div class="day-totals-grid">
       <div class="day-total-cell ${diffClass}">
         <div class="dt-label">kcal</div>
-        <div class="dt-value">${day.kcal}</div>
-        <div class="dt-target">/ ${t.kcal}</div>
-        <div class="dt-diff">${diffIcon} ${diffKcal > 0 ? '+' : ''}${diffKcal}</div>
+        <div class="dt-value">${kcalDisplay}</div>
+        <div class="dt-target">target ${t.kcal}</div>
+        <div class="dt-diff">${diffIcon} ${showRange ? '~'+(diffKcal > 0 ? '+' : '')+diffKcal : (diffKcal > 0 ? '+' : '')+diffKcal}</div>
       </div>
       <div class="day-total-cell">
         <div class="dt-label">proteine</div>
-        <div class="dt-value">${day.p}<span class="dt-unit">g</span></div>
-        <div class="dt-target">/ ${t.p}g</div>
-        <div class="dt-diff">${diffP > 0 ? '+' : ''}${diffP.toFixed(1)}</div>
+        <div class="dt-value">${pDisplay}<span class="dt-unit">g</span></div>
+        <div class="dt-target">target ${t.p}g</div>
+        <div class="dt-diff">${showRange ? '~' : ''}${diffP > 0 ? '+' : ''}${diffP.toFixed(1)}</div>
       </div>
       <div class="day-total-cell">
         <div class="dt-label">carbo</div>
-        <div class="dt-value">${day.c}<span class="dt-unit">g</span></div>
-        <div class="dt-target">/ ${t.c}g</div>
-        <div class="dt-diff">${diffC > 0 ? '+' : ''}${diffC.toFixed(1)}</div>
+        <div class="dt-value">${cDisplay}<span class="dt-unit">g</span></div>
+        <div class="dt-target">target ${t.c}g</div>
+        <div class="dt-diff">${showRange ? '~' : ''}${diffC > 0 ? '+' : ''}${diffC.toFixed(1)}</div>
       </div>
       <div class="day-total-cell">
         <div class="dt-label">grassi</div>
-        <div class="dt-value">${day.f}<span class="dt-unit">g</span></div>
-        <div class="dt-target">/ ${t.f}g</div>
-        <div class="dt-diff">${diffF > 0 ? '+' : ''}${diffF.toFixed(1)}</div>
+        <div class="dt-value">${fDisplay}<span class="dt-unit">g</span></div>
+        <div class="dt-target">target ${t.f}g</div>
+        <div class="dt-diff">${showRange ? '~' : ''}${diffF > 0 ? '+' : ''}${diffF.toFixed(1)}</div>
       </div>
     </div>
     ${day.unrecognized.length > 0 ? `
       <div class="day-totals-warn">
-        <strong>⚠ ${day.unrecognized.length} ${day.unrecognized.length === 1 ? 'alimento non riconosciuto' : 'alimenti non riconosciuti'}</strong>
-        (totale parziale): ${day.unrecognized.slice(0, 3).map(u => escapeHtml(u)).join(' · ')}${day.unrecognized.length > 3 ? '...' : ''}
+        <strong>⚠ ${day.unrecognized.length} ${day.unrecognized.length === 1 ? 'voce non riconosciuta' : 'voci non riconosciute'}</strong>:
+        ${day.unrecognized.slice(0, 3).map(u => escapeHtml(u)).join(' · ')}${day.unrecognized.length > 3 ? '...' : ''}
       </div>
     ` : ''}
     ${day.warnings.length > 0 ? `
@@ -3817,6 +4351,236 @@ function selectVariant(mealIdx, variantIdx) {
   c.plan.selectedVariants[mealIdx] = variantIdx;
   saveData();
   renderMain();
+}
+
+// ============================================================
+// V7 — PDF GENERATION & SHARE
+// ============================================================
+
+// Dati professionali per l'header del PDF (modificabili qui)
+const PRO_INFO = {
+  name: 'Alberto Iocca',
+  whatsapp: '+39 388 7952593',
+};
+
+// Genera un Blob PDF del piano del cliente attivo
+function generatePlanPDF(client) {
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    alert('Libreria PDF non caricata. Verifica la connessione internet la prima volta.');
+    return null;
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+  const pageW = 210;
+  const pageH = 297;
+  const margin = 18;
+  const contentW = pageW - margin * 2;
+  let y = margin;
+
+  // ====== HEADER ======
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(20);
+  doc.setTextColor(28, 28, 28);
+  doc.text(PRO_INFO.name, margin, y + 6);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(120, 120, 120);
+  doc.text(`WhatsApp ${PRO_INFO.whatsapp}`, margin, y + 12);
+
+  // Linea separatrice
+  doc.setDrawColor(200, 75, 49);
+  doc.setLineWidth(0.6);
+  doc.line(margin, y + 16, pageW - margin, y + 16);
+  y += 23;
+
+  // ====== TITOLO PIANO ======
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.setTextColor(28, 28, 28);
+  doc.text('Piano nutrizionale', margin, y);
+  y += 7;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(60, 60, 60);
+  doc.text(`per ${client.name}`, margin, y);
+
+  // Data a destra
+  const dateStr = new Date().toLocaleDateString('it-IT', { day:'numeric', month:'long', year:'numeric' });
+  doc.setFontSize(9);
+  doc.setTextColor(120, 120, 120);
+  doc.text(dateStr, pageW - margin, y, { align: 'right' });
+  y += 10;
+
+  // ====== TARGET BOX ======
+  const t = client.targets || { kcal:0, p:0, c:0, f:0 };
+  const day = computeDayMacros(client);
+
+  doc.setFillColor(248, 245, 240);
+  doc.rect(margin, y, contentW, 22, 'F');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(8);
+  doc.setTextColor(120, 120, 120);
+  doc.text('OBIETTIVI GIORNALIERI', margin + 4, y + 5);
+
+  const cellW = contentW / 4;
+  const items = [
+    { l: 'kcal', v: t.kcal },
+    { l: 'proteine', v: t.p + 'g' },
+    { l: 'carboidrati', v: t.c + 'g' },
+    { l: 'grassi', v: t.f + 'g' },
+  ];
+  items.forEach((it, i) => {
+    const cx = margin + cellW * i + cellW / 2;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(140, 140, 140);
+    doc.text(it.l, cx, y + 11, { align: 'center' });
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(28, 28, 28);
+    doc.text(String(it.v), cx, y + 18, { align: 'center' });
+  });
+  y += 28;
+
+  // ====== RANGE STIMATO (se presente) ======
+  if (day.hasRange) {
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(9);
+    doc.setTextColor(110, 110, 110);
+    const inRange = t.kcal >= day.kcalMin && t.kcal <= day.kcalMax;
+    const rangeStr = `Range stimato del piano: ${day.kcalMin}–${day.kcalMax} kcal · ${inRange ? 'target dentro range ✓' : 'target fuori range'}`;
+    doc.text(rangeStr, margin, y);
+    y += 6;
+  }
+
+  // ====== PASTI ======
+  if (client.plan && client.plan.meals) {
+    client.plan.meals.forEach((meal, mi) => {
+      const sel = (client.plan.selectedVariants && client.plan.selectedVariants[mi]) || 0;
+
+      // Salto pagina se serve
+      if (y > pageH - 50) {
+        doc.addPage();
+        y = margin;
+      }
+
+      // Titolo pasto
+      doc.setFillColor(28, 28, 28);
+      doc.rect(margin, y, contentW, 8, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(244, 241, 234);
+      doc.text(meal.name.toUpperCase(), margin + 3, y + 5.5);
+      y += 11;
+
+      // Varianti
+      meal.variants.forEach((v, vi) => {
+        const isSelected = vi === sel;
+        if (y > pageH - 40) {
+          doc.addPage();
+          y = margin;
+        }
+
+        // Marker variante (a/b/c/d)
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(11);
+        doc.setTextColor(isSelected ? 200 : 120, isSelected ? 75 : 120, isSelected ? 49 : 120);
+        doc.text(String.fromCharCode(97+vi) + ')', margin, y + 5);
+
+        // Testo variante
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(40, 40, 40);
+        const lines = doc.splitTextToSize(v || '(variante vuota)', contentW - 10);
+        doc.text(lines, margin + 7, y + 5);
+        y += lines.length * 4.8 + 3;
+
+        // Linea separatrice tra varianti
+        if (vi < meal.variants.length - 1) {
+          doc.setDrawColor(220, 220, 220);
+          doc.setLineWidth(0.2);
+          doc.line(margin + 5, y, pageW - margin - 5, y);
+          y += 2;
+        }
+      });
+      y += 5;
+    });
+  }
+
+  // ====== INDICAZIONI / RULES ======
+  if (client.plan && client.plan.rules && client.plan.rules.trim()) {
+    if (y > pageH - 40) { doc.addPage(); y = margin; }
+    doc.setDrawColor(200, 75, 49);
+    doc.setLineWidth(0.4);
+    doc.line(margin, y, pageW - margin, y);
+    y += 4;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(28, 28, 28);
+    doc.text('Indicazioni e integrazione', margin, y + 4);
+    y += 9;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(40, 40, 40);
+    const ruleLines = doc.splitTextToSize(client.plan.rules, contentW);
+    doc.text(ruleLines, margin, y);
+    y += ruleLines.length * 4.8 + 5;
+  }
+
+  // ====== FOOTER su tutte le pagine ======
+  const pageCount = doc.getNumberOfPages();
+  for (let p = 1; p <= pageCount; p++) {
+    doc.setPage(p);
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(8);
+    doc.setTextColor(150, 150, 150);
+    doc.text(`${PRO_INFO.name} · WhatsApp ${PRO_INFO.whatsapp}`, margin, pageH - 8);
+    doc.text(`pag. ${p} di ${pageCount}`, pageW - margin, pageH - 8, { align: 'right' });
+  }
+
+  return doc;
+}
+
+// Bottone Condividi: genera PDF e usa la share API nativa, fallback download
+async function sharePlanPDF() {
+  const c = getActiveClient();
+  if (!c) { alert('Nessun cliente selezionato'); return; }
+  if (!c.plan) { alert('Nessun piano da condividere'); return; }
+
+  const doc = generatePlanPDF(c);
+  if (!doc) return;
+
+  const safeName = c.name.replace(/[^a-zA-Z0-9]/g, '_');
+  const today = new Date().toISOString().slice(0, 10);
+  const filename = `Piano_${safeName}_${today}.pdf`;
+
+  // Genero il blob
+  const blob = doc.output('blob');
+  const file = new File([blob], filename, { type: 'application/pdf' });
+
+  // Provo prima la Web Share API (iOS/Android moderni)
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      await navigator.share({
+        files: [file],
+        title: `Piano per ${c.name}`,
+        text: `Piano nutrizionale per ${c.name}`,
+      });
+      return;
+    } catch (e) {
+      // user cancel, no-op
+      if (e.name === 'AbortError') return;
+      console.warn('Share API failed, falling back to download:', e);
+    }
+  }
+
+  // Fallback: download diretto
+  doc.save(filename);
 }
 
 function initPlanFromTemplate() {
@@ -4511,14 +5275,16 @@ const IGNORE_LINE_PATTERNS = [
   /^pepe\b/i,
 ];
 
-// Calcola macro per UN testo (una variante)
-// Restituisce: { kcal, p, c, f, quality: 'good'|'partial'|'unknown', warnings: [string], unrecognized: [string] }
+// V7: Calcola macro RANGE (min-max) per un testo
+// Restituisce: { kcalMin, kcalMax, pMin, pMax, cMin, cMax, fMin, fMax, quality, warnings, unrecognized, itemsCount }
 function computeTextMacros(text) {
   if (!text || !text.trim()) {
-    return { kcal: 0, p: 0, c: 0, f: 0, quality: 'good', warnings: [], unrecognized: [], itemsCount: 0 };
+    return { kcalMin: 0, kcalMax: 0, pMin: 0, pMax: 0, cMin: 0, cMax: 0, fMin: 0, fMax: 0,
+             quality: 'good', warnings: [], unrecognized: [], itemsCount: 0 };
   }
 
-  const result = { kcal: 0, p: 0, c: 0, f: 0, quality: 'good', warnings: [], unrecognized: [], itemsCount: 0 };
+  const result = { kcalMin: 0, kcalMax: 0, pMin: 0, pMax: 0, cMin: 0, cMax: 0, fMin: 0, fMax: 0,
+                   quality: 'good', warnings: [], unrecognized: [], itemsCount: 0 };
 
   // Spezza il testo in righe
   const rawLines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
@@ -4531,18 +5297,18 @@ function computeTextMacros(text) {
     // Salta linee tutte maiuscole e brevi (header)
     if (rawLine.length < 30 && rawLine === rawLine.toUpperCase() && /^[A-ZÀ-Ú\s\d×\[\]/]+$/.test(rawLine) && !/\d+\s*g/i.test(rawLine)) continue;
 
-    // Scelte multiple: prendi solo la prima parte prima di "oppure"
-    const linePart = rawLine.split(ALTERNATIVE_SPLITTERS)[0].trim();
-    if (!linePart) continue;
+    // V7: NON splittiamo più su "oppure" — anche le alternative dopo "oppure" vanno
+    // considerate per il range min-max. Solo ignoriamo righe vuote.
+    if (!rawLine.trim()) continue;
 
-    // "1 frutto" generico → 80 kcal convenzionali
+    // "1 frutto" generico → 80 kcal convenzionali (sia min che max)
     let fruitMatched = false;
     for (const pat of GENERIC_FRUIT_PATTERNS) {
-      const m = linePart.match(pat);
+      const m = rawLine.match(pat);
       if (m) {
         const qty = parseInt(m[1]) || 1;
-        result.kcal += 80 * qty;
-        result.c += 18 * qty;
+        result.kcalMin += 80 * qty; result.kcalMax += 80 * qty;
+        result.cMin += 18 * qty; result.cMax += 18 * qty;
         result.itemsCount++;
         if (result.quality === 'good') result.quality = 'partial';
         if (!result.warnings.includes('frutto generico (80 kcal/cad)')) {
@@ -4554,49 +5320,265 @@ function computeTextMacros(text) {
     }
     if (fruitMatched) continue;
 
-    // Cerca alimenti del DB nella riga
-    const lineFoods = extractFoodsInLine(linePart);
+    // V7: estrai BLOCCHI dalla riga — ogni blocco ha una grammatura e una lista di alternative
+    // Esempio: "200gr: tonno, sgombro, pesce magro (250gr), carne bianca, uova"
+    //   → blocco grammatura 200gr con alternative [tonno, sgombro, pesce magro@250gr, carne bianca, uova]
+    const blocks = extractBlocksInLine(rawLine);
 
-    // Aggiungi i macro degli alimenti trovati (anche se la riga inizia con "verdura a piacere")
-    for (const lf of lineFoods) {
-      const factor = lf.grams / 100;
-      result.kcal += lf.food.kcal * factor;
-      result.p += lf.food.p * factor;
-      result.c += lf.food.c * factor;
-      result.f += lf.food.f * factor;
-      result.itemsCount++;
-    }
-
-    // Se la riga era "verdura a piacere" (eventualmente con altri alimenti riconosciuti come olio), passa oltre
-    const stripVeg = linePart.replace(/verdure?\s+(a\s+piacere|miste|grigliate|crude|cotte|al\s+vapore|in\s+ogni\s+forma)/gi, '').trim();
-    if (FREE_VEGETABLE_PATTERNS.some(p => p.test(linePart)) && stripVeg.length < 8) {
-      // Riga di sola verdura — ok, ignorata correttamente
+    if (blocks.length === 0) {
+      // Riga senza blocchi riconosciuti
+      const cleanLine = rawLine.replace(/[+\-•·]/g, '').trim();
+      // Se la riga è solo verdura, ok ignoriamola
+      const isOnlyVeg = FREE_VEGETABLE_PATTERNS.some(p => p.test(rawLine)) &&
+                       rawLine.replace(/verdure?\s+(a\s+piacere|miste|grigliate|crude|cotte|al\s+vapore|in\s+ogni\s+forma)/gi, '').replace(/[+\-•·\s\dg]/gi, '').length < 4;
+      if (isOnlyVeg) continue;
+      // Se ha grammi ma nessun match, è non riconosciuto
+      if (cleanLine.length > 3 && /\d+\s*g/i.test(cleanLine)) {
+        result.unrecognized.push(cleanLine.substring(0, 50));
+        result.quality = 'unknown';
+      }
       continue;
     }
 
-    if (lineFoods.length === 0) {
-      // Nessun alimento riconosciuto — controlla se la riga è "vuota di significato"
-      const cleanLine = linePart.replace(/[+\-•·]/g, '').trim();
-      // Se ha grammi ma nessun match, è davvero non riconosciuto
-      if (cleanLine.length > 3 && /\d+\s*g/i.test(cleanLine)) {
-        // Ma se la riga è tipo "verdura a piacere + 8 g olio EVO" senza match, l'olio dovrebbe esser stato preso. Se non è stato preso, segnala
-        // Verifica: la riga è solo verdura?
-        const onlyVeg = FREE_VEGETABLE_PATTERNS.some(p => p.test(linePart)) && stripVeg.replace(/[+\-•·\s\dg]/gi, '').length < 4;
-        if (!onlyVeg) {
-          result.unrecognized.push(cleanLine.substring(0, 50));
-          result.quality = 'unknown';
-        }
+    // Per ogni blocco, calcola min e max kcal/macro tra le alternative
+    for (const block of blocks) {
+      if (block.alternatives.length === 0) {
+        // blocco con grammatura ma nessuna alternativa riconosciuta
+        result.unrecognized.push(block.text.substring(0, 50));
+        if (result.quality === 'good') result.quality = 'partial';
+        continue;
       }
+
+      // Calcola macro per ogni alternativa (con eventuale grammatura specifica)
+      const macros = block.alternatives.map(alt => {
+        const g = alt.grams; // ogni alternativa ha già la sua grammatura (default = block.grams)
+        const factor = g / 100;
+        return {
+          kcal: alt.food.kcal * factor,
+          p: alt.food.p * factor,
+          c: alt.food.c * factor,
+          f: alt.food.f * factor,
+          name: alt.food.n,
+        };
+      });
+
+      // Min e max sulle kcal (e pickup corrispondenti per macro)
+      const sortedByKcal = [...macros].sort((a, b) => a.kcal - b.kcal);
+      const minMacro = sortedByKcal[0];
+      const maxMacro = sortedByKcal[sortedByKcal.length - 1];
+
+      result.kcalMin += minMacro.kcal;
+      result.kcalMax += maxMacro.kcal;
+
+      // Per i singoli macronutrienti, prendiamo i loro min/max INDIPENDENTEMENTE
+      // (così il range proteine non è legato a "stessa scelta che minimizza kcal")
+      result.pMin += Math.min(...macros.map(m => m.p));
+      result.pMax += Math.max(...macros.map(m => m.p));
+      result.cMin += Math.min(...macros.map(m => m.c));
+      result.cMax += Math.max(...macros.map(m => m.c));
+      result.fMin += Math.min(...macros.map(m => m.f));
+      result.fMax += Math.max(...macros.map(m => m.f));
+      result.itemsCount++;
     }
   }
 
   // Arrotondamenti
-  result.kcal = Math.round(result.kcal);
-  result.p = Math.round(result.p * 10) / 10;
-  result.c = Math.round(result.c * 10) / 10;
-  result.f = Math.round(result.f * 10) / 10;
+  result.kcalMin = Math.round(result.kcalMin);
+  result.kcalMax = Math.round(result.kcalMax);
+  result.pMin = Math.round(result.pMin * 10) / 10;
+  result.pMax = Math.round(result.pMax * 10) / 10;
+  result.cMin = Math.round(result.cMin * 10) / 10;
+  result.cMax = Math.round(result.cMax * 10) / 10;
+  result.fMin = Math.round(result.fMin * 10) / 10;
+  result.fMax = Math.round(result.fMax * 10) / 10;
+
+  // Campi di compatibilità (punto medio del range)
+  result.kcal = Math.round((result.kcalMin + result.kcalMax) / 2);
+  result.p = Math.round(((result.pMin + result.pMax) / 2) * 10) / 10;
+  result.c = Math.round(((result.cMin + result.cMax) / 2) * 10) / 10;
+  result.f = Math.round(((result.fMin + result.fMax) / 2) * 10) / 10;
+  // Flag: c'è effettivamente un range (min ≠ max)?
+  result.hasRange = result.kcalMin !== result.kcalMax;
 
   return result;
+}
+
+// V7: Estrae BLOCCHI da una riga
+// Un blocco = grammatura principale + lista di alternative
+// Ogni alternativa può avere una grammatura specifica tra parentesi (es. "pesce magro (250gr)")
+function extractBlocksInLine(line) {
+  if (!line) return [];
+
+  const blocks = [];
+
+  // Trova TUTTE le grammature "principali" della riga (NON quelle tra parentesi delle alternative)
+  // Pattern: "200gr", "200 gr", "16gr", "n.4 uova" ecc.
+  // Strategia semplice: la prima grammatura della riga è la "principale" del blocco
+  const gramsRegex = /(\d+)\s*gr?\b/gi;
+  const gramsMatches = [...line.matchAll(gramsRegex)];
+  if (gramsMatches.length === 0) return [];
+
+  // Prendiamo la PRIMA grammatura della riga come principale
+  const mainGramsMatch = gramsMatches[0];
+  const mainGrams = parseInt(mainGramsMatch[1]);
+  if (mainGrams <= 0 || mainGrams > 1000) return [];
+
+  // Il "corpo" del blocco è il testo dopo la grammatura principale (e i due punti se presenti)
+  let bodyStart = mainGramsMatch.index + mainGramsMatch[0].length;
+  // Salta ":" e spazi iniziali
+  while (bodyStart < line.length && /[\s:.\-—–]/.test(line[bodyStart])) bodyStart++;
+  // Considera anche ciò che c'è prima della grammatura come parte del nome del blocco
+  // (utile per pattern come "fonte proteica 200gr: tonno, sgombro...")
+  const beforeGrams = line.substring(0, mainGramsMatch.index).toLowerCase();
+  const body = line.substring(bodyStart);
+
+  // Spezza il corpo in alternative usando i separatori: ",", " o ", " oppure ", "/", "—"
+  // Ma attenzione a NON spezzare dentro le parentesi
+  const alternatives = splitAlternativesPreservingParens(body);
+
+  // Aggiungi anche il testo prima dei grammi come "alternativa implicita" se contiene parole
+  // (per pattern come "16gr olio EVO + verdura": "olio EVO" è prima dei grammi se scritto inverso)
+  // Per ora ci limitiamo al body.
+
+  // Per ogni alternativa, prova a riconoscere un alimento e la sua grammatura specifica
+  const recognizedAlternatives = [];
+
+  for (const altText of alternatives) {
+    if (!altText.trim()) continue;
+    // Salta alternative che sono solo verdura/condimenti/note
+    if (/^\s*verdur/i.test(altText)) continue;
+    if (/^\s*\(/.test(altText) && /\)$/.test(altText.trim())) continue; // parentesi pura (commento)
+    if (altText.trim().length < 2) continue;
+
+    // Cerca grammatura specifica dentro questa alternativa (es. "pesce magro (250gr)" o "albume 400gr")
+    const altGramsMatchParens = altText.match(/\((\d+)\s*gr?\)/i);
+    const altGramsMatchPlain = altText.match(/\b(\d+)\s*gr?\b/i);
+    let altGrams = mainGrams;
+    if (altGramsMatchParens) {
+      altGrams = parseInt(altGramsMatchParens[1]);
+    } else if (altGramsMatchPlain) {
+      altGrams = parseInt(altGramsMatchPlain[1]);
+    } else {
+      // Pattern "n.4 uova" o "n4" → conta uova specificamente
+      const eggMatch = altText.match(/n\s*\.?\s*(\d+)\s+uov/i);
+      if (eggMatch) {
+        altGrams = parseInt(eggMatch[1]) * 55; // 1 uovo ≈ 55g
+      }
+    }
+    if (altGrams <= 0 || altGrams > 1000) altGrams = mainGrams;
+
+    // Riconosci l'alimento dell'alternativa
+    const food = recognizeFoodInText(altText);
+    if (food) {
+      recognizedAlternatives.push({ food, grams: altGrams, text: altText.trim() });
+    }
+  }
+
+  // Includi anche il "tipo blocco" (es. "fonte proteica") per riconoscere alternative anche dal contesto
+  // se beforeGrams contiene una parola-chiave categoria, e il body non ha alternative riconosciute,
+  // possiamo aggiungere un fallback. Ma per ora teniamo solo le alternative esplicite.
+
+  if (recognizedAlternatives.length > 0 || alternatives.length > 0) {
+    blocks.push({
+      grams: mainGrams,
+      text: line.substring(0, Math.min(line.length, 60)),
+      alternatives: recognizedAlternatives,
+    });
+  }
+
+  return blocks;
+}
+
+// Spezza un testo in alternative preservando le parentesi
+function splitAlternativesPreservingParens(text) {
+  const result = [];
+  let depth = 0;
+  let current = '';
+  const splitWords = /\s+(o|oppure)\s+/i;
+  // Prima passata: split su "," e "/" preservando parentesi
+  let i = 0;
+  while (i < text.length) {
+    const c = text[i];
+    if (c === '(') depth++;
+    else if (c === ')') depth--;
+    if (depth === 0 && (c === ',' || c === '/' || c === ';')) {
+      if (current.trim()) result.push(current.trim());
+      current = '';
+      i++;
+      continue;
+    }
+    current += c;
+    i++;
+  }
+  if (current.trim()) result.push(current.trim());
+
+  // Seconda passata: per ogni segmento, split su " o " e " oppure " (solo fuori parentesi)
+  const finalResult = [];
+  for (const seg of result) {
+    // Split semplice su " o " e " oppure "
+    const parts = seg.split(/\s+(?:oppure|o)\s+/i);
+    for (const part of parts) {
+      const trimmed = part.trim();
+      if (trimmed) finalResult.push(trimmed);
+    }
+  }
+
+  return finalResult;
+}
+
+// Riconosce UN alimento da un piccolo pezzo di testo (es. "tonno", "pesce magro", "carne bianca")
+// Usa sia il DB che gli alias
+function recognizeFoodInText(text) {
+  if (!text) return null;
+  const lower = text.toLowerCase();
+
+  // Prova prima con gli alias (più specifici)
+  let matchedAliasLen = 0;
+  let matchedFoodName = null;
+  for (const [alias, foodName] of Object.entries(FOOD_ALIASES)) {
+    const re = new RegExp('(?<![a-zà-ú])' + alias.replace(/\s+/g, '\\s+') + '(?![a-zà-ú])', 'i');
+    if (re.test(lower)) {
+      if (alias.length > matchedAliasLen) {
+        matchedAliasLen = alias.length;
+        matchedFoodName = foodName;
+      }
+    }
+  }
+  if (matchedFoodName) {
+    const f = FOOD_DB.find(food => food.n === matchedFoodName);
+    if (f) return f;
+  }
+
+  // Prova con il DB ordinato per specificità (nomi più lunghi prima)
+  let bestFood = null;
+  let bestScore = 0;
+  for (const food of FOOD_DB) {
+    const nameLower = food.n.toLowerCase();
+    const nameWords = nameLower.split(/[\s(),'\u2019]+/).filter(w => w.length > 3);
+    if (nameWords.length === 0) continue;
+
+    let wordsHit = 0;
+    let totalCharsHit = 0;
+    let hasAnchor = false;
+    for (const w of nameWords) {
+      const re = new RegExp('(?<![a-zà-ú])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![a-zà-ú])', 'i');
+      if (re.test(lower)) {
+        wordsHit++;
+        totalCharsHit += w.length;
+        if (w.length >= 5) hasAnchor = true;
+      }
+    }
+    if (wordsHit === 0) continue;
+    if (!hasAnchor && wordsHit < nameWords.length) continue;
+
+    const score = wordsHit * 1000 + totalCharsHit * 10 + (wordsHit / nameWords.length) * 500 - nameWords.length * 5;
+    if (score > bestScore) {
+      bestScore = score;
+      bestFood = food;
+    }
+  }
+
+  return bestFood;
 }
 
 // Estrae alimenti da UNA singola riga
@@ -4763,24 +5745,78 @@ const FOOD_ALIASES = {
   'ceci': "Ceci cotti",
   'fagioli': "Fagioli cannellini cotti",
   'piselli': "Piselli cotti",
+  // V7 — Categorie nutrizionali (per blocchi tipo "fonte proteica 200gr: tonno, ...")
+  'pesce magro': "Merluzzo (nasello)",
+  'pesce bianco': "Merluzzo (nasello)",
+  'pesce azzurro': "Sgombro",
+  'pesce grasso': "Sgombro",
+  'carne bianca': "Petto di pollo",
+  'carne rossa magra': "Filetto di manzo",
+  'carne rossa': "Filetto di manzo",
+  'carne magra': "Petto di pollo",
+  'carne macinata': "Macinato magro 5%",
+  'macinato': "Macinato magro 5%",
+  'fonte proteica': "Petto di pollo",
+  'proteine magre': "Petto di pollo",
+  'affettato magro': "Bresaola",
+  'affettati': "Bresaola",
+  'bresaola': "Bresaola",
+  'fesa': "Petto di tacchino",
+  'arista': "Arista di maiale magra",
+  'orata': "Orata",
+  'spigola': "Spigola (branzino)",
+  'branzino': "Spigola (branzino)",
+  'gamberetti': "Gamberi",
+  'gamberi': "Gamberi",
+  'uova': "Uova intere",
+  'uovo': "Uova intere",
+  'fiocchi di latte': "Fiocchi di latte light",
+  'phila protein': "Philadelphia Protein",
+  'phila': "Philadelphia Protein",
+  'mozzarella light': "Mozzarella light",
+  'cereale': "Riso basmati crudo",
+  'cereali': "Riso basmati crudo",
+  'carbo': "Riso basmati crudo",
+  'legumi': "Lenticchie cotte",
+  'pasta legumi': "Pasta di legumi (lenticchie)",
+  'pasta integrale': "Pasta integrale cruda",
+  'fiocchi avena': "Fiocchi d'avena",
+  'fiocchi d\'avena': "Fiocchi d'avena",
+  'frutta secca': "Mandorle",
+  'frutta a guscio': "Mandorle",
+  'crema mandorle': "Crema di mandorle",
+  'crema arachidi': "Crema di arachidi",
+  'crema proteica': "Crema mandorle proteica",
 };
 
 // Calcola macro per un pasto (somma una singola variante = quella selezionata)
 function computeMealMacros(meal, selectedVariantIdx) {
   const idx = Math.min(selectedVariantIdx || 0, (meal.variants || []).length - 1);
   if (idx < 0 || !meal.variants || !meal.variants[idx]) {
-    return { kcal: 0, p: 0, c: 0, f: 0, quality: 'good', warnings: [], unrecognized: [], itemsCount: 0 };
+    return {
+      kcal: 0, p: 0, c: 0, f: 0,
+      kcalMin: 0, kcalMax: 0, pMin: 0, pMax: 0, cMin: 0, cMax: 0, fMin: 0, fMax: 0,
+      hasRange: false, quality: 'good', warnings: [], unrecognized: [], itemsCount: 0
+    };
   }
   return computeTextMacros(meal.variants[idx]);
 }
 
-// Calcola totale giornata
+// Calcola totale giornata (somma di range min e max)
 function computeDayMacros(client) {
   if (!client || !client.plan || !client.plan.meals) {
-    return { kcal: 0, p: 0, c: 0, f: 0, quality: 'good', warnings: [], unrecognized: [], byMeal: [] };
+    return {
+      kcal: 0, p: 0, c: 0, f: 0,
+      kcalMin: 0, kcalMax: 0, pMin: 0, pMax: 0, cMin: 0, cMax: 0, fMin: 0, fMax: 0,
+      hasRange: false, quality: 'good', warnings: [], unrecognized: [], byMeal: []
+    };
   }
   const selections = client.plan.selectedVariants || {};
-  const totals = { kcal: 0, p: 0, c: 0, f: 0, quality: 'good', warnings: [], unrecognized: [], byMeal: [] };
+  const totals = {
+    kcal: 0, p: 0, c: 0, f: 0,
+    kcalMin: 0, kcalMax: 0, pMin: 0, pMax: 0, cMin: 0, cMax: 0, fMin: 0, fMax: 0,
+    hasRange: false, quality: 'good', warnings: [], unrecognized: [], byMeal: []
+  };
   client.plan.meals.forEach((meal, mi) => {
     const sel = selections[mi] || 0;
     const m = computeMealMacros(meal, sel);
@@ -4788,16 +5824,31 @@ function computeDayMacros(client) {
     totals.p += m.p;
     totals.c += m.c;
     totals.f += m.f;
+    totals.kcalMin += m.kcalMin || m.kcal;
+    totals.kcalMax += m.kcalMax || m.kcal;
+    totals.pMin += m.pMin || m.p;
+    totals.pMax += m.pMax || m.p;
+    totals.cMin += m.cMin || m.c;
+    totals.cMax += m.cMax || m.c;
+    totals.fMin += m.fMin || m.f;
+    totals.fMax += m.fMax || m.f;
+    if (m.hasRange) totals.hasRange = true;
     totals.byMeal.push({ name: meal.name, selected: sel, macros: m });
     if (m.quality === 'unknown') totals.quality = 'unknown';
     else if (m.quality === 'partial' && totals.quality === 'good') totals.quality = 'partial';
     m.warnings.forEach(w => { if (!totals.warnings.includes(w)) totals.warnings.push(w); });
     m.unrecognized.forEach(u => { totals.unrecognized.push(u); });
   });
+  const round = (x, d = 1) => Math.round(x * Math.pow(10, d)) / Math.pow(10, d);
   totals.kcal = Math.round(totals.kcal);
-  totals.p = Math.round(totals.p * 10) / 10;
-  totals.c = Math.round(totals.c * 10) / 10;
-  totals.f = Math.round(totals.f * 10) / 10;
+  totals.p = round(totals.p);
+  totals.c = round(totals.c);
+  totals.f = round(totals.f);
+  totals.kcalMin = Math.round(totals.kcalMin);
+  totals.kcalMax = Math.round(totals.kcalMax);
+  totals.pMin = round(totals.pMin); totals.pMax = round(totals.pMax);
+  totals.cMin = round(totals.cMin); totals.cMax = round(totals.cMax);
+  totals.fMin = round(totals.fMin); totals.fMax = round(totals.fMax);
   return totals;
 }
 
@@ -4815,10 +5866,18 @@ function renderVariantMacrosChip(text) {
   } else if (m.warnings.length > 0) {
     warnText = ` · ${m.warnings.join(', ')}`;
   }
+
+  // Mostra range se ci sono alternative diverse
+  const showRange = m.hasRange;
+  const kcalDisplay = showRange ? `${m.kcalMin}-${m.kcalMax} kcal` : `${m.kcal} kcal`;
+  const pDisplay = showRange ? `${m.pMin}-${m.pMax}g` : `${m.p}g`;
+  const cDisplay = showRange ? `${m.cMin}-${m.cMax}g` : `${m.c}g`;
+  const fDisplay = showRange ? `${m.fMin}-${m.fMax}g` : `${m.f}g`;
+
   return `<div class="macro-chip ${qualityClass}">
     <span class="macro-icon">${qualityIcon}</span>
-    <span class="macro-main">≈ ${m.kcal} kcal</span>
-    <span class="macro-detail">P ${m.p}g · C ${m.c}g · F ${m.f}g</span>
+    <span class="macro-main">≈ ${kcalDisplay}</span>
+    <span class="macro-detail">P ${pDisplay} · C ${cDisplay} · F ${fDisplay}</span>
     <span class="macro-warn">${warnText}</span>
   </div>`;
 }
