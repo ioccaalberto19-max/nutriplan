@@ -1391,6 +1391,261 @@
     color: var(--paper);
   }
 
+  /* MACRO CHIP — riepilogo macro sotto ogni variante */
+  .variant-macro-wrap {
+    grid-column: 2 / 4;
+    margin-top: 6px;
+  }
+  .macro-chip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+  }
+  .macro-chip-empty {
+    font-style: italic;
+    color: var(--muted);
+    background: transparent;
+    border-style: dashed;
+    justify-content: center;
+  }
+  .macro-icon {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .macro-main {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 12px;
+  }
+  .macro-detail {
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .macro-warn {
+    color: var(--muted);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    font-size: 11px;
+  }
+  .macro-good {
+    border-color: var(--success);
+  }
+  .macro-good .macro-icon { color: var(--success); }
+  .macro-partial {
+    border-color: #c9a132;
+    background: #fdf9ed;
+  }
+  .macro-partial .macro-icon { color: #c9a132; }
+  .macro-unknown {
+    border-color: var(--accent);
+    background: #fcf2ee;
+  }
+  .macro-unknown .macro-icon { color: var(--accent); }
+
+  /* MEAL SUMMARY (selettore variante + totale pasto) */
+  .meal-summary {
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--rule);
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .meal-summary-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .meal-summary-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .variant-selector {
+    display: flex;
+    gap: 4px;
+  }
+  .variant-sel-btn {
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    width: 28px;
+    height: 28px;
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-style: italic;
+    cursor: pointer;
+    color: var(--ink);
+    transition: all 0.15s;
+  }
+  .variant-sel-btn:hover {
+    background: var(--paper-2);
+  }
+  .variant-sel-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .meal-summary-right {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+  .meal-summary-right strong {
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .meal-summary-right span {
+    color: var(--muted);
+    font-size: 10px;
+  }
+
+  /* Variante selezionata: highlight giallo soft */
+  .variant-editor.variant-selected {
+    background: #fffbe8;
+    border-left: 3px solid #c9a132;
+    padding-left: 13px;
+  }
+
+  /* DAY TOTALS — riepilogo finale giornata */
+  .day-totals {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 24px;
+    margin-top: 20px;
+    border: 2px solid var(--ink);
+  }
+  .day-totals-head {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed rgba(244, 241, 234, 0.3);
+  }
+  .day-totals-head h3 {
+    color: var(--paper);
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 500;
+    margin: 0 0 4px 0;
+  }
+  .day-totals-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(244, 241, 234, 0.6);
+  }
+  .day-totals-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .day-total-cell {
+    background: rgba(244, 241, 234, 0.08);
+    padding: 14px 10px;
+    border: 1px solid rgba(244, 241, 234, 0.15);
+    text-align: center;
+  }
+  .day-total-cell .dt-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(244, 241, 234, 0.55);
+    margin-bottom: 4px;
+  }
+  .day-total-cell .dt-value {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--paper);
+    line-height: 1;
+  }
+  .day-total-cell .dt-unit {
+    font-size: 14px;
+    color: rgba(244, 241, 234, 0.6);
+    margin-left: 1px;
+  }
+  .day-total-cell .dt-target {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: rgba(244, 241, 234, 0.5);
+    margin-top: 4px;
+  }
+  .day-total-cell .dt-diff {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 6px;
+    padding: 2px 6px;
+    display: inline-block;
+    background: rgba(244, 241, 234, 0.1);
+  }
+  /* Color coding per la diff kcal */
+  .day-total-cell.diff-good {
+    background: rgba(78, 124, 70, 0.18);
+    border-color: var(--success);
+  }
+  .day-total-cell.diff-good .dt-value,
+  .day-total-cell.diff-good .dt-diff {
+    color: #a8d39d;
+  }
+  .day-total-cell.diff-warn {
+    background: rgba(201, 161, 50, 0.15);
+    border-color: #c9a132;
+  }
+  .day-total-cell.diff-warn .dt-value,
+  .day-total-cell.diff-warn .dt-diff {
+    color: #f0d889;
+  }
+  .day-total-cell.diff-bad {
+    background: rgba(200, 75, 49, 0.18);
+    border-color: var(--accent);
+  }
+  .day-total-cell.diff-bad .dt-value,
+  .day-total-cell.diff-bad .dt-diff {
+    color: #f5a896;
+  }
+  .day-totals-warn {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: rgba(200, 75, 49, 0.18);
+    border: 1px solid var(--accent);
+    font-family: 'Fraunces', serif;
+    font-size: 12px;
+    color: #f5a896;
+    line-height: 1.5;
+  }
+  .day-totals-warn.warn-soft {
+    background: rgba(201, 161, 50, 0.12);
+    border-color: #c9a132;
+    color: #f0d889;
+  }
+
+  /* Mobile: day totals in 2 colonne */
+  @media (max-width: 600px) {
+    .day-totals-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .day-totals { padding: 18px 14px; }
+    .day-total-cell .dt-value { font-size: 24px; }
+  }
+
   /* BACKUP BANNER */
   .backup-banner {
     display: flex;
@@ -3316,13 +3571,31 @@ function renderPlan(client, profileComplete) {
     </div>`;
   }
 
+  // Inizializza selezioni varianti se mancanti
+  if (!client.plan.selectedVariants) client.plan.selectedVariants = {};
+  client.plan.meals.forEach((meal, mi) => {
+    if (client.plan.selectedVariants[mi] === undefined) client.plan.selectedVariants[mi] = 0;
+  });
+
   const t = client.targets || { kcal:0, p:0, c:0, f:0 };
+  const day = computeDayMacros(client);
+
+  // Differenze rispetto al target
+  const diffKcal = day.kcal - (t.kcal || 0);
+  const diffP = day.p - (t.p || 0);
+  const diffC = day.c - (t.c || 0);
+  const diffF = day.f - (t.f || 0);
+
+  // Codice colore per la differenza kcal
+  const absDiff = Math.abs(diffKcal);
+  const diffClass = absDiff <= 50 ? 'diff-good' : absDiff <= 150 ? 'diff-warn' : 'diff-bad';
+  const diffIcon = absDiff <= 50 ? '✓' : absDiff <= 150 ? '⚠' : '✗';
 
   return `
     <div class="plan-head">
       <div class="plan-head-title">
         <h3>Piano di ${escapeHtml(client.name)}</h3>
-        <p>Modifica liberamente ogni pasto · Salvataggio automatico</p>
+        <p>Modifica liberamente · Calcolo macro automatico · Salvataggio automatico</p>
       </div>
       <div class="plan-targets-badge">
         <span data-lbl="kcal"><b>${t.kcal}</b></span>
@@ -3340,7 +3613,10 @@ function renderPlan(client, profileComplete) {
       <button class="icon-btn" onclick="window.print()">↓ Stampa / PDF</button>
     </div>
 
-    ${client.plan.meals.map((meal, mi) => `
+    ${client.plan.meals.map((meal, mi) => {
+      const selectedIdx = client.plan.selectedVariants[mi] || 0;
+      const mealMacros = computeMealMacros(meal, selectedIdx);
+      return `
       <div class="meal-editor">
         <div class="meal-editor-head">
           <h3><span>Pasto ${mi+1}</span><input type="text" value="${escapeHtml(meal.name)}" onchange="updateMealName(${mi}, this.value)" style="background:transparent;border:none;color:var(--paper);font-family:'Fraunces',serif;font-size:22px;font-style:italic;font-weight:500;padding:0;min-width:220px;max-width:100%;"></h3>
@@ -3351,22 +3627,85 @@ function renderPlan(client, profileComplete) {
             <button class="meal-action-btn" onclick="removeMeal(${mi})">✕</button>
           </div>
         </div>
+
+        <div class="meal-summary no-print" id="meal-summary-${mi}">
+          <div class="meal-summary-left">
+            <span class="meal-summary-label">Variante attiva nel totale:</span>
+            <div class="variant-selector">
+              ${meal.variants.map((_, vi) => `
+                <button class="variant-sel-btn ${vi === selectedIdx ? 'active' : ''}" onclick="selectVariant(${mi}, ${vi})">${String.fromCharCode(97+vi)}</button>
+              `).join('')}
+            </div>
+          </div>
+          <div class="meal-summary-right">
+            <strong>${mealMacros.kcal} kcal</strong>
+            <span>P${mealMacros.p} · C${mealMacros.c} · F${mealMacros.f}</span>
+          </div>
+        </div>
+
         <div class="meal-editor-body">
           ${meal.variants.map((v, vi) => `
-            <div class="variant-editor">
+            <div class="variant-editor ${vi === selectedIdx ? 'variant-selected' : ''}">
               <div class="variant-letter">${String.fromCharCode(97+vi)})</div>
-              <textarea onchange="updateVariant(${mi}, ${vi}, this.value)" placeholder="Descrivi gli alimenti e le quantità...">${escapeHtml(v)}</textarea>
+              <textarea oninput="onVariantInput(${mi}, ${vi}, this)" onchange="updateVariant(${mi}, ${vi}, this.value)" placeholder="Descrivi gli alimenti e le quantità...">${escapeHtml(v)}</textarea>
               <button class="variant-remove-btn no-print" onclick="removeVariant(${mi}, ${vi})" title="Rimuovi variante">×</button>
               <div class="variant-toolbar no-print">
                 <button class="variant-tool-btn accent" onclick="openAlternativesPopup(${mi}, ${vi})" title="Mostra alternative agli alimenti riconosciuti">⇄ Alternative</button>
                 <button class="variant-tool-btn" onclick="openFoodPicker(${mi}, ${vi})" title="Inserisci un alimento dal database">+ Aggiungi alimento</button>
+              </div>
+              <div class="variant-macro-wrap" id="variant-macro-${mi}-${vi}">
+                ${renderVariantMacrosChip(v)}
               </div>
             </div>
           `).join('')}
           <button class="add-variant-btn no-print" onclick="addVariant(${mi})">+ Aggiungi variante</button>
         </div>
       </div>
-    `).join('')}
+    `;}).join('')}
+
+    <div class="day-totals" id="dayTotals">
+      <div class="day-totals-head">
+        <h3>Totale giornata</h3>
+        <div class="day-totals-sub">somma delle varianti selezionate (in giallo) di ogni pasto</div>
+      </div>
+      <div class="day-totals-grid">
+        <div class="day-total-cell ${diffClass}">
+          <div class="dt-label">kcal</div>
+          <div class="dt-value">${day.kcal}</div>
+          <div class="dt-target">/ ${t.kcal}</div>
+          <div class="dt-diff">${diffIcon} ${diffKcal > 0 ? '+' : ''}${diffKcal}</div>
+        </div>
+        <div class="day-total-cell">
+          <div class="dt-label">proteine</div>
+          <div class="dt-value">${day.p}<span class="dt-unit">g</span></div>
+          <div class="dt-target">/ ${t.p}g</div>
+          <div class="dt-diff">${diffP > 0 ? '+' : ''}${diffP.toFixed(1)}</div>
+        </div>
+        <div class="day-total-cell">
+          <div class="dt-label">carbo</div>
+          <div class="dt-value">${day.c}<span class="dt-unit">g</span></div>
+          <div class="dt-target">/ ${t.c}g</div>
+          <div class="dt-diff">${diffC > 0 ? '+' : ''}${diffC.toFixed(1)}</div>
+        </div>
+        <div class="day-total-cell">
+          <div class="dt-label">grassi</div>
+          <div class="dt-value">${day.f}<span class="dt-unit">g</span></div>
+          <div class="dt-target">/ ${t.f}g</div>
+          <div class="dt-diff">${diffF > 0 ? '+' : ''}${diffF.toFixed(1)}</div>
+        </div>
+      </div>
+      ${day.unrecognized.length > 0 ? `
+        <div class="day-totals-warn">
+          <strong>⚠ ${day.unrecognized.length} ${day.unrecognized.length === 1 ? 'alimento non riconosciuto' : 'alimenti non riconosciuti'}</strong>
+          (totale parziale): ${day.unrecognized.slice(0, 3).map(u => escapeHtml(u)).join(' · ')}${day.unrecognized.length > 3 ? '...' : ''}
+        </div>
+      ` : ''}
+      ${day.warnings.length > 0 ? `
+        <div class="day-totals-warn warn-soft">
+          ⓘ ${day.warnings.join(' · ')}
+        </div>
+      ` : ''}
+    </div>
 
     <div class="rules-editor">
       <h3>Indicazioni e integrazione</h3>
@@ -3374,6 +3713,110 @@ function renderPlan(client, profileComplete) {
       <textarea onchange="updateRules(this.value)" placeholder="Regole generali, integrazione, note operative...">${escapeHtml(client.plan.rules || '')}</textarea>
     </div>
   `;
+}
+
+// Aggiorna il chip macro live durante la digitazione, e i totali
+function onVariantInput(mealIdx, variantIdx, textarea) {
+  const text = textarea.value;
+  const wrap = document.getElementById(`variant-macro-${mealIdx}-${variantIdx}`);
+  if (wrap) {
+    wrap.innerHTML = renderVariantMacrosChip(text);
+  }
+  // Aggiorna anche il riepilogo del pasto e del giorno (solo se questa variante è selezionata)
+  const c = getActiveClient();
+  if (c && c.plan && (c.plan.selectedVariants[mealIdx] || 0) === variantIdx) {
+    // Salva temporaneamente il valore nel modello senza aspettare onchange
+    if (c.plan.meals[mealIdx]) c.plan.meals[mealIdx].variants[variantIdx] = text;
+    refreshMealAndDayTotals(mealIdx);
+  }
+}
+
+function refreshMealAndDayTotals(mealIdx) {
+  const c = getActiveClient();
+  if (!c || !c.plan) return;
+
+  // Ricalcola riepilogo pasto
+  const sel = c.plan.selectedVariants[mealIdx] || 0;
+  const m = computeMealMacros(c.plan.meals[mealIdx], sel);
+  const summaryEl = document.querySelector(`#meal-summary-${mealIdx} .meal-summary-right`);
+  if (summaryEl) {
+    summaryEl.innerHTML = `
+      <strong>${m.kcal} kcal</strong>
+      <span>P${m.p} · C${m.c} · F${m.f}</span>
+    `;
+  }
+
+  // Ricalcola totale giorno
+  refreshDayTotalsOnly();
+}
+
+function refreshDayTotalsOnly() {
+  const c = getActiveClient();
+  if (!c || !c.plan) return;
+  const day = computeDayMacros(c);
+  const t = c.targets || { kcal:0, p:0, c:0, f:0 };
+  const diffKcal = day.kcal - (t.kcal || 0);
+  const diffP = day.p - (t.p || 0);
+  const diffC = day.c - (t.c || 0);
+  const diffF = day.f - (t.f || 0);
+  const absDiff = Math.abs(diffKcal);
+  const diffClass = absDiff <= 50 ? 'diff-good' : absDiff <= 150 ? 'diff-warn' : 'diff-bad';
+  const diffIcon = absDiff <= 50 ? '✓' : absDiff <= 150 ? '⚠' : '✗';
+
+  const totalsEl = document.getElementById('dayTotals');
+  if (!totalsEl) return;
+  totalsEl.innerHTML = `
+    <div class="day-totals-head">
+      <h3>Totale giornata</h3>
+      <div class="day-totals-sub">somma delle varianti selezionate (in giallo) di ogni pasto</div>
+    </div>
+    <div class="day-totals-grid">
+      <div class="day-total-cell ${diffClass}">
+        <div class="dt-label">kcal</div>
+        <div class="dt-value">${day.kcal}</div>
+        <div class="dt-target">/ ${t.kcal}</div>
+        <div class="dt-diff">${diffIcon} ${diffKcal > 0 ? '+' : ''}${diffKcal}</div>
+      </div>
+      <div class="day-total-cell">
+        <div class="dt-label">proteine</div>
+        <div class="dt-value">${day.p}<span class="dt-unit">g</span></div>
+        <div class="dt-target">/ ${t.p}g</div>
+        <div class="dt-diff">${diffP > 0 ? '+' : ''}${diffP.toFixed(1)}</div>
+      </div>
+      <div class="day-total-cell">
+        <div class="dt-label">carbo</div>
+        <div class="dt-value">${day.c}<span class="dt-unit">g</span></div>
+        <div class="dt-target">/ ${t.c}g</div>
+        <div class="dt-diff">${diffC > 0 ? '+' : ''}${diffC.toFixed(1)}</div>
+      </div>
+      <div class="day-total-cell">
+        <div class="dt-label">grassi</div>
+        <div class="dt-value">${day.f}<span class="dt-unit">g</span></div>
+        <div class="dt-target">/ ${t.f}g</div>
+        <div class="dt-diff">${diffF > 0 ? '+' : ''}${diffF.toFixed(1)}</div>
+      </div>
+    </div>
+    ${day.unrecognized.length > 0 ? `
+      <div class="day-totals-warn">
+        <strong>⚠ ${day.unrecognized.length} ${day.unrecognized.length === 1 ? 'alimento non riconosciuto' : 'alimenti non riconosciuti'}</strong>
+        (totale parziale): ${day.unrecognized.slice(0, 3).map(u => escapeHtml(u)).join(' · ')}${day.unrecognized.length > 3 ? '...' : ''}
+      </div>
+    ` : ''}
+    ${day.warnings.length > 0 ? `
+      <div class="day-totals-warn warn-soft">
+        ⓘ ${day.warnings.join(' · ')}
+      </div>
+    ` : ''}
+  `;
+}
+
+function selectVariant(mealIdx, variantIdx) {
+  const c = getActiveClient();
+  if (!c || !c.plan) return;
+  if (!c.plan.selectedVariants) c.plan.selectedVariants = {};
+  c.plan.selectedVariants[mealIdx] = variantIdx;
+  saveData();
+  renderMain();
 }
 
 function initPlanFromTemplate() {
@@ -4027,6 +4470,357 @@ function extractFoodsFromText(text) {
   });
 
   return found;
+}
+
+// ============================================================
+// MACRO COMPUTATION — calcola kcal/macro da un testo libero
+// ============================================================
+
+// Liste di parole/pattern da gestire specialmente
+const FREE_VEGETABLE_PATTERNS = [
+  /verdura\s+a\s+piacere/i,
+  /verdure?\s+a\s+piacere/i,
+  /insalata\s+a\s+piacere/i,
+  /verdure?\s+miste/i,
+  /verdure?\s+grigliate/i,
+  /verdure?\s+(crude|cotte|al\s+vapore)/i,
+];
+
+const GENERIC_FRUIT_PATTERNS = [
+  /(\d+)\s+frutto/i,        // "1 frutto", "2 frutti"
+  /1\s+frutto/i,
+  /un\s+frutto/i,
+  /(\d+)\s+frutti/i,
+];
+
+// Pattern che indicano "alternativa A oppure B" — taglieremo dopo "oppure"
+const ALTERNATIVE_SPLITTERS = /\s*(?:—|–|-)?\s*\boppure\b\s*/i;
+
+// Parole che indicano "ignora questa riga" (liquidi 0 kcal, q.b., spezie)
+const IGNORE_LINE_PATTERNS = [
+  /^liquido\s+senza\s+kcal/i,
+  /^liquidi?\s+a\s+piacere/i,
+  /^acqua\b/i,
+  /^caff[èe]\b/i,
+  /^t[èe]\b/i,
+  /^tisana\b/i,
+  /^bevanda\s+(0|zero|senza)\s*kcal/i,
+  /^spezie\b/i,
+  /^aromi\b/i,
+  /^sale\b/i,
+  /^pepe\b/i,
+];
+
+// Calcola macro per UN testo (una variante)
+// Restituisce: { kcal, p, c, f, quality: 'good'|'partial'|'unknown', warnings: [string], unrecognized: [string] }
+function computeTextMacros(text) {
+  if (!text || !text.trim()) {
+    return { kcal: 0, p: 0, c: 0, f: 0, quality: 'good', warnings: [], unrecognized: [], itemsCount: 0 };
+  }
+
+  const result = { kcal: 0, p: 0, c: 0, f: 0, quality: 'good', warnings: [], unrecognized: [], itemsCount: 0 };
+
+  // Spezza il testo in righe
+  const rawLines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+
+  for (const rawLine of rawLines) {
+    // Salta righe da ignorare (liquidi, spezie, q.b.)
+    if (IGNORE_LINE_PATTERNS.some(p => p.test(rawLine))) continue;
+    // Salta righe puramente di tag tipo "[2× SETT] CARNE BIANCA"
+    if (/^\s*\[\d+×\s*SETT\]/i.test(rawLine)) continue;
+    // Salta linee tutte maiuscole e brevi (header)
+    if (rawLine.length < 30 && rawLine === rawLine.toUpperCase() && /^[A-ZÀ-Ú\s\d×\[\]/]+$/.test(rawLine) && !/\d+\s*g/i.test(rawLine)) continue;
+
+    // Scelte multiple: prendi solo la prima parte prima di "oppure"
+    const linePart = rawLine.split(ALTERNATIVE_SPLITTERS)[0].trim();
+    if (!linePart) continue;
+
+    // "1 frutto" generico → 80 kcal convenzionali
+    let fruitMatched = false;
+    for (const pat of GENERIC_FRUIT_PATTERNS) {
+      const m = linePart.match(pat);
+      if (m) {
+        const qty = parseInt(m[1]) || 1;
+        result.kcal += 80 * qty;
+        result.c += 18 * qty;
+        result.itemsCount++;
+        if (result.quality === 'good') result.quality = 'partial';
+        if (!result.warnings.includes('frutto generico (80 kcal/cad)')) {
+          result.warnings.push('frutto generico (80 kcal/cad)');
+        }
+        fruitMatched = true;
+        break;
+      }
+    }
+    if (fruitMatched) continue;
+
+    // Cerca alimenti del DB nella riga
+    const lineFoods = extractFoodsInLine(linePart);
+
+    // Aggiungi i macro degli alimenti trovati (anche se la riga inizia con "verdura a piacere")
+    for (const lf of lineFoods) {
+      const factor = lf.grams / 100;
+      result.kcal += lf.food.kcal * factor;
+      result.p += lf.food.p * factor;
+      result.c += lf.food.c * factor;
+      result.f += lf.food.f * factor;
+      result.itemsCount++;
+    }
+
+    // Se la riga era "verdura a piacere" (eventualmente con altri alimenti riconosciuti come olio), passa oltre
+    const stripVeg = linePart.replace(/verdure?\s+(a\s+piacere|miste|grigliate|crude|cotte|al\s+vapore|in\s+ogni\s+forma)/gi, '').trim();
+    if (FREE_VEGETABLE_PATTERNS.some(p => p.test(linePart)) && stripVeg.length < 8) {
+      // Riga di sola verdura — ok, ignorata correttamente
+      continue;
+    }
+
+    if (lineFoods.length === 0) {
+      // Nessun alimento riconosciuto — controlla se la riga è "vuota di significato"
+      const cleanLine = linePart.replace(/[+\-•·]/g, '').trim();
+      // Se ha grammi ma nessun match, è davvero non riconosciuto
+      if (cleanLine.length > 3 && /\d+\s*g/i.test(cleanLine)) {
+        // Ma se la riga è tipo "verdura a piacere + 8 g olio EVO" senza match, l'olio dovrebbe esser stato preso. Se non è stato preso, segnala
+        // Verifica: la riga è solo verdura?
+        const onlyVeg = FREE_VEGETABLE_PATTERNS.some(p => p.test(linePart)) && stripVeg.replace(/[+\-•·\s\dg]/gi, '').length < 4;
+        if (!onlyVeg) {
+          result.unrecognized.push(cleanLine.substring(0, 50));
+          result.quality = 'unknown';
+        }
+      }
+    }
+  }
+
+  // Arrotondamenti
+  result.kcal = Math.round(result.kcal);
+  result.p = Math.round(result.p * 10) / 10;
+  result.c = Math.round(result.c * 10) / 10;
+  result.f = Math.round(result.f * 10) / 10;
+
+  return result;
+}
+
+// Estrae alimenti da UNA singola riga
+// Strategia: identifica i SEGMENTI della riga (delimitati da "+", "-", "—", virgola
+// o newline). Per ciascun segmento prendi UNA grammatura e UN alimento.
+// IMPORTANTE: il nome alimento deve essere VICINO alla grammatura per matchare.
+function extractFoodsInLine(line) {
+  if (!line) return [];
+
+  // Separa la riga in segmenti
+  const segments = line.split(/\s*[+,;]\s*|\s+e\s+(?=\d)/i)
+    .map(s => s.trim())
+    .filter(s => s.length > 0);
+
+  const accepted = [];
+
+  for (const segment of segments) {
+    const segLower = segment.toLowerCase();
+    // Estrai TUTTE le grammature presenti nel segmento
+    const gramsRegex = /(\d+)\s*g(?![a-zà-ú])/gi;
+    const gramsMatches = [...segment.matchAll(gramsRegex)];
+    if (gramsMatches.length === 0) continue;
+
+    const gramsMatch = gramsMatches[0];
+    const grams = parseInt(gramsMatch[1]);
+    if (grams <= 0 || grams > 1000) continue;
+
+    // Posizione della grammatura nel segmento
+    const gramsStartIdx = gramsMatch.index;
+    const gramsEndIdx = gramsMatch.index + gramsMatch[0].length;
+    // Determina se i grammi sono dentro parentesi: "1 yogurt greco 0% (150 g) ..."
+    const charsBeforeGrams = segment.substring(Math.max(0, gramsStartIdx - 3), gramsStartIdx);
+    const gramsInParens = /\(/.test(charsBeforeGrams);
+    let nameWindow;
+    if (gramsInParens) {
+      // Grams in parens → il nome è SOLO prima della parentesi aperta
+      const parenOpenIdx = segment.lastIndexOf('(', gramsStartIdx);
+      const beforeStart = Math.max(0, parenOpenIdx - 40);
+      nameWindow = segment.substring(beforeStart, parenOpenIdx).toLowerCase();
+    } else {
+      // Caso normale: il nome è DOPO la grammatura (entro 40 char)
+      nameWindow = segment.substring(gramsEndIdx, Math.min(segment.length, gramsEndIdx + 40)).toLowerCase();
+    }
+
+    // Cerca il MIGLIOR alimento del DB che matcha solo nella window
+    let best = null;
+    for (const food of FOOD_DB) {
+      const nameLower = food.n.toLowerCase();
+      const nameWords = nameLower.split(/[\s(),'\u2019]+/).filter(w => w.length > 3);
+      if (nameWords.length === 0) continue;
+
+      let wordsHit = 0;
+      let totalCharsHit = 0;
+      let hasAnchorWord = false;
+      for (const w of nameWords) {
+        const re = new RegExp('(?<![a-zà-ú])' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![a-zà-ú])', 'i');
+        if (re.test(nameWindow)) {
+          wordsHit++;
+          totalCharsHit += w.length;
+          if (w.length >= 5) hasAnchorWord = true;
+        }
+      }
+
+      if (wordsHit === 0) continue;
+      if (!hasAnchorWord && wordsHit < nameWords.length) continue;
+
+      const allWordsHit = wordsHit === nameWords.length;
+      const specificity = wordsHit / nameWords.length;
+      const score = wordsHit * 1000 + totalCharsHit * 10 + specificity * 500 + (allWordsHit ? 200 : 0) - nameWords.length * 5;
+
+      if (!best || score > best.score) {
+        best = { food, score, wordsHit, allWordsHit };
+      }
+    }
+
+    if (best) {
+      accepted.push({
+        food: best.food,
+        grams,
+        idx: line.indexOf(segment),
+      });
+      continue;
+    }
+
+    // Fallback: prova con gli alias
+    let matchedFoodName = null;
+    let matchedAliasLen = 0;
+    for (const [alias, foodName] of Object.entries(FOOD_ALIASES)) {
+      const re = new RegExp('(?<![a-zà-ú])' + alias.replace(/\s+/g, '\\s+') + '(?![a-zà-ú])', 'i');
+      if (re.test(nameWindow)) {
+        if (alias.length > matchedAliasLen) {
+          matchedAliasLen = alias.length;
+          matchedFoodName = foodName;
+        }
+      }
+    }
+
+    if (matchedFoodName) {
+      const food = FOOD_DB.find(f => f.n === matchedFoodName);
+      if (food) {
+        accepted.push({ food, grams, idx: line.indexOf(segment) });
+      }
+    }
+  }
+
+  accepted.sort((a, b) => a.idx - b.idx);
+  return accepted;
+}
+
+// Mappa di alias/abbreviazioni comuni → nome alimento nel DB
+const FOOD_ALIASES = {
+  'olio evo': "Olio extravergine d'oliva",
+  'olio extra': "Olio extravergine d'oliva",
+  'olio extravergine': "Olio extravergine d'oliva",
+  'olio': "Olio extravergine d'oliva",
+  'pollo': "Petto di pollo",
+  'tacchino': "Petto di tacchino",
+  'tonno': "Tonno al naturale (scatola)",
+  'salmone': "Salmone fresco",
+  'merluzzo': "Merluzzo (nasello)",
+  'mozzarella': "Mozzarella light",
+  'philadelphia': "Philadelphia Protein",
+  'ricotta': "Ricotta vaccina light",
+  'parmigiano': "Parmigiano Reggiano",
+  'feta': "Feta",
+  'tofu': "Tofu naturale",
+  'tempeh': "Tempeh",
+  'seitan': "Seitan",
+  'hummus': "Hummus di ceci",
+  'edamame': "Edamame (sgusciati cotti)",
+  'kefir': "Kefir naturale",
+  'skyr': "Skyr naturale",
+  'pasta': "Pasta di semola cruda",
+  'riso': "Riso basmati crudo",
+  'orzo': "Orzo perlato crudo",
+  'farro': "Farro perlato crudo",
+  'quinoa': "Quinoa cruda",
+  'patate': "Patate lesse",
+  'pane': "Pane integrale",
+  'gallette': "Gallette di riso",
+  'wasa': "Wasa fibre integrali",
+  'piadina': "Piadina",
+  'albume': "Albume d'uovo",
+  'whey': "Whey protein isolata",
+  'caseine': "Caseine micellari",
+  'mandorle': "Mandorle",
+  'noci': "Noci",
+  'nocciole': "Nocciole",
+  'pistacchi': "Pistacchi",
+  'arachidi': "Arachidi",
+  'mela': "Mela",
+  'pera': "Pera",
+  'banana': "Banana",
+  'arancia': "Arancia",
+  'kiwi': "Kiwi",
+  'fragole': "Fragole",
+  'mirtilli': "Mirtilli",
+  'lamponi': "Lamponi",
+  'cocco': "Cocco fresco",
+  'cioccolato': "Cioccolato fondente 70%",
+  'miele': "Miele",
+  'datteri': "Datteri",
+  'lenticchie': "Lenticchie cotte",
+  'ceci': "Ceci cotti",
+  'fagioli': "Fagioli cannellini cotti",
+  'piselli': "Piselli cotti",
+};
+
+// Calcola macro per un pasto (somma una singola variante = quella selezionata)
+function computeMealMacros(meal, selectedVariantIdx) {
+  const idx = Math.min(selectedVariantIdx || 0, (meal.variants || []).length - 1);
+  if (idx < 0 || !meal.variants || !meal.variants[idx]) {
+    return { kcal: 0, p: 0, c: 0, f: 0, quality: 'good', warnings: [], unrecognized: [], itemsCount: 0 };
+  }
+  return computeTextMacros(meal.variants[idx]);
+}
+
+// Calcola totale giornata
+function computeDayMacros(client) {
+  if (!client || !client.plan || !client.plan.meals) {
+    return { kcal: 0, p: 0, c: 0, f: 0, quality: 'good', warnings: [], unrecognized: [], byMeal: [] };
+  }
+  const selections = client.plan.selectedVariants || {};
+  const totals = { kcal: 0, p: 0, c: 0, f: 0, quality: 'good', warnings: [], unrecognized: [], byMeal: [] };
+  client.plan.meals.forEach((meal, mi) => {
+    const sel = selections[mi] || 0;
+    const m = computeMealMacros(meal, sel);
+    totals.kcal += m.kcal;
+    totals.p += m.p;
+    totals.c += m.c;
+    totals.f += m.f;
+    totals.byMeal.push({ name: meal.name, selected: sel, macros: m });
+    if (m.quality === 'unknown') totals.quality = 'unknown';
+    else if (m.quality === 'partial' && totals.quality === 'good') totals.quality = 'partial';
+    m.warnings.forEach(w => { if (!totals.warnings.includes(w)) totals.warnings.push(w); });
+    m.unrecognized.forEach(u => { totals.unrecognized.push(u); });
+  });
+  totals.kcal = Math.round(totals.kcal);
+  totals.p = Math.round(totals.p * 10) / 10;
+  totals.c = Math.round(totals.c * 10) / 10;
+  totals.f = Math.round(totals.f * 10) / 10;
+  return totals;
+}
+
+// Helper: rende il chip macro per una variante
+function renderVariantMacrosChip(text) {
+  const m = computeTextMacros(text);
+  if (m.itemsCount === 0 && m.unrecognized.length === 0) {
+    return `<div class="macro-chip macro-chip-empty">— scrivi alimenti e grammi per vedere i macro —</div>`;
+  }
+  const qualityIcon = m.quality === 'good' ? '✓' : m.quality === 'partial' ? '⚠' : '✗';
+  const qualityClass = m.quality === 'good' ? 'macro-good' : m.quality === 'partial' ? 'macro-partial' : 'macro-unknown';
+  let warnText = '';
+  if (m.unrecognized.length > 0) {
+    warnText = ` · ${m.unrecognized.length} non riconosciut${m.unrecognized.length === 1 ? 'o' : 'i'}`;
+  } else if (m.warnings.length > 0) {
+    warnText = ` · ${m.warnings.join(', ')}`;
+  }
+  return `<div class="macro-chip ${qualityClass}">
+    <span class="macro-icon">${qualityIcon}</span>
+    <span class="macro-main">≈ ${m.kcal} kcal</span>
+    <span class="macro-detail">P ${m.p}g · C ${m.c}g · F ${m.f}g</span>
+    <span class="macro-warn">${warnText}</span>
+  </div>`;
 }
 
 // ============================================================
